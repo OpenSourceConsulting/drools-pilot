@@ -1,0 +1,14 @@
+package com.sample
+ 
+import com.bong.Message;
+ 
+declare Message
+@role(event)
+end
+ 
+rule "EventCount 1"
+when
+    accumulate( $msg: Message(status == Message.HELLO) over window:time(10s); $cnt: count(1) ) 
+then
+    System.out.println("EventCount 1, " + $cnt);
+end

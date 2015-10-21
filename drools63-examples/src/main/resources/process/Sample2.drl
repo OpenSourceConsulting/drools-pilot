@@ -1,0 +1,23 @@
+package com.sample
+ 
+import com.bong.DroolsTest.Message;
+ 
+rule "Hello World"
+ruleflow-group "helloSample1"
+    when
+        m : Message( status == Message.HELLO, myMessage : message )
+    then
+        System.out.println( "helloSample1: " + myMessage );
+        m.setMessage( "Goodbye cruel world" );
+        m.setStatus( Message.GOODBYE );
+        update( m );
+end
+
+rule "GoodBye"
+ruleflow-group "helloSample2"
+    when
+        m : Message( status == Message.GOODBYE, myMessage : message )
+    then
+        System.out.println( "helloSample2: " + myMessage );
+        m.setMessage("See you later.");
+end
