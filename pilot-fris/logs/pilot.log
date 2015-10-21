@@ -1,0 +1,6 @@
+17:51:13.942 [main] INFO  o.d.c.k.b.impl.ClasspathKieProject:131 - Found kmodule: jar:file:/D:/project/2014_hhi/.m2/repository/com/bong/testProject/1.0/testProject-1.0.jar!/META-INF/kmodule.xml
+17:51:13.948 [main] DEBUG o.d.c.k.b.impl.ClasspathKieProject:387 - KieModule URL type=jar url=/D:/project/2014_hhi/.m2/repository/com/bong/testProject/1.0/testProject-1.0.jar
+17:51:14.202 [main] DEBUG o.d.c.k.b.impl.ClasspathKieProject:257 - Found and used pom.properties META-INF/maven/com.bong/testProject/pom.properties
+17:51:14.205 [main] DEBUG o.d.c.k.b.impl.ClasspathKieProject:118 - Discovered classpath module com.bong:testProject:1.0
+17:51:14.209 [main] INFO  o.d.c.k.b.impl.KieRepositoryImpl:88 - KieModule was added: ZipKieModule[releaseId=com.bong:testProject:1.0,file=D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0\testProject-1.0.jar]
+17:51:15.372 [main] DEBUG o.drools.core.impl.KnowledgeBaseImpl:197 - Starting Engine in PHREAK mode
