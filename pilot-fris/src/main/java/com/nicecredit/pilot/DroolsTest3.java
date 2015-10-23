@@ -1,0 +1,53 @@
+package com.nicecredit.pilot;
+
+import org.kie.api.KieServices;
+import org.kie.api.builder.KieScanner;
+import org.kie.api.builder.ReleaseId;
+import org.kie.api.runtime.KieContainer;
+import org.kie.api.runtime.KieSession;
+
+import com.bong.testproject.Message;
+
+/**
+ * This is a sample class to launch a rule.
+ * - workbench 로 build & deploy 한 testProject-**.jar 에 있는 룰을 실행.
+ */
+public class DroolsTest3 {
+
+    public static final void main(String[] args) {
+        try {
+            // load up the knowledge base
+	        KieServices ks = KieServices.Factory.get();
+	        ReleaseId releaseId = ks.newReleaseId( "com.bong", "testProject", "1.0.2-SNAPSHOT" );
+	        KieContainer kContainer = ks.newKieContainer( releaseId );
+	        KieScanner kScanner = ks.newKieScanner( kContainer );
+
+	        // Start the KieScanner polling the Maven repository every 10 seconds
+	        kScanner.start( 10000L );
+	        
+    	    //KieContainer kContainer = ks.getKieClasspathContainer();
+        	
+
+        	
+        	for (int i = 0; i < 100; i++) {
+        		
+        		KieSession kSession = kContainer.newKieSession("defaultKieSession");
+        		
+        		System.out.println("------------ " + i);
+        		// go !
+                Message message = new Message();
+                message.setMessage("Hello World");
+                message.setStatus(Message.HELLO);
+                kSession.insert(message);
+                kSession.fireAllRules();
+                
+        		Thread.sleep(1000);
+			}
+            
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
+    }
+
+
+}

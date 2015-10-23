@@ -1,0 +1,22 @@
+<project name="pilot fris build" basedir="." default="deploy">
+
+	<target name="deploy">
+
+		<property name="server.ip" value="207.46.141.43" />
+		<property name="server.port" value="22" />
+		<property name="user.id" value="nice" />
+		<property name="user.passwd" value="niceOSC2015" />
+		<property name="deploy.file" value="pilot-fris-0.0.1-SNAPSHOT-bin.tar.gz" />
+		<property name="deploy.path" value="/home/nice/pilot" />
+
+
+		<scp port="${server.port}" file="target/${deploy.file}" todir="${user.id}@${server.ip}:${deploy.path}/${deploy.file}" 
+			password="${user.passwd}" verbose="true"
+			trust="true" />
+
+		<sshexec port="${server.port}" host="${server.ip}" username="${user.id}" password="${user.passwd}" verbose="true"
+			command="cd ${deploy.path}; rm -rf ./pilot-fris-0.0.1-SNAPSHOT; tar xvfz ./${deploy.file};" trust="true" failonerror="false" />
+
+	</target>
+
+</project>

@@ -17,6 +17,7 @@
 				<include>NOTICE*</include>
 				<include>*.sh</include>
 			</includes>
+			<fileMode>0755</fileMode>
 		</fileSet>
 		<fileSet>
 			<directory>${project.build.directory}</directory>

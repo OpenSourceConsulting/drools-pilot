@@ -16,7 +16,7 @@ public class PilotMain {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		DroolsTest2.main(args);
+		DroolsTest3.main(args);
 	}
 
 }
