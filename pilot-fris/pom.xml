@@ -27,6 +27,12 @@
 			<version>6.3.0.Final</version>
 		</dependency>
 		
+		<dependency>
+			<groupId>com.rabbitmq</groupId>
+			<artifactId>amqp-client</artifactId>
+			<version>3.4.3</version>
+		</dependency>
+		
 		<!--  -->
 		<dependency>
 			<groupId>com.bong</groupId>
@@ -46,6 +52,14 @@
 			<version>1.1.1</version>
 		</dependency>
 
+
+		<!-- test dependencies -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
 
 		
   </dependencies>

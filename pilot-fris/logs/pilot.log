@@ -4,3 +4,489 @@
 17:51:14.205 [main] DEBUG o.d.c.k.b.impl.ClasspathKieProject:118 - Discovered classpath module com.bong:testProject:1.0
 17:51:14.209 [main] INFO  o.d.c.k.b.impl.KieRepositoryImpl:88 - KieModule was added: ZipKieModule[releaseId=com.bong:testProject:1.0,file=D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0\testProject-1.0.jar]
 17:51:15.372 [main] DEBUG o.drools.core.impl.KnowledgeBaseImpl:197 - Starting Engine in PHREAK mode
+16:38:11.498 [main] DEBUG o.d.c.k.b.impl.KieRepositoryImpl:107 - KieModule Lookup. ReleaseId com.bong:testProject:1.0.2-SNAPSHOT was not in cache, checking classpath
+16:38:11.519 [main] DEBUG o.d.c.k.b.impl.KieRepositoryImpl:113 - KieModule Lookup. ReleaseId com.bong:testProject:1.0.2-SNAPSHOT was not in cache, checking maven repository
+16:38:11.638 [main] WARN  o.kie.scanner.embedder.MavenSettings:68 - Environment variable M2_HOME is not set
+16:38:11.728 [main] INFO  o.k.s.embedder.MavenEmbedderUtils:55 - Not in OSGi: using plexus based maven parser
+16:38:13.794 [main] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for C:\Users\Administrator\.m2\repository
+16:38:13.802 [main] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for C:\Users\Administrator\.m2\repository
+16:38:13.991 [main] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for C:\Users\Administrator\.m2\repository
+16:38:14.158 [DefaultMetadataResolver-0-1] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter FileTransporter with priority 0.0 for file:/C:/Users/Administrator/.m2/repository/
+16:38:14.159 [DefaultMetadataResolver-0-1] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for file:/C:/Users/Administrator/.m2/repository/
+16:38:14.689 [DefaultMetadataResolver-0-1] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:124 - Writing tracking file C:\Users\Administrator\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\resolver-status.properties
+16:38:15.135 [DefaultMetadataResolver-0-0] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter HttpTransporter with priority 5.0 for http://repo1.maven.org/maven2/
+16:38:15.135 [DefaultMetadataResolver-0-0] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for http://repo1.maven.org/maven2/
+16:38:15.643 [DefaultMetadataResolver-0-0] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:124 - Writing tracking file C:\Users\Administrator\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\resolver-status.properties
+16:38:15.650 [main] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter HttpTransporter with priority 5.0 for http://repo1.maven.org/maven2/
+16:38:15.650 [main] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for http://repo1.maven.org/maven2/
+16:38:16.018 [main] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter FileTransporter with priority 0.0 for file:/C:/Users/Administrator/.m2/repository/
+16:38:16.019 [main] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for file:/C:/Users/Administrator/.m2/repository/
+16:38:16.036 [main] DEBUG org.kie.scanner.MavenRepository:157 - Unable to resolve artifact: com.bong:testProject:1.0.2-SNAPSHOT
+org.eclipse.aether.resolution.ArtifactResolutionException: Could not find artifact com.bong:testProject:jar:1.0.2-SNAPSHOT in central (http://repo1.maven.org/maven2/)
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolve(DefaultArtifactResolver.java:444) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolveArtifacts(DefaultArtifactResolver.java:246) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolveArtifact(DefaultArtifactResolver.java:223) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultRepositorySystem.resolveArtifact(DefaultRepositorySystem.java:294) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.kie.scanner.MavenRepository.resolveArtifact(MavenRepository.java:152) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.MavenRepository.resolveArtifact(MavenRepository.java:140) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.MavenRepository.resolveArtifact(MavenRepository.java:136) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.ArtifactResolver.resolveArtifact(ArtifactResolver.java:67) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.KieRepositoryScannerImpl.loadArtifact(KieRepositoryScannerImpl.java:125) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.KieRepositoryScannerImpl.loadArtifact(KieRepositoryScannerImpl.java:121) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieRepositoryImpl.loadKieModuleFromMavenRepo(KieRepositoryImpl.java:129) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieRepositoryImpl.getKieModule(KieRepositoryImpl.java:115) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieRepositoryImpl.getKieModule(KieRepositoryImpl.java:92) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieServicesImpl.newKieContainer(KieServicesImpl.java:115) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieServicesImpl.newKieContainer(KieServicesImpl.java:111) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at com.nicecredit.pilot.RuleExecutor.<init>(RuleExecutor.java:24) [classes/:na]
+	at com.nicecredit.pilot.PilotMain$1.<init>(PilotMain.java:58) [classes/:na]
+	at com.nicecredit.pilot.PilotMain.startConsume(PilotMain.java:56) [classes/:na]
+	at com.nicecredit.pilot.PilotMain.main(PilotMain.java:120) [classes/:na]
+Caused by: org.eclipse.aether.transfer.ArtifactNotFoundException: Could not find artifact com.bong:testProject:jar:1.0.2-SNAPSHOT in central (http://repo1.maven.org/maven2/)
+	at org.eclipse.aether.connector.basic.ArtifactTransportListener.transferFailed(ArtifactTransportListener.java:39) ~[aether-connector-basic-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.connector.basic.BasicRepositoryConnector$TaskRunner.run(BasicRepositoryConnector.java:355) ~[aether-connector-basic-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.util.concurrency.RunnableErrorForwarder$1.run(RunnableErrorForwarder.java:67) ~[aether-util-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.connector.basic.BasicRepositoryConnector$DirectExecutor.execute(BasicRepositoryConnector.java:581) ~[aether-connector-basic-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.connector.basic.BasicRepositoryConnector.get(BasicRepositoryConnector.java:249) ~[aether-connector-basic-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.performDownloads(DefaultArtifactResolver.java:520) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolve(DefaultArtifactResolver.java:421) ~[aether-impl-1.0.0.v20140518.jar:na]
+	... 18 common frames omitted
+16:38:16.041 [main] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:313 - Skipped remote request for com.bong:testProject:1.0.2-SNAPSHOT/maven-metadata.xml, already updated during this session.
+16:38:16.043 [main] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:313 - Skipped remote request for com.bong:testProject:1.0.2-SNAPSHOT/maven-metadata.xml, already updated during this session.
+16:38:16.047 [main] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter HttpTransporter with priority 5.0 for http://repo1.maven.org/maven2/
+16:38:16.048 [main] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for http://repo1.maven.org/maven2/
+16:38:16.415 [main] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter FileTransporter with priority 0.0 for file:/C:/Users/Administrator/.m2/repository/
+16:38:16.416 [main] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for file:/C:/Users/Administrator/.m2/repository/
+16:38:16.422 [main] DEBUG org.kie.scanner.MavenRepository:157 - Unable to resolve artifact: com.bong:testProject:pom:1.0.2-SNAPSHOT
+org.eclipse.aether.resolution.ArtifactResolutionException: Could not find artifact com.bong:testProject:pom:1.0.2-SNAPSHOT in central (http://repo1.maven.org/maven2/)
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolve(DefaultArtifactResolver.java:444) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolveArtifacts(DefaultArtifactResolver.java:246) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolveArtifact(DefaultArtifactResolver.java:223) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultRepositorySystem.resolveArtifact(DefaultRepositorySystem.java:294) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.kie.scanner.MavenRepository.resolveArtifact(MavenRepository.java:152) ~[kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.ArtifactResolver.getPomFileForGAV(ArtifactResolver.java:139) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.ArtifactResolver.getResolverFor(ArtifactResolver.java:99) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.KieRepositoryScannerImpl.loadPomArtifact(KieRepositoryScannerImpl.java:150) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.KieRepositoryScannerImpl.loadArtifact(KieRepositoryScannerImpl.java:126) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.KieRepositoryScannerImpl.loadArtifact(KieRepositoryScannerImpl.java:121) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieRepositoryImpl.loadKieModuleFromMavenRepo(KieRepositoryImpl.java:129) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieRepositoryImpl.getKieModule(KieRepositoryImpl.java:115) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieRepositoryImpl.getKieModule(KieRepositoryImpl.java:92) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieServicesImpl.newKieContainer(KieServicesImpl.java:115) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieServicesImpl.newKieContainer(KieServicesImpl.java:111) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at com.nicecredit.pilot.RuleExecutor.<init>(RuleExecutor.java:24) [classes/:na]
+	at com.nicecredit.pilot.PilotMain$1.<init>(PilotMain.java:58) [classes/:na]
+	at com.nicecredit.pilot.PilotMain.startConsume(PilotMain.java:56) [classes/:na]
+	at com.nicecredit.pilot.PilotMain.main(PilotMain.java:120) [classes/:na]
+Caused by: org.eclipse.aether.transfer.ArtifactNotFoundException: Could not find artifact com.bong:testProject:pom:1.0.2-SNAPSHOT in central (http://repo1.maven.org/maven2/)
+	at org.eclipse.aether.connector.basic.ArtifactTransportListener.transferFailed(ArtifactTransportListener.java:39) ~[aether-connector-basic-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.connector.basic.BasicRepositoryConnector$TaskRunner.run(BasicRepositoryConnector.java:355) ~[aether-connector-basic-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.util.concurrency.RunnableErrorForwarder$1.run(RunnableErrorForwarder.java:67) ~[aether-util-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.connector.basic.BasicRepositoryConnector$DirectExecutor.execute(BasicRepositoryConnector.java:581) ~[aether-connector-basic-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.connector.basic.BasicRepositoryConnector.get(BasicRepositoryConnector.java:249) ~[aether-connector-basic-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.performDownloads(DefaultArtifactResolver.java:520) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolve(DefaultArtifactResolver.java:421) ~[aether-impl-1.0.0.v20140518.jar:na]
+	... 18 common frames omitted
+16:39:08.097 [main] DEBUG o.d.c.k.b.impl.KieRepositoryImpl:107 - KieModule Lookup. ReleaseId com.bong:testProject:1.0.2-SNAPSHOT was not in cache, checking classpath
+16:39:08.104 [main] DEBUG o.d.c.k.b.impl.KieRepositoryImpl:113 - KieModule Lookup. ReleaseId com.bong:testProject:1.0.2-SNAPSHOT was not in cache, checking maven repository
+16:39:08.125 [main] WARN  o.kie.scanner.embedder.MavenSettings:68 - Environment variable M2_HOME is not set
+16:39:08.179 [main] INFO  o.k.s.embedder.MavenEmbedderUtils:55 - Not in OSGi: using plexus based maven parser
+16:39:09.203 [main] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for D:\project\2014_hhi\.m2\repository
+16:39:09.215 [main] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for D:\project\2014_hhi\.m2\repository
+16:39:09.280 [main] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for D:\project\2014_hhi\.m2\repository
+16:39:09.311 [DefaultMetadataResolver-0-1] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter FileTransporter with priority 0.0 for file:/D:/project/2014_hhi/.m2/repository/
+16:39:09.313 [DefaultMetadataResolver-0-1] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for file:/D:/project/2014_hhi/.m2/repository/
+16:39:09.329 [DefaultMetadataResolver-0-1] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:124 - Writing tracking file D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\resolver-status.properties
+16:39:09.673 [DefaultMetadataResolver-0-2] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter HttpTransporter with priority 5.0 for http://repo1.maven.org/maven2/
+16:39:09.673 [DefaultMetadataResolver-0-0] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter HttpTransporter with priority 5.0 for http://207.46.141.43:8081/nexus/content/repositories/nicesnapshots/
+16:39:09.673 [DefaultMetadataResolver-0-3] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter HttpTransporter with priority 5.0 for http://207.46.141.43:8081/nexus/content/repositories/nicesnapshots/
+16:39:09.673 [DefaultMetadataResolver-0-0] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for http://207.46.141.43:8081/nexus/content/repositories/nicesnapshots/
+16:39:09.673 [DefaultMetadataResolver-0-3] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for http://207.46.141.43:8081/nexus/content/repositories/nicesnapshots/
+16:39:09.673 [DefaultMetadataResolver-0-2] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for http://repo1.maven.org/maven2/
+16:39:09.957 [DefaultMetadataResolver-0-3] DEBUG o.e.a.c.b.BasicRepositoryConnector:90 - Concurrent download of D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\maven-metadata-nice-repo.xml.part in progress, awaiting completion
+16:39:10.050 [DefaultMetadataResolver-0-0] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:124 - Writing tracking file D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\resolver-status.properties
+16:39:10.060 [DefaultMetadataResolver-0-3] DEBUG o.e.a.c.b.BasicRepositoryConnector:435 - Concurrent download of D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\maven-metadata-nice-repo.xml just finished, skipping download
+16:39:10.063 [DefaultMetadataResolver-0-3] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:124 - Writing tracking file D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\resolver-status.properties
+16:39:10.156 [DefaultMetadataResolver-0-2] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:124 - Writing tracking file D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\resolver-status.properties
+16:39:11.007 [main] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:313 - Skipped remote request for com.bong:testProject:1.0.2-SNAPSHOT/maven-metadata.xml, already updated during this session.
+16:39:11.008 [main] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:313 - Skipped remote request for com.bong:testProject:1.0.2-SNAPSHOT/maven-metadata.xml, already updated during this session.
+16:39:11.010 [main] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:313 - Skipped remote request for com.bong:testProject:1.0.2-SNAPSHOT/maven-metadata.xml, already updated during this session.
+16:39:11.012 [main] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:313 - Skipped remote request for com.bong:testProject:1.0.2-SNAPSHOT/maven-metadata.xml, already updated during this session.
+16:39:11.016 [main] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:313 - Skipped remote request for com.bong:testProject:1.0.2-SNAPSHOT/maven-metadata.xml, already updated during this session.
+16:39:11.017 [main] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:313 - Skipped remote request for com.bong:testProject:1.0.2-SNAPSHOT/maven-metadata.xml, already updated during this session.
+16:39:11.019 [main] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:313 - Skipped remote request for com.bong:testProject:1.0.2-SNAPSHOT/maven-metadata.xml, already updated during this session.
+16:39:11.020 [main] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:313 - Skipped remote request for com.bong:testProject:1.0.2-SNAPSHOT/maven-metadata.xml, already updated during this session.
+16:39:11.049 [main] DEBUG o.e.a.i.i.DefaultDependencyCollector:286 - Dependency collection stats: {ConflictMarker.analyzeTime=1, ConflictMarker.markTime=0, ConflictMarker.nodeCount=1, ConflictIdSorter.graphTime=0, ConflictIdSorter.topsortTime=1, ConflictIdSorter.conflictIdCount=1, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=3, ConflictResolver.conflictItemCount=1, DefaultDependencyCollector.collectTime=46, DefaultDependencyCollector.transformTime=8}
+16:39:11.076 [main] INFO  o.k.s.embedder.MavenEmbedderUtils:55 - Not in OSGi: using plexus based maven parser
+16:39:11.359 [main] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for D:\project\2014_hhi\.m2\repository
+16:39:11.361 [main] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for D:\project\2014_hhi\.m2\repository
+16:39:11.368 [main] DEBUG o.e.a.i.i.DefaultDependencyCollector:286 - Dependency collection stats: {ConflictMarker.analyzeTime=0, ConflictMarker.markTime=0, ConflictMarker.nodeCount=1, ConflictIdSorter.graphTime=0, ConflictIdSorter.topsortTime=0, ConflictIdSorter.conflictIdCount=0, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=0, ConflictResolver.conflictItemCount=0, DefaultDependencyCollector.collectTime=0, DefaultDependencyCollector.transformTime=0}
+16:39:13.703 [main] INFO  o.d.c.k.b.impl.KieRepositoryImpl:88 - KieModule was added: ZipKieModule[releaseId=com.bong:testProject:1.0.2-SNAPSHOT,file=D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\testProject-1.0.2-SNAPSHOT.jar]
+16:39:13.714 [main] INFO  o.k.s.embedder.MavenEmbedderUtils:55 - Not in OSGi: using plexus based maven parser
+16:39:13.903 [main] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for D:\project\2014_hhi\.m2\repository
+16:39:13.905 [main] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for D:\project\2014_hhi\.m2\repository
+16:39:13.912 [main] DEBUG o.e.a.i.i.DefaultDependencyCollector:286 - Dependency collection stats: {ConflictMarker.analyzeTime=0, ConflictMarker.markTime=0, ConflictMarker.nodeCount=1, ConflictIdSorter.graphTime=0, ConflictIdSorter.topsortTime=0, ConflictIdSorter.conflictIdCount=0, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=1, ConflictResolver.conflictItemCount=0, DefaultDependencyCollector.collectTime=0, DefaultDependencyCollector.transformTime=1}
+16:39:13.915 [main] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for D:\project\2014_hhi\.m2\repository
+16:39:14.279 [main] DEBUG o.drools.core.impl.KnowledgeBaseImpl:197 - Starting Engine in PHREAK mode
+16:39:23.466 [main] DEBUG o.d.c.k.b.impl.KieRepositoryImpl:107 - KieModule Lookup. ReleaseId com.bong:testProject:1.0.2-SNAPSHOT was not in cache, checking classpath
+16:39:23.472 [main] DEBUG o.d.c.k.b.impl.KieRepositoryImpl:113 - KieModule Lookup. ReleaseId com.bong:testProject:1.0.2-SNAPSHOT was not in cache, checking maven repository
+16:39:23.499 [main] WARN  o.kie.scanner.embedder.MavenSettings:68 - Environment variable M2_HOME is not set
+16:39:23.532 [main] INFO  o.k.s.embedder.MavenEmbedderUtils:55 - Not in OSGi: using plexus based maven parser
+16:39:24.576 [main] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for C:\Users\Administrator\.m2\repository
+16:39:24.586 [main] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for C:\Users\Administrator\.m2\repository
+16:39:24.651 [main] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for C:\Users\Administrator\.m2\repository
+16:39:24.681 [DefaultMetadataResolver-0-1] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter FileTransporter with priority 0.0 for file:/C:/Users/Administrator/.m2/repository/
+16:39:24.682 [DefaultMetadataResolver-0-1] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for file:/C:/Users/Administrator/.m2/repository/
+16:39:24.697 [DefaultMetadataResolver-0-1] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:124 - Writing tracking file C:\Users\Administrator\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\resolver-status.properties
+16:39:25.033 [DefaultMetadataResolver-0-0] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter HttpTransporter with priority 5.0 for http://repo1.maven.org/maven2/
+16:39:25.033 [DefaultMetadataResolver-0-0] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for http://repo1.maven.org/maven2/
+16:39:25.431 [DefaultMetadataResolver-0-0] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:124 - Writing tracking file C:\Users\Administrator\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\resolver-status.properties
+16:39:25.437 [main] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter HttpTransporter with priority 5.0 for http://repo1.maven.org/maven2/
+16:39:25.437 [main] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for http://repo1.maven.org/maven2/
+16:39:25.715 [main] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter FileTransporter with priority 0.0 for file:/C:/Users/Administrator/.m2/repository/
+16:39:25.715 [main] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for file:/C:/Users/Administrator/.m2/repository/
+16:39:25.732 [main] DEBUG org.kie.scanner.MavenRepository:157 - Unable to resolve artifact: com.bong:testProject:1.0.2-SNAPSHOT
+org.eclipse.aether.resolution.ArtifactResolutionException: Could not find artifact com.bong:testProject:jar:1.0.2-SNAPSHOT in central (http://repo1.maven.org/maven2/)
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolve(DefaultArtifactResolver.java:444) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolveArtifacts(DefaultArtifactResolver.java:246) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolveArtifact(DefaultArtifactResolver.java:223) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultRepositorySystem.resolveArtifact(DefaultRepositorySystem.java:294) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.kie.scanner.MavenRepository.resolveArtifact(MavenRepository.java:152) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.MavenRepository.resolveArtifact(MavenRepository.java:140) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.MavenRepository.resolveArtifact(MavenRepository.java:136) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.ArtifactResolver.resolveArtifact(ArtifactResolver.java:67) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.KieRepositoryScannerImpl.loadArtifact(KieRepositoryScannerImpl.java:125) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.KieRepositoryScannerImpl.loadArtifact(KieRepositoryScannerImpl.java:121) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieRepositoryImpl.loadKieModuleFromMavenRepo(KieRepositoryImpl.java:129) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieRepositoryImpl.getKieModule(KieRepositoryImpl.java:115) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieRepositoryImpl.getKieModule(KieRepositoryImpl.java:92) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieServicesImpl.newKieContainer(KieServicesImpl.java:115) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieServicesImpl.newKieContainer(KieServicesImpl.java:111) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at com.nicecredit.pilot.RuleExecutor.<init>(RuleExecutor.java:24) [classes/:na]
+	at com.nicecredit.pilot.PilotMain$1.<init>(PilotMain.java:58) [classes/:na]
+	at com.nicecredit.pilot.PilotMain.startConsume(PilotMain.java:56) [classes/:na]
+	at com.nicecredit.pilot.PilotMain.main(PilotMain.java:120) [classes/:na]
+Caused by: org.eclipse.aether.transfer.ArtifactNotFoundException: Could not find artifact com.bong:testProject:jar:1.0.2-SNAPSHOT in central (http://repo1.maven.org/maven2/)
+	at org.eclipse.aether.connector.basic.ArtifactTransportListener.transferFailed(ArtifactTransportListener.java:39) ~[aether-connector-basic-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.connector.basic.BasicRepositoryConnector$TaskRunner.run(BasicRepositoryConnector.java:355) ~[aether-connector-basic-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.util.concurrency.RunnableErrorForwarder$1.run(RunnableErrorForwarder.java:67) ~[aether-util-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.connector.basic.BasicRepositoryConnector$DirectExecutor.execute(BasicRepositoryConnector.java:581) ~[aether-connector-basic-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.connector.basic.BasicRepositoryConnector.get(BasicRepositoryConnector.java:249) ~[aether-connector-basic-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.performDownloads(DefaultArtifactResolver.java:520) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolve(DefaultArtifactResolver.java:421) ~[aether-impl-1.0.0.v20140518.jar:na]
+	... 18 common frames omitted
+16:39:25.737 [main] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:313 - Skipped remote request for com.bong:testProject:1.0.2-SNAPSHOT/maven-metadata.xml, already updated during this session.
+16:39:25.739 [main] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:313 - Skipped remote request for com.bong:testProject:1.0.2-SNAPSHOT/maven-metadata.xml, already updated during this session.
+16:39:25.743 [main] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter HttpTransporter with priority 5.0 for http://repo1.maven.org/maven2/
+16:39:25.743 [main] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for http://repo1.maven.org/maven2/
+16:39:26.078 [main] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter FileTransporter with priority 0.0 for file:/C:/Users/Administrator/.m2/repository/
+16:39:26.079 [main] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for file:/C:/Users/Administrator/.m2/repository/
+16:39:26.085 [main] DEBUG org.kie.scanner.MavenRepository:157 - Unable to resolve artifact: com.bong:testProject:pom:1.0.2-SNAPSHOT
+org.eclipse.aether.resolution.ArtifactResolutionException: Could not find artifact com.bong:testProject:pom:1.0.2-SNAPSHOT in central (http://repo1.maven.org/maven2/)
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolve(DefaultArtifactResolver.java:444) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolveArtifacts(DefaultArtifactResolver.java:246) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolveArtifact(DefaultArtifactResolver.java:223) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultRepositorySystem.resolveArtifact(DefaultRepositorySystem.java:294) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.kie.scanner.MavenRepository.resolveArtifact(MavenRepository.java:152) ~[kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.ArtifactResolver.getPomFileForGAV(ArtifactResolver.java:139) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.ArtifactResolver.getResolverFor(ArtifactResolver.java:99) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.KieRepositoryScannerImpl.loadPomArtifact(KieRepositoryScannerImpl.java:150) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.KieRepositoryScannerImpl.loadArtifact(KieRepositoryScannerImpl.java:126) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.KieRepositoryScannerImpl.loadArtifact(KieRepositoryScannerImpl.java:121) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieRepositoryImpl.loadKieModuleFromMavenRepo(KieRepositoryImpl.java:129) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieRepositoryImpl.getKieModule(KieRepositoryImpl.java:115) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieRepositoryImpl.getKieModule(KieRepositoryImpl.java:92) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieServicesImpl.newKieContainer(KieServicesImpl.java:115) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieServicesImpl.newKieContainer(KieServicesImpl.java:111) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at com.nicecredit.pilot.RuleExecutor.<init>(RuleExecutor.java:24) [classes/:na]
+	at com.nicecredit.pilot.PilotMain$1.<init>(PilotMain.java:58) [classes/:na]
+	at com.nicecredit.pilot.PilotMain.startConsume(PilotMain.java:56) [classes/:na]
+	at com.nicecredit.pilot.PilotMain.main(PilotMain.java:120) [classes/:na]
+Caused by: org.eclipse.aether.transfer.ArtifactNotFoundException: Could not find artifact com.bong:testProject:pom:1.0.2-SNAPSHOT in central (http://repo1.maven.org/maven2/)
+	at org.eclipse.aether.connector.basic.ArtifactTransportListener.transferFailed(ArtifactTransportListener.java:39) ~[aether-connector-basic-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.connector.basic.BasicRepositoryConnector$TaskRunner.run(BasicRepositoryConnector.java:355) ~[aether-connector-basic-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.util.concurrency.RunnableErrorForwarder$1.run(RunnableErrorForwarder.java:67) ~[aether-util-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.connector.basic.BasicRepositoryConnector$DirectExecutor.execute(BasicRepositoryConnector.java:581) ~[aether-connector-basic-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.connector.basic.BasicRepositoryConnector.get(BasicRepositoryConnector.java:249) ~[aether-connector-basic-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.performDownloads(DefaultArtifactResolver.java:520) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolve(DefaultArtifactResolver.java:421) ~[aether-impl-1.0.0.v20140518.jar:na]
+	... 18 common frames omitted
+16:40:40.057 [main] DEBUG o.d.c.k.b.impl.KieRepositoryImpl:107 - KieModule Lookup. ReleaseId com.bong:testProject:1.0.2-SNAPSHOT was not in cache, checking classpath
+16:40:40.061 [main] DEBUG o.d.c.k.b.impl.KieRepositoryImpl:113 - KieModule Lookup. ReleaseId com.bong:testProject:1.0.2-SNAPSHOT was not in cache, checking maven repository
+16:40:40.087 [main] WARN  o.kie.scanner.embedder.MavenSettings:68 - Environment variable M2_HOME is not set
+16:40:40.122 [main] INFO  o.k.s.embedder.MavenEmbedderUtils:55 - Not in OSGi: using plexus based maven parser
+16:40:41.203 [main] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for C:\Users\Administrator\.m2\repository
+16:40:41.212 [main] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for C:\Users\Administrator\.m2\repository
+16:40:41.275 [main] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for C:\Users\Administrator\.m2\repository
+16:40:41.304 [DefaultMetadataResolver-0-1] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter FileTransporter with priority 0.0 for file:/C:/Users/Administrator/.m2/repository/
+16:40:41.305 [DefaultMetadataResolver-0-1] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for file:/C:/Users/Administrator/.m2/repository/
+16:40:41.319 [DefaultMetadataResolver-0-1] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:124 - Writing tracking file C:\Users\Administrator\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\resolver-status.properties
+16:40:41.718 [DefaultMetadataResolver-0-0] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter HttpTransporter with priority 5.0 for http://repo1.maven.org/maven2/
+16:40:41.719 [DefaultMetadataResolver-0-0] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for http://repo1.maven.org/maven2/
+16:40:42.195 [DefaultMetadataResolver-0-0] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:124 - Writing tracking file C:\Users\Administrator\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\resolver-status.properties
+16:40:42.202 [main] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter HttpTransporter with priority 5.0 for http://repo1.maven.org/maven2/
+16:40:42.202 [main] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for http://repo1.maven.org/maven2/
+16:40:42.506 [main] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter FileTransporter with priority 0.0 for file:/C:/Users/Administrator/.m2/repository/
+16:40:42.507 [main] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for file:/C:/Users/Administrator/.m2/repository/
+16:40:42.524 [main] DEBUG org.kie.scanner.MavenRepository:157 - Unable to resolve artifact: com.bong:testProject:1.0.2-SNAPSHOT
+org.eclipse.aether.resolution.ArtifactResolutionException: Could not find artifact com.bong:testProject:jar:1.0.2-SNAPSHOT in central (http://repo1.maven.org/maven2/)
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolve(DefaultArtifactResolver.java:444) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolveArtifacts(DefaultArtifactResolver.java:246) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolveArtifact(DefaultArtifactResolver.java:223) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultRepositorySystem.resolveArtifact(DefaultRepositorySystem.java:294) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.kie.scanner.MavenRepository.resolveArtifact(MavenRepository.java:152) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.MavenRepository.resolveArtifact(MavenRepository.java:140) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.MavenRepository.resolveArtifact(MavenRepository.java:136) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.ArtifactResolver.resolveArtifact(ArtifactResolver.java:67) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.KieRepositoryScannerImpl.loadArtifact(KieRepositoryScannerImpl.java:125) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.KieRepositoryScannerImpl.loadArtifact(KieRepositoryScannerImpl.java:121) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieRepositoryImpl.loadKieModuleFromMavenRepo(KieRepositoryImpl.java:129) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieRepositoryImpl.getKieModule(KieRepositoryImpl.java:115) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieRepositoryImpl.getKieModule(KieRepositoryImpl.java:92) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieServicesImpl.newKieContainer(KieServicesImpl.java:115) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieServicesImpl.newKieContainer(KieServicesImpl.java:111) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at com.nicecredit.pilot.RuleExecutor.<init>(RuleExecutor.java:24) [classes/:na]
+	at com.nicecredit.pilot.PilotMain$1.<init>(PilotMain.java:58) [classes/:na]
+	at com.nicecredit.pilot.PilotMain.startConsume(PilotMain.java:56) [classes/:na]
+	at com.nicecredit.pilot.PilotMain.main(PilotMain.java:120) [classes/:na]
+Caused by: org.eclipse.aether.transfer.ArtifactNotFoundException: Could not find artifact com.bong:testProject:jar:1.0.2-SNAPSHOT in central (http://repo1.maven.org/maven2/)
+	at org.eclipse.aether.connector.basic.ArtifactTransportListener.transferFailed(ArtifactTransportListener.java:39) ~[aether-connector-basic-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.connector.basic.BasicRepositoryConnector$TaskRunner.run(BasicRepositoryConnector.java:355) ~[aether-connector-basic-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.util.concurrency.RunnableErrorForwarder$1.run(RunnableErrorForwarder.java:67) ~[aether-util-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.connector.basic.BasicRepositoryConnector$DirectExecutor.execute(BasicRepositoryConnector.java:581) ~[aether-connector-basic-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.connector.basic.BasicRepositoryConnector.get(BasicRepositoryConnector.java:249) ~[aether-connector-basic-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.performDownloads(DefaultArtifactResolver.java:520) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolve(DefaultArtifactResolver.java:421) ~[aether-impl-1.0.0.v20140518.jar:na]
+	... 18 common frames omitted
+16:40:42.527 [main] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:313 - Skipped remote request for com.bong:testProject:1.0.2-SNAPSHOT/maven-metadata.xml, already updated during this session.
+16:40:42.528 [main] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:313 - Skipped remote request for com.bong:testProject:1.0.2-SNAPSHOT/maven-metadata.xml, already updated during this session.
+16:40:42.531 [main] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter HttpTransporter with priority 5.0 for http://repo1.maven.org/maven2/
+16:40:42.532 [main] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for http://repo1.maven.org/maven2/
+16:40:42.836 [main] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter FileTransporter with priority 0.0 for file:/C:/Users/Administrator/.m2/repository/
+16:40:42.837 [main] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for file:/C:/Users/Administrator/.m2/repository/
+16:40:42.843 [main] DEBUG org.kie.scanner.MavenRepository:157 - Unable to resolve artifact: com.bong:testProject:pom:1.0.2-SNAPSHOT
+org.eclipse.aether.resolution.ArtifactResolutionException: Could not find artifact com.bong:testProject:pom:1.0.2-SNAPSHOT in central (http://repo1.maven.org/maven2/)
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolve(DefaultArtifactResolver.java:444) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolveArtifacts(DefaultArtifactResolver.java:246) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolveArtifact(DefaultArtifactResolver.java:223) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultRepositorySystem.resolveArtifact(DefaultRepositorySystem.java:294) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.kie.scanner.MavenRepository.resolveArtifact(MavenRepository.java:152) ~[kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.ArtifactResolver.getPomFileForGAV(ArtifactResolver.java:139) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.ArtifactResolver.getResolverFor(ArtifactResolver.java:99) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.KieRepositoryScannerImpl.loadPomArtifact(KieRepositoryScannerImpl.java:150) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.KieRepositoryScannerImpl.loadArtifact(KieRepositoryScannerImpl.java:126) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.KieRepositoryScannerImpl.loadArtifact(KieRepositoryScannerImpl.java:121) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieRepositoryImpl.loadKieModuleFromMavenRepo(KieRepositoryImpl.java:129) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieRepositoryImpl.getKieModule(KieRepositoryImpl.java:115) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieRepositoryImpl.getKieModule(KieRepositoryImpl.java:92) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieServicesImpl.newKieContainer(KieServicesImpl.java:115) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieServicesImpl.newKieContainer(KieServicesImpl.java:111) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at com.nicecredit.pilot.RuleExecutor.<init>(RuleExecutor.java:24) [classes/:na]
+	at com.nicecredit.pilot.PilotMain$1.<init>(PilotMain.java:58) [classes/:na]
+	at com.nicecredit.pilot.PilotMain.startConsume(PilotMain.java:56) [classes/:na]
+	at com.nicecredit.pilot.PilotMain.main(PilotMain.java:120) [classes/:na]
+Caused by: org.eclipse.aether.transfer.ArtifactNotFoundException: Could not find artifact com.bong:testProject:pom:1.0.2-SNAPSHOT in central (http://repo1.maven.org/maven2/)
+	at org.eclipse.aether.connector.basic.ArtifactTransportListener.transferFailed(ArtifactTransportListener.java:39) ~[aether-connector-basic-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.connector.basic.BasicRepositoryConnector$TaskRunner.run(BasicRepositoryConnector.java:355) ~[aether-connector-basic-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.util.concurrency.RunnableErrorForwarder$1.run(RunnableErrorForwarder.java:67) ~[aether-util-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.connector.basic.BasicRepositoryConnector$DirectExecutor.execute(BasicRepositoryConnector.java:581) ~[aether-connector-basic-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.connector.basic.BasicRepositoryConnector.get(BasicRepositoryConnector.java:249) ~[aether-connector-basic-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.performDownloads(DefaultArtifactResolver.java:520) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolve(DefaultArtifactResolver.java:421) ~[aether-impl-1.0.0.v20140518.jar:na]
+	... 18 common frames omitted
+16:41:43.325 [main] DEBUG o.d.c.k.b.impl.KieRepositoryImpl:107 - KieModule Lookup. ReleaseId com.bong:testProject:1.0.2-SNAPSHOT was not in cache, checking classpath
+16:41:43.332 [main] DEBUG o.d.c.k.b.impl.KieRepositoryImpl:113 - KieModule Lookup. ReleaseId com.bong:testProject:1.0.2-SNAPSHOT was not in cache, checking maven repository
+16:41:43.359 [main] WARN  o.kie.scanner.embedder.MavenSettings:68 - Environment variable M2_HOME is not set
+16:41:43.394 [main] INFO  o.k.s.embedder.MavenEmbedderUtils:55 - Not in OSGi: using plexus based maven parser
+16:41:44.568 [main] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for C:\Users\Administrator\.m2\repository
+16:41:44.578 [main] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for C:\Users\Administrator\.m2\repository
+16:41:44.639 [main] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for C:\Users\Administrator\.m2\repository
+16:41:44.669 [DefaultMetadataResolver-0-1] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter FileTransporter with priority 0.0 for file:/C:/Users/Administrator/.m2/repository/
+16:41:44.671 [DefaultMetadataResolver-0-1] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for file:/C:/Users/Administrator/.m2/repository/
+16:41:44.688 [DefaultMetadataResolver-0-1] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:124 - Writing tracking file C:\Users\Administrator\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\resolver-status.properties
+16:41:45.009 [DefaultMetadataResolver-0-0] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter HttpTransporter with priority 5.0 for http://repo1.maven.org/maven2/
+16:41:45.010 [DefaultMetadataResolver-0-0] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for http://repo1.maven.org/maven2/
+16:41:45.477 [DefaultMetadataResolver-0-0] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:124 - Writing tracking file C:\Users\Administrator\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\resolver-status.properties
+16:41:45.489 [main] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter HttpTransporter with priority 5.0 for http://repo1.maven.org/maven2/
+16:41:45.490 [main] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for http://repo1.maven.org/maven2/
+16:41:45.770 [main] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter FileTransporter with priority 0.0 for file:/C:/Users/Administrator/.m2/repository/
+16:41:45.771 [main] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for file:/C:/Users/Administrator/.m2/repository/
+16:41:45.788 [main] DEBUG org.kie.scanner.MavenRepository:157 - Unable to resolve artifact: com.bong:testProject:1.0.2-SNAPSHOT
+org.eclipse.aether.resolution.ArtifactResolutionException: Could not find artifact com.bong:testProject:jar:1.0.2-SNAPSHOT in central (http://repo1.maven.org/maven2/)
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolve(DefaultArtifactResolver.java:444) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolveArtifacts(DefaultArtifactResolver.java:246) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolveArtifact(DefaultArtifactResolver.java:223) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultRepositorySystem.resolveArtifact(DefaultRepositorySystem.java:294) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.kie.scanner.MavenRepository.resolveArtifact(MavenRepository.java:152) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.MavenRepository.resolveArtifact(MavenRepository.java:140) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.MavenRepository.resolveArtifact(MavenRepository.java:136) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.ArtifactResolver.resolveArtifact(ArtifactResolver.java:67) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.KieRepositoryScannerImpl.loadArtifact(KieRepositoryScannerImpl.java:125) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.KieRepositoryScannerImpl.loadArtifact(KieRepositoryScannerImpl.java:121) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieRepositoryImpl.loadKieModuleFromMavenRepo(KieRepositoryImpl.java:129) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieRepositoryImpl.getKieModule(KieRepositoryImpl.java:115) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieRepositoryImpl.getKieModule(KieRepositoryImpl.java:92) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieServicesImpl.newKieContainer(KieServicesImpl.java:115) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieServicesImpl.newKieContainer(KieServicesImpl.java:111) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at com.nicecredit.pilot.RuleExecutor.<init>(RuleExecutor.java:24) [classes/:na]
+	at com.nicecredit.pilot.PilotMain$1.<init>(PilotMain.java:58) [classes/:na]
+	at com.nicecredit.pilot.PilotMain.startConsume(PilotMain.java:56) [classes/:na]
+	at com.nicecredit.pilot.PilotMain.main(PilotMain.java:120) [classes/:na]
+Caused by: org.eclipse.aether.transfer.ArtifactNotFoundException: Could not find artifact com.bong:testProject:jar:1.0.2-SNAPSHOT in central (http://repo1.maven.org/maven2/)
+	at org.eclipse.aether.connector.basic.ArtifactTransportListener.transferFailed(ArtifactTransportListener.java:39) ~[aether-connector-basic-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.connector.basic.BasicRepositoryConnector$TaskRunner.run(BasicRepositoryConnector.java:355) ~[aether-connector-basic-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.util.concurrency.RunnableErrorForwarder$1.run(RunnableErrorForwarder.java:67) ~[aether-util-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.connector.basic.BasicRepositoryConnector$DirectExecutor.execute(BasicRepositoryConnector.java:581) ~[aether-connector-basic-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.connector.basic.BasicRepositoryConnector.get(BasicRepositoryConnector.java:249) ~[aether-connector-basic-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.performDownloads(DefaultArtifactResolver.java:520) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolve(DefaultArtifactResolver.java:421) ~[aether-impl-1.0.0.v20140518.jar:na]
+	... 18 common frames omitted
+16:41:45.792 [main] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:313 - Skipped remote request for com.bong:testProject:1.0.2-SNAPSHOT/maven-metadata.xml, already updated during this session.
+16:41:45.793 [main] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:313 - Skipped remote request for com.bong:testProject:1.0.2-SNAPSHOT/maven-metadata.xml, already updated during this session.
+16:41:45.795 [main] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter HttpTransporter with priority 5.0 for http://repo1.maven.org/maven2/
+16:41:45.796 [main] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for http://repo1.maven.org/maven2/
+16:41:46.130 [main] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter FileTransporter with priority 0.0 for file:/C:/Users/Administrator/.m2/repository/
+16:41:46.131 [main] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for file:/C:/Users/Administrator/.m2/repository/
+16:41:46.138 [main] DEBUG org.kie.scanner.MavenRepository:157 - Unable to resolve artifact: com.bong:testProject:pom:1.0.2-SNAPSHOT
+org.eclipse.aether.resolution.ArtifactResolutionException: Could not find artifact com.bong:testProject:pom:1.0.2-SNAPSHOT in central (http://repo1.maven.org/maven2/)
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolve(DefaultArtifactResolver.java:444) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolveArtifacts(DefaultArtifactResolver.java:246) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolveArtifact(DefaultArtifactResolver.java:223) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultRepositorySystem.resolveArtifact(DefaultRepositorySystem.java:294) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.kie.scanner.MavenRepository.resolveArtifact(MavenRepository.java:152) ~[kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.ArtifactResolver.getPomFileForGAV(ArtifactResolver.java:139) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.ArtifactResolver.getResolverFor(ArtifactResolver.java:99) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.KieRepositoryScannerImpl.loadPomArtifact(KieRepositoryScannerImpl.java:150) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.KieRepositoryScannerImpl.loadArtifact(KieRepositoryScannerImpl.java:126) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.kie.scanner.KieRepositoryScannerImpl.loadArtifact(KieRepositoryScannerImpl.java:121) [kie-ci-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieRepositoryImpl.loadKieModuleFromMavenRepo(KieRepositoryImpl.java:129) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieRepositoryImpl.getKieModule(KieRepositoryImpl.java:115) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieRepositoryImpl.getKieModule(KieRepositoryImpl.java:92) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieServicesImpl.newKieContainer(KieServicesImpl.java:115) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at org.drools.compiler.kie.builder.impl.KieServicesImpl.newKieContainer(KieServicesImpl.java:111) [drools-compiler-6.3.0.Final.jar:6.3.0.Final]
+	at com.nicecredit.pilot.RuleExecutor.<init>(RuleExecutor.java:24) [classes/:na]
+	at com.nicecredit.pilot.PilotMain$1.<init>(PilotMain.java:58) [classes/:na]
+	at com.nicecredit.pilot.PilotMain.startConsume(PilotMain.java:56) [classes/:na]
+	at com.nicecredit.pilot.PilotMain.main(PilotMain.java:120) [classes/:na]
+Caused by: org.eclipse.aether.transfer.ArtifactNotFoundException: Could not find artifact com.bong:testProject:pom:1.0.2-SNAPSHOT in central (http://repo1.maven.org/maven2/)
+	at org.eclipse.aether.connector.basic.ArtifactTransportListener.transferFailed(ArtifactTransportListener.java:39) ~[aether-connector-basic-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.connector.basic.BasicRepositoryConnector$TaskRunner.run(BasicRepositoryConnector.java:355) ~[aether-connector-basic-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.util.concurrency.RunnableErrorForwarder$1.run(RunnableErrorForwarder.java:67) ~[aether-util-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.connector.basic.BasicRepositoryConnector$DirectExecutor.execute(BasicRepositoryConnector.java:581) ~[aether-connector-basic-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.connector.basic.BasicRepositoryConnector.get(BasicRepositoryConnector.java:249) ~[aether-connector-basic-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.performDownloads(DefaultArtifactResolver.java:520) ~[aether-impl-1.0.0.v20140518.jar:na]
+	at org.eclipse.aether.internal.impl.DefaultArtifactResolver.resolve(DefaultArtifactResolver.java:421) ~[aether-impl-1.0.0.v20140518.jar:na]
+	... 18 common frames omitted
+16:42:59.332 [main] DEBUG o.d.c.k.b.impl.KieRepositoryImpl:107 - KieModule Lookup. ReleaseId com.bong:testProject:1.0.2-SNAPSHOT was not in cache, checking classpath
+16:42:59.337 [main] DEBUG o.d.c.k.b.impl.KieRepositoryImpl:113 - KieModule Lookup. ReleaseId com.bong:testProject:1.0.2-SNAPSHOT was not in cache, checking maven repository
+16:42:59.361 [main] WARN  o.kie.scanner.embedder.MavenSettings:68 - Environment variable M2_HOME is not set
+16:42:59.407 [main] INFO  o.k.s.embedder.MavenEmbedderUtils:55 - Not in OSGi: using plexus based maven parser
+16:43:00.604 [main] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for D:\project\2014_hhi\.m2\repository
+16:43:00.616 [main] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for D:\project\2014_hhi\.m2\repository
+16:43:00.684 [main] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for D:\project\2014_hhi\.m2\repository
+16:43:00.715 [DefaultMetadataResolver-0-1] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter FileTransporter with priority 0.0 for file:/D:/project/2014_hhi/.m2/repository/
+16:43:00.716 [DefaultMetadataResolver-0-1] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for file:/D:/project/2014_hhi/.m2/repository/
+16:43:00.731 [DefaultMetadataResolver-0-1] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:124 - Writing tracking file D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\resolver-status.properties
+16:43:01.069 [DefaultMetadataResolver-0-3] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter HttpTransporter with priority 5.0 for http://207.46.141.43:8081/nexus/content/repositories/nicesnapshots/
+16:43:01.069 [DefaultMetadataResolver-0-0] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter HttpTransporter with priority 5.0 for http://207.46.141.43:8081/nexus/content/repositories/nicesnapshots/
+16:43:01.069 [DefaultMetadataResolver-0-2] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter HttpTransporter with priority 5.0 for http://repo1.maven.org/maven2/
+16:43:01.070 [DefaultMetadataResolver-0-0] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for http://207.46.141.43:8081/nexus/content/repositories/nicesnapshots/
+16:43:01.069 [DefaultMetadataResolver-0-3] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for http://207.46.141.43:8081/nexus/content/repositories/nicesnapshots/
+16:43:01.070 [DefaultMetadataResolver-0-2] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for http://repo1.maven.org/maven2/
+16:43:01.276 [DefaultMetadataResolver-0-3] DEBUG o.e.a.c.b.BasicRepositoryConnector:90 - Concurrent download of D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\maven-metadata-nice-repo.xml.part in progress, awaiting completion
+16:43:01.373 [DefaultMetadataResolver-0-0] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:124 - Writing tracking file D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\resolver-status.properties
+16:43:01.380 [DefaultMetadataResolver-0-3] DEBUG o.e.a.c.b.BasicRepositoryConnector:435 - Concurrent download of D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\maven-metadata-nice-repo.xml just finished, skipping download
+16:43:01.384 [DefaultMetadataResolver-0-3] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:124 - Writing tracking file D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\resolver-status.properties
+16:43:01.536 [DefaultMetadataResolver-0-2] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:124 - Writing tracking file D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\resolver-status.properties
+16:43:01.738 [main] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:313 - Skipped remote request for com.bong:testProject:1.0.2-SNAPSHOT/maven-metadata.xml, already updated during this session.
+16:43:01.739 [main] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:313 - Skipped remote request for com.bong:testProject:1.0.2-SNAPSHOT/maven-metadata.xml, already updated during this session.
+16:43:01.739 [main] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:313 - Skipped remote request for com.bong:testProject:1.0.2-SNAPSHOT/maven-metadata.xml, already updated during this session.
+16:43:01.740 [main] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:313 - Skipped remote request for com.bong:testProject:1.0.2-SNAPSHOT/maven-metadata.xml, already updated during this session.
+16:43:01.741 [main] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:313 - Skipped remote request for com.bong:testProject:1.0.2-SNAPSHOT/maven-metadata.xml, already updated during this session.
+16:43:01.742 [main] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:313 - Skipped remote request for com.bong:testProject:1.0.2-SNAPSHOT/maven-metadata.xml, already updated during this session.
+16:43:01.742 [main] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:313 - Skipped remote request for com.bong:testProject:1.0.2-SNAPSHOT/maven-metadata.xml, already updated during this session.
+16:43:01.743 [main] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:313 - Skipped remote request for com.bong:testProject:1.0.2-SNAPSHOT/maven-metadata.xml, already updated during this session.
+16:43:01.766 [main] DEBUG o.e.a.i.i.DefaultDependencyCollector:286 - Dependency collection stats: {ConflictMarker.analyzeTime=1, ConflictMarker.markTime=1, ConflictMarker.nodeCount=1, ConflictIdSorter.graphTime=0, ConflictIdSorter.topsortTime=1, ConflictIdSorter.conflictIdCount=1, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=4, ConflictResolver.conflictItemCount=1, DefaultDependencyCollector.collectTime=22, DefaultDependencyCollector.transformTime=10}
+16:43:01.774 [main] INFO  o.k.s.embedder.MavenEmbedderUtils:55 - Not in OSGi: using plexus based maven parser
+16:43:02.130 [main] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for D:\project\2014_hhi\.m2\repository
+16:43:02.134 [main] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for D:\project\2014_hhi\.m2\repository
+16:43:02.149 [main] DEBUG o.e.a.i.i.DefaultDependencyCollector:286 - Dependency collection stats: {ConflictMarker.analyzeTime=0, ConflictMarker.markTime=0, ConflictMarker.nodeCount=1, ConflictIdSorter.graphTime=0, ConflictIdSorter.topsortTime=0, ConflictIdSorter.conflictIdCount=0, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=0, ConflictResolver.conflictItemCount=0, DefaultDependencyCollector.collectTime=0, DefaultDependencyCollector.transformTime=0}
+16:43:03.020 [main] INFO  o.d.c.k.b.impl.KieRepositoryImpl:88 - KieModule was added: ZipKieModule[releaseId=com.bong:testProject:1.0.2-SNAPSHOT,file=D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\testProject-1.0.2-SNAPSHOT.jar]
+16:43:03.023 [main] INFO  o.k.s.embedder.MavenEmbedderUtils:55 - Not in OSGi: using plexus based maven parser
+16:43:03.210 [main] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for D:\project\2014_hhi\.m2\repository
+16:43:03.212 [main] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for D:\project\2014_hhi\.m2\repository
+16:43:03.217 [main] DEBUG o.e.a.i.i.DefaultDependencyCollector:286 - Dependency collection stats: {ConflictMarker.analyzeTime=0, ConflictMarker.markTime=0, ConflictMarker.nodeCount=1, ConflictIdSorter.graphTime=0, ConflictIdSorter.topsortTime=0, ConflictIdSorter.conflictIdCount=0, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=0, ConflictResolver.conflictItemCount=0, DefaultDependencyCollector.collectTime=0, DefaultDependencyCollector.transformTime=0}
+16:43:03.219 [main] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for D:\project\2014_hhi\.m2\repository
+16:43:10.465 [pool-1-thread-4] DEBUG o.drools.core.impl.KnowledgeBaseImpl:197 - Starting Engine in PHREAK mode
+16:43:13.221 [Timer-0] INFO  o.k.s.embedder.MavenEmbedderUtils:55 - Not in OSGi: using plexus based maven parser
+16:43:13.448 [Timer-0] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for D:\project\2014_hhi\.m2\repository
+16:43:13.450 [Timer-0] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for D:\project\2014_hhi\.m2\repository
+16:43:13.456 [Timer-0] DEBUG o.e.a.i.i.DefaultDependencyCollector:286 - Dependency collection stats: {ConflictMarker.analyzeTime=0, ConflictMarker.markTime=0, ConflictMarker.nodeCount=1, ConflictIdSorter.graphTime=0, ConflictIdSorter.topsortTime=0, ConflictIdSorter.conflictIdCount=0, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=0, ConflictResolver.conflictItemCount=0, DefaultDependencyCollector.collectTime=0, DefaultDependencyCollector.transformTime=0}
+16:43:13.457 [Timer-0] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for D:\project\2014_hhi\.m2\repository
+16:43:13.476 [DefaultMetadataResolver-1-1] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter FileTransporter with priority 0.0 for file:/D:/project/2014_hhi/.m2/repository/
+16:43:13.476 [DefaultMetadataResolver-1-1] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for file:/D:/project/2014_hhi/.m2/repository/
+16:43:13.478 [DefaultMetadataResolver-1-0] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter HttpTransporter with priority 5.0 for http://207.46.141.43:8081/nexus/content/repositories/nicesnapshots/
+16:43:13.478 [DefaultMetadataResolver-1-0] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for http://207.46.141.43:8081/nexus/content/repositories/nicesnapshots/
+16:43:13.478 [DefaultMetadataResolver-1-3] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter HttpTransporter with priority 5.0 for http://207.46.141.43:8081/nexus/content/repositories/nicesnapshots/
+16:43:13.479 [DefaultMetadataResolver-1-3] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for http://207.46.141.43:8081/nexus/content/repositories/nicesnapshots/
+16:43:13.524 [DefaultMetadataResolver-1-2] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter HttpTransporter with priority 5.0 for http://repo1.maven.org/maven2/
+16:43:13.524 [DefaultMetadataResolver-1-1] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:124 - Writing tracking file D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\resolver-status.properties
+16:43:13.525 [DefaultMetadataResolver-1-2] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for http://repo1.maven.org/maven2/
+16:43:13.569 [DefaultMetadataResolver-1-3] DEBUG o.e.a.c.b.BasicRepositoryConnector:90 - Concurrent download of D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\maven-metadata-nice-repo.xml.part in progress, awaiting completion
+16:43:13.680 [DefaultMetadataResolver-1-0] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:124 - Writing tracking file D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\resolver-status.properties
+16:43:13.684 [DefaultMetadataResolver-1-3] DEBUG o.e.a.c.b.BasicRepositoryConnector:435 - Concurrent download of D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\maven-metadata-nice-repo.xml just finished, skipping download
+16:43:13.687 [DefaultMetadataResolver-1-3] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:124 - Writing tracking file D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\resolver-status.properties
+16:43:13.824 [DefaultMetadataResolver-1-2] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:124 - Writing tracking file D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\resolver-status.properties
+16:43:13.840 [Timer-0] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:313 - Skipped remote request for com.bong:testProject:1.0.2-SNAPSHOT/maven-metadata.xml, already updated during this session.
+16:43:13.841 [Timer-0] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:313 - Skipped remote request for com.bong:testProject:1.0.2-SNAPSHOT/maven-metadata.xml, already updated during this session.
+16:43:13.842 [Timer-0] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:313 - Skipped remote request for com.bong:testProject:1.0.2-SNAPSHOT/maven-metadata.xml, already updated during this session.
+16:43:13.842 [Timer-0] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:313 - Skipped remote request for com.bong:testProject:1.0.2-SNAPSHOT/maven-metadata.xml, already updated during this session.
+16:43:13.844 [Timer-0] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:313 - Skipped remote request for com.bong:testProject:1.0.2-SNAPSHOT/maven-metadata.xml, already updated during this session.
+16:43:13.845 [Timer-0] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:313 - Skipped remote request for com.bong:testProject:1.0.2-SNAPSHOT/maven-metadata.xml, already updated during this session.
+16:43:13.845 [Timer-0] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:313 - Skipped remote request for com.bong:testProject:1.0.2-SNAPSHOT/maven-metadata.xml, already updated during this session.
+16:43:13.846 [Timer-0] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:313 - Skipped remote request for com.bong:testProject:1.0.2-SNAPSHOT/maven-metadata.xml, already updated during this session.
+16:43:13.851 [Timer-0] DEBUG o.e.a.i.i.DefaultDependencyCollector:286 - Dependency collection stats: {ConflictMarker.analyzeTime=0, ConflictMarker.markTime=0, ConflictMarker.nodeCount=1, ConflictIdSorter.graphTime=0, ConflictIdSorter.topsortTime=0, ConflictIdSorter.conflictIdCount=1, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=0, ConflictResolver.conflictItemCount=1, DefaultDependencyCollector.collectTime=12, DefaultDependencyCollector.transformTime=0}
+16:43:13.852 [Timer-0] INFO  o.k.s.embedder.MavenEmbedderUtils:55 - Not in OSGi: using plexus based maven parser
+16:43:14.034 [Timer-0] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for D:\project\2014_hhi\.m2\repository
+16:43:14.036 [Timer-0] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for D:\project\2014_hhi\.m2\repository
+16:43:14.042 [Timer-0] DEBUG o.e.a.i.i.DefaultDependencyCollector:286 - Dependency collection stats: {ConflictMarker.analyzeTime=0, ConflictMarker.markTime=0, ConflictMarker.nodeCount=1, ConflictIdSorter.graphTime=0, ConflictIdSorter.topsortTime=0, ConflictIdSorter.conflictIdCount=0, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=0, ConflictResolver.conflictItemCount=0, DefaultDependencyCollector.collectTime=0, DefaultDependencyCollector.transformTime=0}
+16:43:14.068 [Timer-0] INFO  o.d.c.k.b.impl.KieRepositoryImpl:88 - KieModule was added: ZipKieModule[releaseId=com.bong:testProject:1.0.2-SNAPSHOT,file=D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\testProject-1.0.2-SNAPSHOT.jar]
+16:43:14.126 [Timer-0] INFO  org.kie.api.builder.KieScanner:300 - The following artifacts have been updated: {com.bong:testProject:1.0.2-SNAPSHOT=com.bong:testProject:jar:1.0.2-20151022.092140-11}
+16:43:23.223 [Timer-0] INFO  o.k.s.embedder.MavenEmbedderUtils:55 - Not in OSGi: using plexus based maven parser
+16:43:23.420 [Timer-0] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for D:\project\2014_hhi\.m2\repository
+16:43:23.422 [Timer-0] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for D:\project\2014_hhi\.m2\repository
+16:43:23.427 [Timer-0] DEBUG o.e.a.i.i.DefaultDependencyCollector:286 - Dependency collection stats: {ConflictMarker.analyzeTime=0, ConflictMarker.markTime=0, ConflictMarker.nodeCount=1, ConflictIdSorter.graphTime=0, ConflictIdSorter.topsortTime=0, ConflictIdSorter.conflictIdCount=0, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=0, ConflictResolver.conflictItemCount=0, DefaultDependencyCollector.collectTime=0, DefaultDependencyCollector.transformTime=0}
+16:43:23.429 [Timer-0] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for D:\project\2014_hhi\.m2\repository
+16:43:23.434 [DefaultMetadataResolver-2-1] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter FileTransporter with priority 0.0 for file:/D:/project/2014_hhi/.m2/repository/
+16:43:23.435 [DefaultMetadataResolver-2-1] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for file:/D:/project/2014_hhi/.m2/repository/
+16:43:23.436 [DefaultMetadataResolver-2-2] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter HttpTransporter with priority 5.0 for http://repo1.maven.org/maven2/
+16:43:23.436 [DefaultMetadataResolver-2-3] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter HttpTransporter with priority 5.0 for http://207.46.141.43:8081/nexus/content/repositories/nicesnapshots/
+16:43:23.437 [DefaultMetadataResolver-2-2] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for http://repo1.maven.org/maven2/
+16:43:23.436 [DefaultMetadataResolver-2-0] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter HttpTransporter with priority 5.0 for http://207.46.141.43:8081/nexus/content/repositories/nicesnapshots/
+16:43:23.437 [DefaultMetadataResolver-2-0] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for http://207.46.141.43:8081/nexus/content/repositories/nicesnapshots/
+16:43:23.437 [DefaultMetadataResolver-2-3] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for http://207.46.141.43:8081/nexus/content/repositories/nicesnapshots/
+16:43:23.439 [DefaultMetadataResolver-2-1] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:124 - Writing tracking file D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\resolver-status.properties
+16:43:23.529 [DefaultMetadataResolver-2-3] DEBUG o.e.a.c.b.BasicRepositoryConnector:90 - Concurrent download of D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\maven-metadata-nice-repo.xml.part in progress, awaiting completion
+16:43:23.601 [DefaultMetadataResolver-2-0] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:124 - Writing tracking file D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\resolver-status.properties
+16:43:23.633 [DefaultMetadataResolver-2-3] DEBUG o.e.a.c.b.BasicRepositoryConnector:435 - Concurrent download of D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\maven-metadata-nice-repo.xml just finished, skipping download
+16:43:23.636 [DefaultMetadataResolver-2-3] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:124 - Writing tracking file D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\resolver-status.properties
+16:43:23.739 [DefaultMetadataResolver-2-2] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:124 - Writing tracking file D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\resolver-status.properties
+16:43:33.224 [Timer-0] INFO  o.k.s.embedder.MavenEmbedderUtils:55 - Not in OSGi: using plexus based maven parser
+16:43:33.387 [Timer-0] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for D:\project\2014_hhi\.m2\repository
+16:43:33.390 [Timer-0] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for D:\project\2014_hhi\.m2\repository
+16:43:33.396 [Timer-0] DEBUG o.e.a.i.i.DefaultDependencyCollector:286 - Dependency collection stats: {ConflictMarker.analyzeTime=0, ConflictMarker.markTime=0, ConflictMarker.nodeCount=1, ConflictIdSorter.graphTime=0, ConflictIdSorter.topsortTime=0, ConflictIdSorter.conflictIdCount=0, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=0, ConflictResolver.conflictItemCount=0, DefaultDependencyCollector.collectTime=0, DefaultDependencyCollector.transformTime=0}
+16:43:33.398 [Timer-0] DEBUG o.e.a.i.i.DefaultLocalRepositoryProvider:116 - Using manager EnhancedLocalRepositoryManager with priority 10.0 for D:\project\2014_hhi\.m2\repository
+16:43:33.401 [DefaultMetadataResolver-3-1] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter FileTransporter with priority 0.0 for file:/D:/project/2014_hhi/.m2/repository/
+16:43:33.401 [DefaultMetadataResolver-3-1] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for file:/D:/project/2014_hhi/.m2/repository/
+16:43:33.409 [DefaultMetadataResolver-3-1] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:124 - Writing tracking file D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\resolver-status.properties
+16:43:33.413 [DefaultMetadataResolver-3-0] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter HttpTransporter with priority 5.0 for http://207.46.141.43:8081/nexus/content/repositories/nicesnapshots/
+16:43:33.414 [DefaultMetadataResolver-3-0] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for http://207.46.141.43:8081/nexus/content/repositories/nicesnapshots/
+16:43:33.414 [DefaultMetadataResolver-3-3] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter HttpTransporter with priority 5.0 for http://207.46.141.43:8081/nexus/content/repositories/nicesnapshots/
+16:43:33.414 [DefaultMetadataResolver-3-3] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for http://207.46.141.43:8081/nexus/content/repositories/nicesnapshots/
+16:43:33.413 [DefaultMetadataResolver-3-2] DEBUG o.e.a.i.i.DefaultTransporterProvider:119 - Using transporter HttpTransporter with priority 5.0 for http://repo1.maven.org/maven2/
+16:43:33.415 [DefaultMetadataResolver-3-2] DEBUG o.e.a.i.i.DefaultRepositoryConnectorProvider:141 - Using connector BasicRepositoryConnector with priority 0.0 for http://repo1.maven.org/maven2/
+16:43:33.507 [DefaultMetadataResolver-3-0] DEBUG o.e.a.c.b.BasicRepositoryConnector:90 - Concurrent download of D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\maven-metadata-nice-repo.xml.part in progress, awaiting completion
+16:43:33.583 [DefaultMetadataResolver-3-3] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:124 - Writing tracking file D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\resolver-status.properties
+16:43:33.611 [DefaultMetadataResolver-3-0] DEBUG o.e.a.c.b.BasicRepositoryConnector:435 - Concurrent download of D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\maven-metadata-nice-repo.xml just finished, skipping download
+16:43:33.615 [DefaultMetadataResolver-3-0] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:124 - Writing tracking file D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\resolver-status.properties
+16:43:33.813 [DefaultMetadataResolver-3-2] DEBUG o.e.a.i.i.DefaultUpdateCheckManager:124 - Writing tracking file D:\project\2014_hhi\.m2\repository\com\bong\testProject\1.0.2-SNAPSHOT\resolver-status.properties
