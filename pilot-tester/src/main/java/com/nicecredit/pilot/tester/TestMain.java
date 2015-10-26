@@ -13,7 +13,8 @@ public class TestMain {
 		
 		
 		String exchangeName = "pilot_ex";
-		String queueName = "pilot_queue1";
+		String queueName1 = "rule_queue";
+		String queueName2 = "cep_queue";
 		String routingKey = "routingKey1";
 		
 		ConnectionFactory factory = new ConnectionFactory();
@@ -32,14 +33,19 @@ public class TestMain {
 			System.out.println("created channel.");
 			
 			channel.exchangeDeclare(exchangeName, "direct", true);
-			channel.queueDeclare(queueName, true, false, false, null);
-			channel.queueBind(queueName, exchangeName, routingKey);
+			channel.queueDeclare(queueName1, true, false, false, null);
+			channel.queueDeclare(queueName2, true, false, false, null);
+			channel.queueBind(queueName1, exchangeName, routingKey);
+			channel.queueBind(queueName2, exchangeName, routingKey);
 			
-			byte[] messageBodyBytes = "Hello, test!".getBytes();
 			
-			channel.basicPublish(exchangeName, routingKey, true,
-                    MessageProperties.PERSISTENT_TEXT_PLAIN,
-                    messageBodyBytes);
+			for (int i = 0; i < 4; i++) {
+				byte[] messageBodyBytes = "Hello, test!".getBytes();
+				
+				channel.basicPublish(exchangeName, routingKey, true,
+	                    MessageProperties.PERSISTENT_TEXT_PLAIN,
+	                    messageBodyBytes);
+			}
 			
 			System.out.println("send success.");
 			

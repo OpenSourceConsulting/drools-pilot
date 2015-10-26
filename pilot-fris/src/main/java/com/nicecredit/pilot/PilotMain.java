@@ -4,13 +4,14 @@ import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import com.rabbitmq.client.AMQP;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.nicecredit.pilot.consumer.CEPDataConsumer;
+import com.nicecredit.pilot.consumer.RuleDataConsumer;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
-import com.rabbitmq.client.Consumer;
-import com.rabbitmq.client.DefaultConsumer;
-import com.rabbitmq.client.Envelope;
 
 /**
  * <pre>
@@ -20,13 +21,18 @@ import com.rabbitmq.client.Envelope;
  */
 public class PilotMain {
 	
+	private static final Logger LOGGER = LoggerFactory.getLogger(PilotMain.class);
+	
+	//private static Connection conn = null;
+	//private static Channel channel = null;
 	
 	public PilotMain() {
 	}
 
 	public void startConsume() {
 		String exchangeName = "pilot_ex";
-		String queueName = "pilot_queue1";
+		String queueName1 = "rule_queue";
+		String queueName2 = "cep_queue";
 		String routingKey = "routingKey1";
 		
 		ConnectionFactory factory = new ConnectionFactory();
@@ -39,73 +45,55 @@ public class PilotMain {
 		Connection conn = null;
 		Channel channel = null;
 		try {
-			//ExecutorService es = Executors.newFixedThreadPool(10);
-			conn = factory.newConnection();
+			ExecutorService es = Executors.newFixedThreadPool(10);
+			conn = factory.newConnection(es);
 			channel = conn.createChannel();
 			
 			System.out.println("created channel.");
 			
 			channel.exchangeDeclare(exchangeName, "direct", true);
-			channel.queueDeclare(queueName, true, false, false, null);
-			channel.queueBind(queueName, exchangeName, routingKey);
+			channel.queueDeclare(queueName1, true, false, false, null);
+			channel.queueDeclare(queueName2, true, false, false, null);
+			channel.queueBind(queueName1, exchangeName, routingKey);
+			channel.queueBind(queueName2, exchangeName, routingKey);
 			
 			boolean autoAck = false;
 			
 			
+		    //channel.basicQos(10);
+			String consumerTag = channel.basicConsume(queueName1, autoAck, new RuleDataConsumer(channel));
+			LOGGER.info(consumerTag + " wait for listening");
+			consumerTag = channel.basicConsume(queueName2, autoAck, new CEPDataConsumer(channel));
+			LOGGER.info(consumerTag + " wait for listening");
 			
-			Consumer consumer = new DefaultConsumer(channel) {
-				
-				private RuleExecutor ruleExecutor = new RuleExecutor();
-		         @Override
-		         public void handleDelivery(String consumerTag,
-		                                    Envelope envelope,
-		                                    AMQP.BasicProperties properties,
-		                                    byte[] body)
-		             throws IOException
-		         {
-		        	 
-		             String routingKey = envelope.getRoutingKey();
-		             String contentType = properties.getContentType();
-		             
-		             // (process the message components here ...)
-		        	 
-		        	 //System.out.println(new String(body));
-		             ruleExecutor.execute(new String(body));
-		        	 
-		        	 long deliveryTag = envelope.getDeliveryTag();
-		        	 
-		             getChannel().basicAck(deliveryTag, false);
-		         }
-		     };
-		    
-		    channel.basicQos(10);
-			String consumerTag = channel.basicConsume(queueName, autoAck, consumer);
-			System.out.println(consumerTag + " wait for listening");
-			
-			//Thread.sleep(50000);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
-		//} catch (InterruptedException e) {
-		//	e.printStackTrace();
+			close();
+		} 
 		
-		} /*finally {
-			if (channel != null) {
-				try {
-					channel.close();
-				} catch (IOException e2) {
-					// ignore.
-				}
+	}
+	
+	public static void close(){
+		/*
+		if (channel != null) {
+			try {
+				channel.close();
+			} catch (IOException e2) {
+				// ignore.
 			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (IOException e2) {
-					// ignore.
-				}
+			channel = null;
+		}
+		if (conn != null) {
+			try {
+				conn.close();
+			} catch (IOException e2) {
+				// ignore.
 			}
-		}*/
-		
+			conn = null;
+		}
+		*/
+		LOGGER.info("closed!!");
 	}
 
 	/**
