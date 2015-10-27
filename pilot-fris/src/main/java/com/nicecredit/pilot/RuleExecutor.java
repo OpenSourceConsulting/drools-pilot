@@ -36,7 +36,13 @@ public class RuleExecutor {
         message.setStatus(Message.HELLO);
         
         kSession.insert(message);
+        
+        
+        kSession.startProcess("testProject.PilotProcess");
         kSession.fireAllRules();
+        
+        System.out.println("-----------");
+        System.out.println("result: " + message.getStatus() + ", " + message.getMessage());
 	}
 
 }
