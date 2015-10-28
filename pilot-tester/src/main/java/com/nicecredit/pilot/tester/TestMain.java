@@ -39,13 +39,13 @@ public class TestMain {
 			channel.queueBind(queueName2, exchangeName, routingKey);
 			
 			
-			for (int i = 0; i < 4; i++) {
-				byte[] messageBodyBytes = "Hello, test!".getBytes();
+			//for (int i = 0; i < 4; i++) {
+				byte[] messageBodyBytes = "7".getBytes();
 				
 				channel.basicPublish(exchangeName, routingKey, true,
 	                    MessageProperties.PERSISTENT_TEXT_PLAIN,
 	                    messageBodyBytes);
-			}
+			//}
 			
 			System.out.println("send success.");
 			

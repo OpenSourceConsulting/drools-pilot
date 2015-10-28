@@ -1,6 +1,6 @@
-package com.nicecredit.pilot;
+package com.nicecredit.pilot.rule;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -8,13 +8,16 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.nicecredit.pilot.rule.RuleExecutor;
+import com.nicecredit.pilot.rule.TestRuleExecutor;
+
 /**
  * <pre>
  * 
  * </pre>
  * @author BongJin Kwon
  */
-public class RuleExecutorTest {
+public class TestRuleExecutorTest {
 
 	/**
 	 * <pre>
@@ -59,7 +62,7 @@ public class RuleExecutorTest {
 
 	@Test
 	public void testExecute() {
-		RuleExecutor ruleExec = new RuleExecutor();
+		RuleExecutor ruleExec = new TestRuleExecutor();
 		
 		try {
 			ruleExec.execute("hello junit");

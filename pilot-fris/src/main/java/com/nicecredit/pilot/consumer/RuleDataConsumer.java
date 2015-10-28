@@ -2,7 +2,8 @@ package com.nicecredit.pilot.consumer;
 
 import java.io.IOException;
 
-import com.nicecredit.pilot.RuleExecutor;
+import com.nicecredit.pilot.rule.PilotRuleExecutor;
+import com.nicecredit.pilot.rule.RuleExecutor;
 import com.rabbitmq.client.AMQP.BasicProperties;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.DefaultConsumer;
@@ -16,7 +17,8 @@ import com.rabbitmq.client.Envelope;
  */
 public class RuleDataConsumer extends DefaultConsumer {
 	
-	private RuleExecutor ruleExecutor = new RuleExecutor();
+	//private RuleExecutor ruleExecutor = new TestRuleExecutor();
+	private RuleExecutor ruleExecutor = new PilotRuleExecutor();
 
 	/**
 	 * <pre>
@@ -35,8 +37,7 @@ public class RuleDataConsumer extends DefaultConsumer {
 		//String routingKey = envelope.getRoutingKey();
         //String contentType = properties.getContentType();
         
-   	 
-   	 	//System.out.println(new String(body));
+		
         ruleExecutor.execute(new String(body));
    	 
         basicAck(envelope);

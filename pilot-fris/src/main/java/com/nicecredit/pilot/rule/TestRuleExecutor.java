@@ -1,4 +1,4 @@
-package com.nicecredit.pilot;
+package com.nicecredit.pilot.rule;
 
 import org.kie.api.KieServices;
 import org.kie.api.builder.KieScanner;
@@ -14,11 +14,11 @@ import com.bong.testproject.Message;
  * </pre>
  * @author BongJin Kwon
  */
-public class RuleExecutor {
+public class TestRuleExecutor implements RuleExecutor{
 	
 	private KieContainer kContainer;
 
-	public RuleExecutor() {
+	public TestRuleExecutor() {
 		KieServices ks = KieServices.Factory.get();
         ReleaseId releaseId = ks.newReleaseId( "com.bong", "testProject", "1.0.2-SNAPSHOT" );
         kContainer = ks.newKieContainer( releaseId );
