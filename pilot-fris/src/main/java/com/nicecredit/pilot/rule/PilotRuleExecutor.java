@@ -44,6 +44,7 @@ public class PilotRuleExecutor implements RuleExecutor{
         kSession.insert(memData);
         kSession.insert(result);
         
+        kSession.startProcess("PilotRule.RuleFlow1");
         kSession.fireAllRules();
         
         LOGGER.debug("------- result -----");
