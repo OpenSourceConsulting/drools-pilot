@@ -8,8 +8,89 @@
 		SELECT
 			*
 		FROM
-			INMEM_DATA
+			INMEM_DATA2
 	</select>
+	
+	<select id="selectFBApplAddrList" resultType="com.nice.pilot.pilot_rule.FBApplAddr">
+		SELECT
+			*
+		FROM
+			fbappladdr
+		LIMIT
+			0, 5
+	</select>
+	
+	<insert id="insertFBApplMst" parameterType="com.nice.pilot.pilot_rule.FBApplMst">
+		INSERT INTO fbapplmst (
+			appl_no,
+			version,
+			store_cd,
+			start_dtim,
+			ip_addr,
+			nice_fraud_stat_cd,
+			fraud_confirm_date,
+			fraud_rsn_cd1,
+			lst_work_date
+		)VALUES(
+			#{appl_no},
+			#{version},
+			#{store_cd},
+			DATE_FORMAT(NOW(),'%Y%m%d%H%i%s'),
+			#{ip_addr},
+			#{nice_fraud_stat_cd},
+			#{fraud_confirm_date},
+			#{fraud_rsn_cd1},
+			#{lst_work_date}
+		)
+	</insert>
+	
+	<insert id="insertFBApplAddr" parameterType="com.nice.pilot.pilot_rule.FBApplAddr">
+		INSERT INTO fbappladdr (
+			appl_no,
+			version,
+			store_cd,
+			org_id,
+			start_dtim,
+			strt_addr_2,
+			addr_pnu_cd,
+			nice_fraud_stat_cd,
+			lst_work_date
+		)VALUES(
+			#{appl_no},
+			#{version},
+			#{store_cd},
+			#{org_id},
+			DATE_FORMAT(NOW(),'%Y%m%d%H%i%s'),
+			#{strt_addr_2},
+			#{addr_pnu_cd},
+			#{nice_fraud_stat_cd},
+			#{lst_work_date}
+		)
+	</insert>
+	
+	<insert id="insertFBApplPhone" parameterType="com.nice.pilot.pilot_rule.FBApplPhone">
+		INSERT INTO fbapplphone (
+			appl_no,
+			version,
+			store_cd,
+			org_id,
+			wire_mobile_gb,
+			start_dtim,
+			full_phone_no,
+			nice_fraud_stat_cd,
+			lst_work_date
+		)VALUES(
+			#{appl_no},
+			#{version},
+			#{store_cd},
+			#{org_id},
+			#{wire_mobile_gb},
+			DATE_FORMAT(NOW(),'%Y%m%d%H%i%s'),
+			#{full_phone_no},
+			#{nice_fraud_stat_cd},
+			#{lst_work_date}
+		)
+	</insert>
 	
 	<!-- for junit test -->
 	<select id="testINMEM_DATAList" resultType="com.nice.pilot.pilot_rule.InMemData">

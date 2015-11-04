@@ -63,8 +63,8 @@ public class PilotMain {
 		Connection conn = null;
 		Channel channel = null;
 		try {
-			ExecutorService es = Executors.newFixedThreadPool(10);
-			conn = factory.newConnection(es);
+			//ExecutorService es = Executors.newFixedThreadPool(10);
+			conn = factory.newConnection();
 			channel = conn.createChannel();
 			
 			System.out.println("created channel.");

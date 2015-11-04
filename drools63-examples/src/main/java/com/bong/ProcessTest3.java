@@ -17,9 +17,9 @@ public class ProcessTest3 {
             // load up the knowledge base
 	        KieServices ks = KieServices.Factory.get();
     	    KieContainer kContainer = ks.getKieClasspathContainer();
-        	KieSession kSession = kContainer.newKieSession("ksession-process2");
         	
-        	EntryPoint entryPoint1 = kSession.getEntryPoint("entryone");
+    	    KieSession kSession = kContainer.newKieSession("ksession-process2");
+        	//EntryPoint entryPoint1 = kSession.getEntryPoint("entryone");
         	
         	
         	boolean decrese = false;

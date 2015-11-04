@@ -38,16 +38,25 @@ public class TestMain {
 			channel.queueBind(queueName1, exchangeName, routingKey);
 			channel.queueBind(queueName2, exchangeName, routingKey);
 			
+			int msgCount = 5;
+			String telegram = "MATCH1000           7001683169          2834014   1  44740811124.111.131cdabcdefg123456789a                                                                                                                                                      0221938302  01090670957                      ";
+			String telegram2 = "MATCH1000           7001683169          2834015   1  44740811124.111.131cdabcdefg123456789a                                                                                                                                                      0221938302  01090670957                      ";
 			
-			//for (int i = 0; i < 4; i++) {
-				byte[] messageBodyBytes = "7".getBytes();
+			for (int i = 0; i < msgCount; i++) {
+				//byte[] messageBodyBytes = "7".getBytes();
+				byte[] messageBodyBytes = null;
+				if (i < 4) {
+					messageBodyBytes = telegram.getBytes();
+				} else {
+					messageBodyBytes = telegram2.getBytes();
+				}
 				
 				channel.basicPublish(exchangeName, routingKey, true,
 	                    MessageProperties.PERSISTENT_TEXT_PLAIN,
 	                    messageBodyBytes);
-			//}
+			}
 			
-			System.out.println("send success.");
+			System.out.println("send count : "+ msgCount);
 			
 		} catch (IOException e) {
 			e.printStackTrace();

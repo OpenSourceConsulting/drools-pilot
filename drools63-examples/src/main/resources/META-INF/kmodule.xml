@@ -12,6 +12,9 @@
     <kbase name="process2" packages="process2" eventProcessingMode="stream">
         <ksession name="ksession-process2"/>
     </kbase>
+    <kbase name="process3" packages="process3" eventProcessingMode="stream">
+        <ksession name="ksession-process3"/>
+    </kbase>
     <kbase name="fusions" packages="fusions" eventProcessingMode="stream">
         <ksession name="ksession-fusions"/>
     </kbase>

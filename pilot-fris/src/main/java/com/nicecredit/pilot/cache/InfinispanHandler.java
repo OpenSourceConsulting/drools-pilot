@@ -37,8 +37,8 @@ public class InfinispanHandler {
 				.testOnReturn(false)
 				.testWhileIdle(true)
 				.addServer()
-				//.host("localhost").port(11222);http://207.46.141.43/
-				.host("207.46.141.43").port(11222);
+				//.host("localhost").port(11222);
+				.host("23.99.106.81").port(11222);
 		rmc = new RemoteCacheManager(cb.build());
 		cache = rmc.getCache();
 	}

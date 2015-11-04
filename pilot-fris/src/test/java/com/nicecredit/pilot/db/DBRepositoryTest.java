@@ -2,8 +2,12 @@ package com.nicecredit.pilot.db;
 
 import static org.junit.Assert.*;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+import java.nio.charset.UnsupportedCharsetException;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -11,6 +15,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.nice.pilot.pilot_rule.FBApplAddr;
 import com.nice.pilot.pilot_rule.InMemData;
 import com.nicecredit.pilot.cache.InfinispanHandler;
 
@@ -60,6 +65,33 @@ public class DBRepositoryTest {
 			fail(e.toString());
 		}
 		
+	}
+	
+	@Test
+	public void testSelect() {
+		
+		/*
+		 * SELECT 테스트
+		
+		try {
+			SqlSession sqlSession = DBRepository.getInstance().openSession();
+			
+			List<FBApplAddr> list = sqlSession.selectList("PilotMapper.selectFBApplAddrList");
+			for (FBApplAddr fbApplAddr : list) {
+				System.out.println(convert(fbApplAddr.getStrt_addr_2()));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail(e.toString());
+		}
+		 */
+	}
+	
+	private String convert(String orgin) throws UnsupportedEncodingException {
+		//return StringUtils.toEncodedString(orgin.getBytes("UTF-8"), Charset.forName("ISO-8859-1"));
+		//return StringUtils.toEncodedString(orgin.getBytes("ISO-8859-1"), Charset.forName("EUC-KR"));
+		return StringUtils.toEncodedString(orgin.getBytes("EUC-KR"), Charset.forName("ISO-8859-1"));
 	}
 
 }

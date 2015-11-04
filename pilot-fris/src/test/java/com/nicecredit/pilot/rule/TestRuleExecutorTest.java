@@ -2,6 +2,9 @@ package com.nicecredit.pilot.rule;
 
 import static org.junit.Assert.fail;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -64,8 +67,11 @@ public class TestRuleExecutorTest {
 	public void testExecute() {
 		RuleExecutor ruleExec = new TestRuleExecutor();
 		
+		Map<String, Object> teleMap = new HashMap<String, Object>();
+		
+		teleMap.put("teleCode", "hello junit");
 		try {
-			ruleExec.execute("hello junit");
+			ruleExec.execute(teleMap);
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail(e.toString());

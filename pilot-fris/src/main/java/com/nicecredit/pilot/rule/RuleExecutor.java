@@ -1,5 +1,7 @@
 package com.nicecredit.pilot.rule;
 
+import java.util.Map;
+
 /**
  * <pre>
  * 
@@ -7,6 +9,6 @@ package com.nicecredit.pilot.rule;
  * @author BongJin Kwon
  */
 public interface RuleExecutor {
-	void execute(String msg);
+	void execute(Map<String, Object> teleMap);
 }
 //end of RuleExecutor.java

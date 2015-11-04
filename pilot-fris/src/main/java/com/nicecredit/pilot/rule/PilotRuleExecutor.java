@@ -1,5 +1,7 @@
 package com.nicecredit.pilot.rule;
 
+import java.util.Map;
+
 import org.kie.api.KieServices;
 import org.kie.api.builder.KieScanner;
 import org.kie.api.builder.ReleaseId;
@@ -8,8 +10,10 @@ import org.kie.api.runtime.KieSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.nice.pilot.pilot_rule.CEPOrgIDEvent;
 import com.nice.pilot.pilot_rule.InMemData;
 import com.nice.pilot.pilot_rule.Result1;
+import com.nicecredit.pilot.util.Utils;
 
 /**
  * <pre>
@@ -22,6 +26,7 @@ public class PilotRuleExecutor implements RuleExecutor{
 	private static final Logger LOGGER = LoggerFactory.getLogger(PilotRuleExecutor.class);
 	
 	private KieContainer kContainer;
+	private KieSession kSession;
 
 	public PilotRuleExecutor() {
 		KieServices ks = KieServices.Factory.get();
@@ -31,24 +36,26 @@ public class PilotRuleExecutor implements RuleExecutor{
 
         // Start the KieScanner polling the Maven repository every 10 seconds
         kScanner.start( 10000L );
+        kSession = kContainer.newKieSession("newSession");
 	}
 	
-	public void execute(String msg) {
-		KieSession kSession = kContainer.newKieSession("defaultKieSession");
+	public void execute(Map<String, Object> teleMap) {
+		//KieSession kSession = kContainer.newKieSession("defaultKieSession");
 		
         InMemData memData = new InMemData();
-        memData.setNR00101037(Integer.parseInt(msg));//PI등급
+        memData.setNR00101037(8);//PI등급
         
         Result1 result = new Result1();
-        
+                
         kSession.insert(memData);
         kSession.insert(result);
+        kSession.insert(teleMap.get(Utils.KEY_FBAPPLADDR));
         
         kSession.startProcess("PilotRule.RuleFlow1");
         kSession.fireAllRules();
         
         LOGGER.debug("------- result -----");
-        LOGGER.debug("PI등급: {}, result: {}", msg, result.getResult1());
+        LOGGER.debug("전문코드: {}, result: {}", Utils.getTeleCode(teleMap), result.getResult1());
 	}
 
 }

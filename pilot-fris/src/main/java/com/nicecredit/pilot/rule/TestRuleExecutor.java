@@ -1,5 +1,7 @@
 package com.nicecredit.pilot.rule;
 
+import java.util.Map;
+
 import org.kie.api.KieServices;
 import org.kie.api.builder.KieScanner;
 import org.kie.api.builder.ReleaseId;
@@ -7,6 +9,7 @@ import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 
 import com.bong.testproject.Message;
+import com.nicecredit.pilot.util.Utils;
 
 /**
  * <pre>
@@ -28,11 +31,11 @@ public class TestRuleExecutor implements RuleExecutor{
         kScanner.start( 10000L );
 	}
 	
-	public void execute(String msg) {
+	public void execute(Map<String, Object> teleMap) {
 		KieSession kSession = kContainer.newKieSession("defaultKieSession");
 		
         Message message = new Message();
-        message.setMessage(msg);
+        message.setMessage(Utils.getTeleCode(teleMap));
         message.setStatus(Message.HELLO);
         
         kSession.insert(message);

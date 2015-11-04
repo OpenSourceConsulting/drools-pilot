@@ -1,12 +1,14 @@
 package com.nicecredit.pilot.consumer;
 
 import java.io.IOException;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.nicecredit.pilot.rule.CEPRuleExecutor;
 import com.nicecredit.pilot.rule.RuleExecutor;
+import com.nicecredit.pilot.util.Utils;
 import com.rabbitmq.client.AMQP.BasicProperties;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.DefaultConsumer;
@@ -39,8 +41,12 @@ public class CEPDataConsumer extends DefaultConsumer {
 			BasicProperties properties, byte[] body) throws IOException {
 		
 		
-		//LOGGER.debug(new String(body));
-		ruleExecutor.execute(new String(body));
+		String telegram = new String(body);
+		LOGGER.debug("telegram:{}", telegram);
+		
+		Map<String, Object> teleMap = Utils.parseTelegram(telegram);
+		
+		ruleExecutor.execute(teleMap);
 		
 		basicAck(envelope);
 	}

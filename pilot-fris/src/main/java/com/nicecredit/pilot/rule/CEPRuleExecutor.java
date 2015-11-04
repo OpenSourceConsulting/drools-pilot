@@ -1,11 +1,15 @@
 package com.nicecredit.pilot.rule;
 
+import java.util.Map;
+
 import org.kie.api.KieServices;
 import org.kie.api.builder.KieScanner;
 import org.kie.api.builder.ReleaseId;
 import org.kie.api.runtime.KieContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.nicecredit.pilot.util.Utils;
 
 /**
  * <pre>
@@ -40,8 +44,8 @@ public class CEPRuleExecutor implements RuleExecutor {
 	 * @see com.nicecredit.pilot.rule.RuleExecutor#execute(java.lang.String)
 	 */
 	@Override
-	public void execute(String msg) {
-		LOGGER.debug(msg);
+	public void execute(Map<String, Object> teleMap) {
+		LOGGER.debug(Utils.getTeleCode(teleMap));
 
 	}
 

@@ -35,16 +35,16 @@ public class InfinispanHandlerTest {
 		 * Infinispan 연동 테스트.
 		 */
 		String key = "key1";
-		String app_no = "1111";
+		String org_id = "1111";
 		InMemData value = new InMemData();
-		value.setAppl_no(app_no);
+		value.setOrg_id(org_id);
 		try {
 			InfinispanHandler memHandler = InfinispanHandler.getInstance();
 			memHandler.put(key, value);
 			
 			Object cacheValue = memHandler.get(key);
 			assertTrue(cacheValue instanceof InMemData);
-			assertEquals(app_no, ((InMemData)cacheValue).getAppl_no());
+			assertEquals(org_id, ((InMemData)cacheValue).getOrg_id());
 			
 			memHandler.remove(key);
 		} catch (Exception e) {
