@@ -8,6 +8,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.nice.pilot.pilot_rule.InMemData;
+
 public class InfinispanHandlerTest {
 
 	@BeforeClass
@@ -33,17 +35,35 @@ public class InfinispanHandlerTest {
 		 * Infinispan 연동 테스트.
 		 */
 		String key = "key1";
-		String value = "val11";
+		String app_no = "1111";
+		InMemData value = new InMemData();
+		value.setAppl_no(app_no);
 		try {
-			InfinispanHandler memHandler = new InfinispanHandler();
+			InfinispanHandler memHandler = InfinispanHandler.getInstance();
 			memHandler.put(key, value);
 			
-			assertEquals(value, memHandler.get(key));
+			Object cacheValue = memHandler.get(key);
+			assertTrue(cacheValue instanceof InMemData);
+			assertEquals(app_no, ((InMemData)cacheValue).getAppl_no());
 			
+			memHandler.remove(key);
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail(e.toString());
-		}
+		} 
+	}
+	
+	@Test
+	public void testKeys() {
+		
+		try {
+			InfinispanHandler memHandler = InfinispanHandler.getInstance();
+			
+			System.out.println(memHandler.keys().size());
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail(e.toString());
+		} 
 	}
 
 }

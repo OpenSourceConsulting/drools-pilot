@@ -1,14 +1,20 @@
 package com.nicecredit.pilot;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.nice.pilot.pilot_rule.InMemData;
+import com.nicecredit.pilot.cache.InfinispanHandler;
 import com.nicecredit.pilot.consumer.CEPDataConsumer;
 import com.nicecredit.pilot.consumer.RuleDataConsumer;
+import com.nicecredit.pilot.db.DBRepository;
+import com.nicecredit.pilot.util.Utils;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -23,13 +29,25 @@ public class PilotMain {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(PilotMain.class);
 	
-	//private static Connection conn = null;
-	//private static Channel channel = null;
-	
-	public PilotMain() {
+	/**
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		
+		initializing();
+		startConsume();
+
 	}
 
-	public void startConsume() {
+	/**
+	 * <pre>
+	 * 메시지 수신 시작.
+	 * </pre>
+	 */
+	public static void startConsume() {
 		String exchangeName = "pilot_ex";
 		String queueName1 = "rule_queue";
 		String queueName2 = "cep_queue";
@@ -67,47 +85,57 @@ public class PilotMain {
 			LOGGER.info(consumerTag + " wait for listening");
 			
 			
-		} catch (IOException e) {
+		} catch (Exception e) {
+			
 			e.printStackTrace();
-			close();
+			if (channel != null) {
+				try {
+					channel.close();
+				} catch (IOException e2) {
+					// ignore.
+				}
+				channel = null;
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (IOException e2) {
+					// ignore.
+				}
+				conn = null;
+			}
+			LOGGER.info("closed!!");
 		} 
 		
 	}
 	
-	public static void close(){
-		/*
-		if (channel != null) {
-			try {
-				channel.close();
-			} catch (IOException e2) {
-				// ignore.
-			}
-			channel = null;
-		}
-		if (conn != null) {
-			try {
-				conn.close();
-			} catch (IOException e2) {
-				// ignore.
-			}
-			conn = null;
-		}
-		*/
-		LOGGER.info("closed!!");
-	}
-
+	
 	/**
 	 * <pre>
-	 * 
+	 * fris 기동전 초기화 작업
+	 * - INMEM_DATA 테이블 데이타를 캐시(Infinispan)에 올린다.
 	 * </pre>
-	 * @param args
 	 */
-	public static void main(String[] args) {
+	private static void initializing () {
 		
-		PilotMain pilot = new PilotMain();
-		pilot.startConsume();
+		SqlSession sqlSession = DBRepository.getInstance().openSession();
+		InfinispanHandler cacheHandler = InfinispanHandler.getInstance();
 		
-		//DroolsTest3.main(args);
+		LOGGER.debug("----------- initializing...");
+		
+		try {
+			List<InMemData> list = sqlSession.selectList("PilotMapper.selectINMEM_DATAList");
+			
+			for (InMemData inMemData : list) {
+				cacheHandler.put(Utils.getCacheKey(inMemData), inMemData);
+			}
+			
+			LOGGER.debug("----------- initialized {}.", list.size());
+		} catch (Throwable e) {
+			cacheHandler.stop();
+			throw e;
+		}
+		
 	}
 
 }

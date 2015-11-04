@@ -3,11 +3,18 @@
 
 <mapper namespace="PilotMapper">
 
+	
 	<select id="selectINMEM_DATAList" resultType="com.nice.pilot.pilot_rule.InMemData">
 		SELECT
-			appl_no,
-			NR00101037,
-			NS07101202
+			*
+		FROM
+			INMEM_DATA
+	</select>
+	
+	<!-- for junit test -->
+	<select id="testINMEM_DATAList" resultType="com.nice.pilot.pilot_rule.InMemData">
+		SELECT
+			*
 		FROM
 			INMEM_DATA
 		LIMIT

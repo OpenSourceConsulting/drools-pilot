@@ -12,6 +12,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.nice.pilot.pilot_rule.InMemData;
+import com.nicecredit.pilot.cache.InfinispanHandler;
 
 public class DBRepositoryTest {
 
@@ -39,10 +40,20 @@ public class DBRepositoryTest {
 		 */
 		try {
 			SqlSession sqlSession = DBRepository.getInstance().openSession();
+			//InfinispanHandler cacheHandler = InfinispanHandler.getInstance();
 			
-			List<InMemData> list = sqlSession.selectList("PilotMapper.selectINMEM_DATAList");
+			List<InMemData> list = sqlSession.selectList("PilotMapper.testINMEM_DATAList");
 			
-			System.out.println(list.size());
+			/*for (InMemData inMemData : list) {
+				cacheHandler.put(inMemData.getAppl_no() + "_" + inMemData.getVersion() + "_" + inMemData.getStore_cd(), inMemData);
+			}*/
+			
+			int listSize = list.size();
+			//int cacheSize = cacheHandler.keys().size();
+			
+			System.out.println(listSize);
+			//System.out.println(cacheSize);
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();

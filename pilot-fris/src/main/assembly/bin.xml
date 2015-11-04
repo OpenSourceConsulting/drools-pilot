@@ -42,8 +42,8 @@
 			<directory>${project.build.directory}/classes</directory>
 			<outputDirectory>conf</outputDirectory>
 			<includes>
-				<include>logback*.xml</include>
-				<include>config.properties</include>
+				<include>*.xml</include>
+				<include>*.properties</include>
 			</includes>
             <fileMode>0644</fileMode>
 		</fileSet>
