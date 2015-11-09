@@ -10,7 +10,6 @@ import org.kie.api.runtime.KieSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.nice.pilot.pilot_rule.CEPOrgIDEvent;
 import com.nice.pilot.pilot_rule.InMemData;
 import com.nice.pilot.pilot_rule.Result1;
 import com.nicecredit.pilot.util.Utils;

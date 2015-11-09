@@ -1,19 +1,16 @@
 package com.bong;
 
-import java.util.Map;
 
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
-import org.kie.api.runtime.rule.EntryPoint;
 
-import com.nice.pilot.pilot_rule.CEPOrgIDEvent;
 import com.nice.pilot.pilot_rule.FBApplAddr;
 import com.nice.pilot.pilot_rule.InMemData;
 import com.nice.pilot.pilot_rule.Result1;
 
 /**
- * 
+ * 동일 구성원ID 의 유입 업체수 CEP 테스트.
  */
 public class ProcessTest4 {
 

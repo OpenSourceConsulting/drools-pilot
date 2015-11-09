@@ -3,7 +3,7 @@ package com.nicecredit.pilot.cep;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.nice.pilot.pilot_rule.CEPOrgIDEvent;
+import com.nice.pilot.pilot_rule.FBApplAddr;
 
 /**
  * <pre>
@@ -44,13 +44,13 @@ public class CEPOrgIDHandleEvent {
 		this.orgCount = orgCount;
 	}
 
-	public void addEvent(CEPOrgIDEvent event) {
+	public void addEvent(FBApplAddr event) {
 		if (this.org_id.equals(event.getOrg_id())) {
 			handleMap.put(event.getStore_cd(), "");
 		}
 	}
 	
-	public void removeEvent(CEPOrgIDEvent event) {
+	public void removeEvent(FBApplAddr event) {
 		if (this.org_id.equals(event.getOrg_id())) {
 			handleMap.remove(event.getStore_cd());
 		}

@@ -58,7 +58,9 @@ public class TestMain {
 			
 			System.out.println("send count : "+ msgCount);
 			
-		} catch (IOException e) {
+			Thread.sleep(1000);
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			if (channel != null) {
