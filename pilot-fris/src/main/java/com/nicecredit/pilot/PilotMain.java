@@ -57,7 +57,9 @@ public class PilotMain {
 		factory.setUsername("user1");
 		factory.setPassword("user1");
 		factory.setVirtualHost("/");
-		factory.setHost("207.46.141.43");
+		//factory.setHost("207.46.141.43");// 메시지 미전달 오류 (unack message queueing 발생) 로 주석처리.
+		factory.setHost("nice-osc-ap.cloudapp.net");
+		//factory.setHost("localhost");
 		factory.setPort(5672);
 		
 		Connection conn = null;
@@ -126,8 +128,14 @@ public class PilotMain {
 		try {
 			List<InMemData> list = sqlSession.selectList("PilotMapper.selectINMEM_DATAList");
 			
+			int cnt = 0;
 			for (InMemData inMemData : list) {
+				if(cnt % 100 == 0) {
+					LOGGER.debug("--"+ cnt);
+				}
+				
 				cacheHandler.put(Utils.getCacheKey(inMemData), inMemData);
+				cnt++;
 			}
 			
 			LOGGER.debug("----------- initialized {}.", list.size());
