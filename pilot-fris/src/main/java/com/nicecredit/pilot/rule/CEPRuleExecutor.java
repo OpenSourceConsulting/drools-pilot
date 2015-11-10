@@ -6,9 +6,12 @@ import org.kie.api.KieServices;
 import org.kie.api.builder.KieScanner;
 import org.kie.api.builder.ReleaseId;
 import org.kie.api.runtime.KieContainer;
+import org.kie.api.runtime.KieSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.nice.pilot.pilot_rule.FBApplAddr;
+import com.nice.pilot.pilot_rule.FBApplPhone;
 import com.nicecredit.pilot.util.Utils;
 
 /**
@@ -22,6 +25,7 @@ public class CEPRuleExecutor implements RuleExecutor {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CEPRuleExecutor.class);
 	
 	private KieContainer kContainer;
+	private KieSession kSession;
 
 	/**
 	 * <pre>
@@ -29,15 +33,14 @@ public class CEPRuleExecutor implements RuleExecutor {
 	 * </pre>
 	 */
 	public CEPRuleExecutor() {
-		/*
 		KieServices ks = KieServices.Factory.get();
 		ReleaseId releaseId = ks.newReleaseId( "com.nice.pilot", "cep-rule", "1.0.0-SNAPSHOT" );
         kContainer = ks.newKieContainer( releaseId );
-        KieScanner kScanner = ks.newKieScanner( kContainer );
+        //KieScanner kScanner = ks.newKieScanner( kContainer );
 
-        // Start the KieScanner polling the Maven repository every 10 seconds
-        kScanner.start( 10000L );
-        */
+        //Start the KieScanner polling the Maven repository every 10 seconds
+        //kScanner.start( 10000L );
+        kSession = kContainer.newKieSession("cepSession");
 	}
 
 	/* (non-Javadoc)
@@ -45,8 +48,15 @@ public class CEPRuleExecutor implements RuleExecutor {
 	 */
 	@Override
 	public void execute(Map<String, Object> teleMap) {
-		LOGGER.debug(Utils.getTeleCode(teleMap));
+		
+		FBApplAddr addr = (FBApplAddr)teleMap.get(Utils.KEY_FBAPPLADDR);
 
+        kSession.insert(addr);
+        
+        kSession.fireAllRules();
+        
+        LOGGER.debug("------- result of cep -----");
+        LOGGER.debug("전문코드: {}, result: {}", Utils.getTeleCode(teleMap), addr.getResp_cd());
 	}
 
 }

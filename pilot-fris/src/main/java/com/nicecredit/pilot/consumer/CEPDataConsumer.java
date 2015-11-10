@@ -20,7 +20,9 @@ import com.rabbitmq.client.Envelope;
  * </pre>
  * @author BongJin Kwon
  */
-public class CEPDataConsumer extends DefaultConsumer {
+public class CEPDataConsumer extends BaseConsumer {
+	
+	public static final String CONSUMER_TAG = "CEPDataConsumer";
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(CEPDataConsumer.class);
 	
@@ -44,17 +46,18 @@ public class CEPDataConsumer extends DefaultConsumer {
 		String telegram = new String(body);
 		LOGGER.debug("telegram:{}", telegram);
 		
-		Map<String, Object> teleMap = Utils.parseTelegram(telegram);
-		
-		ruleExecutor.execute(teleMap);
-		
-		basicAck(envelope);
+		try {
+			Map<String, Object> teleMap = Utils.parseTelegram(telegram);
+			
+			ruleExecutor.execute(teleMap);
+			
+			sendAck(envelope);
+		} catch (Exception e) {
+			LOGGER.error(e.toString(), e);
+		}
 	}
 	
-	private void basicAck(Envelope envelope) throws IOException {
-		long deliveryTag = envelope.getDeliveryTag();
-        getChannel().basicAck(deliveryTag, false);
-	}
+	
 
 }
 //end of CepDataConsumer.java

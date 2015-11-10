@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import com.nice.pilot.pilot_rule.InMemData;
 import com.nicecredit.pilot.cache.InfinispanHandler;
 import com.nicecredit.pilot.consumer.CEPDataConsumer;
+import com.nicecredit.pilot.consumer.ExceptionHandlerImpl;
 import com.nicecredit.pilot.consumer.RuleDataConsumer;
 import com.nicecredit.pilot.db.DBRepository;
 import com.nicecredit.pilot.util.Utils;
@@ -51,16 +52,21 @@ public class PilotMain {
 		String exchangeName = "pilot_ex";
 		String queueName1 = "rule_queue";
 		String queueName2 = "cep_queue";
-		String routingKey = "routingKey1";
+		//String routingKey = "routingKey1";
 		
 		ConnectionFactory factory = new ConnectionFactory();
 		factory.setUsername("user1");
 		factory.setPassword("user1");
 		factory.setVirtualHost("/");
 		//factory.setHost("207.46.141.43");// 메시지 미전달 오류 (unack message queueing 발생) 로 주석처리.
-		factory.setHost("nice-osc-ap.cloudapp.net");
-		//factory.setHost("localhost");
+		//factory.setHost("nice-osc-ap.cloudapp.net");
+		factory.setHost("localhost");// for nice server
 		factory.setPort(5672);
+		factory.setExceptionHandler(new ExceptionHandlerImpl());
+		// connection that will recover automatically
+		factory.setAutomaticRecoveryEnabled(true);
+		factory.setNetworkRecoveryInterval(5000);// attempt recovery every 10 seconds
+		factory.setConnectionTimeout(5000);
 		
 		Connection conn = null;
 		Channel channel = null;
@@ -74,16 +80,16 @@ public class PilotMain {
 			channel.exchangeDeclare(exchangeName, "direct", true);
 			channel.queueDeclare(queueName1, true, false, false, null);
 			channel.queueDeclare(queueName2, true, false, false, null);
-			channel.queueBind(queueName1, exchangeName, routingKey);
-			channel.queueBind(queueName2, exchangeName, routingKey);
+			channel.queueBind(queueName1, exchangeName, "MATCH");
+			channel.queueBind(queueName2, exchangeName, "REGIT");
 			
 			boolean autoAck = false;
 			
 			
 		    //channel.basicQos(10);
-			String consumerTag = channel.basicConsume(queueName1, autoAck, new RuleDataConsumer(channel));
+			String consumerTag = channel.basicConsume(queueName1, autoAck, RuleDataConsumer.CONSUMER_TAG, new RuleDataConsumer(channel));
 			LOGGER.info(consumerTag + " wait for listening");
-			consumerTag = channel.basicConsume(queueName2, autoAck, new CEPDataConsumer(channel));
+			consumerTag = channel.basicConsume(queueName2, autoAck, CEPDataConsumer.CONSUMER_TAG, new CEPDataConsumer(channel));
 			LOGGER.info(consumerTag + " wait for listening");
 			
 			

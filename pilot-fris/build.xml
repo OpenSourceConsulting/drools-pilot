@@ -1,12 +1,25 @@
-<project name="pilot fris build" basedir="." default="deploy">
+<project name="pilot fris build" basedir="." default="deploy2NICE">
 	
-	<property file="osc.properties"/>
+	
+	
+	<target name="deploy2NICE">
+		<property file="nice.properties" />
+		<antcall target="deploy" />
+	</target>
+	
+	<target name="deploy2OSC">
+		<!--
+		<setproxy socksproxyhost="localhost" socksproxyport="20024"/>
+		-->
+		<property file="osc.properties" />
+		<antcall target="deploy" />
+		<sshexec port="${server.port}" host="${server.ip}" username="${user.id}" password="${user.passwd}" verbose="true"
+					command="cd ${deploy.path}; cp ./startup.sh ./pilot-fris-0.0.1-SNAPSHOT" 
+					trust="true" failonerror="false" />
+	</target>
 
 	<target name="deploy">
-
-		<setproxy socksproxyhost="localhost" socksproxyport="20024"/>
 		
-		<property name="server.port" value="22" />
 		<property name="package.name" value="pilot-fris-0.0.1-SNAPSHOT" />
 		<property name="deploy.file" value="${package.name}-bin.tar.gz" />
 
@@ -19,6 +32,8 @@
 			trust="true" failonerror="false" />
 
 	</target>
+	
+	
 	
 	<target name="scp.file">
 

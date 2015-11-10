@@ -7,9 +7,13 @@ import org.kie.api.builder.KieScanner;
 import org.kie.api.builder.ReleaseId;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+import org.kie.internal.logger.KnowledgeRuntimeLogger;
+import org.kie.internal.logger.KnowledgeRuntimeLoggerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.nice.pilot.pilot_rule.FBApplAddr;
+import com.nice.pilot.pilot_rule.FBApplPhone;
 import com.nice.pilot.pilot_rule.InMemData;
 import com.nice.pilot.pilot_rule.Result1;
 import com.nicecredit.pilot.util.Utils;
@@ -26,16 +30,18 @@ public class PilotRuleExecutor implements RuleExecutor{
 	
 	private KieContainer kContainer;
 	private KieSession kSession;
+	//private KnowledgeRuntimeLogger logger;
 
 	public PilotRuleExecutor() {
 		KieServices ks = KieServices.Factory.get();
 		ReleaseId releaseId = ks.newReleaseId( "com.nice.pilot", "pilot-rule", "1.0.0-SNAPSHOT" );
         kContainer = ks.newKieContainer( releaseId );
-        KieScanner kScanner = ks.newKieScanner( kContainer );
+        //KieScanner kScanner = ks.newKieScanner( kContainer );
 
-        // Start the KieScanner polling the Maven repository every 10 seconds
-        kScanner.start( 10000L );
+        //Start the KieScanner polling the Maven repository every 10 seconds
+        //kScanner.start( 10000L );
         kSession = kContainer.newKieSession("newSession");
+        //logger = KnowledgeRuntimeLoggerFactory.newFileLogger(kSession, "test");
 	}
 	
 	public void execute(Map<String, Object> teleMap) {
@@ -45,16 +51,20 @@ public class PilotRuleExecutor implements RuleExecutor{
         memData.setNR00101037(8);//PI등급
         
         Result1 result = new Result1();
+        
+        FBApplAddr addr = (FBApplAddr)teleMap.get(Utils.KEY_FBAPPLADDR);
+        FBApplPhone wire = (FBApplPhone)teleMap.get(Utils.KEY_FBAPPL_WPHONE);
                 
         kSession.insert(memData);
         kSession.insert(result);
-        kSession.insert(teleMap.get(Utils.KEY_FBAPPLADDR));
+        kSession.insert(addr);
+        kSession.insert(wire);
         
         kSession.startProcess("PilotRule.RuleFlow1");
         kSession.fireAllRules();
         
         LOGGER.debug("------- result -----");
-        LOGGER.debug("전문코드: {}, result: {}", Utils.getTeleCode(teleMap), result.getResult1());
+        LOGGER.debug("전문코드: {}, result1: {}, result2: {}, result3: {}", Utils.getTeleCode(teleMap), addr.getResp_cd(), wire.getResp_cd(), result.getResult1());
 	}
 
 }

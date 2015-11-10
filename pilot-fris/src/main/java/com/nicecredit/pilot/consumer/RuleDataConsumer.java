@@ -22,7 +22,9 @@ import com.rabbitmq.client.Envelope;
  * </pre>
  * @author BongJin Kwon
  */
-public class RuleDataConsumer extends DefaultConsumer {
+public class RuleDataConsumer extends BaseConsumer {
+	
+	public static final String CONSUMER_TAG = "RuleDataConsumer";
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(RuleDataConsumer.class);
 	
@@ -46,27 +48,34 @@ public class RuleDataConsumer extends DefaultConsumer {
 		String telegram = new String(body);
 		LOGGER.debug("telegram:{}", telegram);
 		
-		/*
-		 * 전문 파싱.
-		 */
-		Map<String, Object> teleMap = Utils.parseTelegram(telegram);
+		try {
+			/*
+			 * 전문 파싱.
+			 */
+			Map<String, Object> teleMap = Utils.parseTelegram(telegram);
+			
+			/*
+			 * 전문 저장
+			 */
+			saveTelegram(teleMap);
+			
+			/*
+			 * TODO Profiling
+			 */
+			
+			
+			/*
+			 * 룰 실행.
+			 */
+	        ruleExecutor.execute(teleMap);
+	   	 
+	        sendAck(envelope);
+	        
+		} catch (Exception e) {
+			LOGGER.error(e.toString(), e);
+		}
 		
-		/*
-		 * 전문 저장
-		 */
-		saveTelegram(teleMap);
 		
-		/*
-		 * TODO Profiling
-		 */
-		
-		
-		/*
-		 * 룰 실행.
-		 */
-        ruleExecutor.execute(teleMap);
-   	 
-        sendAck(envelope);
 	}
 	
 	/**
@@ -76,6 +85,7 @@ public class RuleDataConsumer extends DefaultConsumer {
 	 * @param teleMap
 	 */
 	private void saveTelegram(Map<String, Object> teleMap) {
+		LOGGER.debug("saving telegram.");
 		SqlSession sqlSession = DBRepository.getInstance().openSession();
 		
 		try {
@@ -94,18 +104,6 @@ public class RuleDataConsumer extends DefaultConsumer {
 		}
 	}
 	
-	/**
-	 * <pre>
-	 * rabbitmq 에 메시지 처리 완료 ack를 보낸다.
-	 * - rabbitmq 는 이 ack 를 받아야 queue 에서 해당 메시지를 삭제함.
-	 * </pre>
-	 * @param envelope
-	 * @throws IOException
-	 */
-	private void sendAck(Envelope envelope) throws IOException {
-		long deliveryTag = envelope.getDeliveryTag();
-        getChannel().basicAck(deliveryTag, false);
-	}
 	
 }
 //end of RuleConsumer.java

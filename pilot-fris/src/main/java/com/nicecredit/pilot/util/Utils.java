@@ -3,12 +3,17 @@ package com.nicecredit.pilot.util;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.nice.pilot.pilot_rule.FBApplAddr;
 import com.nice.pilot.pilot_rule.FBApplMst;
 import com.nice.pilot.pilot_rule.FBApplPhone;
 import com.nice.pilot.pilot_rule.InMemData;
 
 public abstract class Utils {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(Utils.class);
 	
 	private static final String KEY_DELIMETER = "_";
 	public static final String TELE_CD_MATCH = "MATCH";
@@ -75,6 +80,13 @@ public abstract class Utils {
 			
 		} else if (teleCode.startsWith(TELE_CD_REGIT)) {
 			
+			fbapplmst.setNice_fraud_stat_cd(telegram.substring(53, 54));//사기신청서 여부
+			fbapplmst.setFraud_rsn_cd1(telegram.substring(54, 62));		//사기신청서 사유
+			fbapplmst.setFraud_confirm_date(telegram.substring(62, 70));//사기신청서 확정일자
+			
+			fbappladdr.setNice_fraud_stat_cd(telegram.substring(70, 71));//사기주소 여부
+			wirephone.setNice_fraud_stat_cd(telegram.substring(71, 72));//사기유선전화 여부
+			mobilephone.setNice_fraud_stat_cd(telegram.substring(72, 73));//사기무선전화 여부
 		}
 		
 		teleMap.put(KEY_FBAPPLMST, fbapplmst);
@@ -83,6 +95,11 @@ public abstract class Utils {
 		teleMap.put(KEY_FBAPPL_MPHONE, mobilephone);
 		
 		//System.out.println(appl_no + "," + store_cd + "," + version + "," + fbappladdr.getOrg_id() + "," + fbapplmst.getIp_addr() + "," + fbappladdr.getStrt_addr_2() + "," + wirephone.getFull_phone_no() + "," + mobilephone.getFull_phone_no());
+		
+		//System.out.println(appl_no + "," + store_cd + "," + version + "," + fbapplmst.getNice_fraud_stat_cd() + "," + fbapplmst.getFraud_rsn_cd1() + "," + fbapplmst.getFraud_confirm_date() + "," + wirephone.getNice_fraud_stat_cd() + "," + mobilephone.getNice_fraud_stat_cd());
+		
+		LOGGER.debug("parse completed.");
+		
 		
 		return teleMap;
 	}
@@ -93,7 +110,8 @@ public abstract class Utils {
 	
 	/*
 	public static void main(String[] args) {
-		String telegram = "MATCH1000           7001683169          2834014   1  44740811124.111.131cdabcdefg123456789a                                                                                                                                                      0221938302  01090670957                      ";
+		String telegram = "REGIT1000           0629119384          3684720   9  1RSCD000120151104111                 ";
+		//String telegram = "MATCH1000           7001683169          2834014   1  44740811124.111.131cdabcdefg123456789a                                                                                                                                                      0221938302  01090670957                      ";
 		System.out.println(telegram);
 		Utils.parseTelegram(telegram);
 	}
