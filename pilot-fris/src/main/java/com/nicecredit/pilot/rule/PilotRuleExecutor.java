@@ -16,6 +16,7 @@ import com.nice.pilot.pilot_rule.FBApplAddr;
 import com.nice.pilot.pilot_rule.FBApplPhone;
 import com.nice.pilot.pilot_rule.InMemData;
 import com.nice.pilot.pilot_rule.Result1;
+import com.nicecredit.pilot.db.TestResult;
 import com.nicecredit.pilot.util.Utils;
 
 /**
@@ -44,7 +45,7 @@ public class PilotRuleExecutor implements RuleExecutor{
         //logger = KnowledgeRuntimeLoggerFactory.newFileLogger(kSession, "test");
 	}
 	
-	public void execute(Map<String, Object> teleMap) {
+	public Object execute(Map<String, Object> teleMap) {
 		//KieSession kSession = kContainer.newKieSession("defaultKieSession");
 		
         InMemData memData = new InMemData();
@@ -65,6 +66,16 @@ public class PilotRuleExecutor implements RuleExecutor{
         
         LOGGER.debug("------- result -----");
         LOGGER.debug("전문코드: {}, result1: {}, result2: {}, result3: {}", Utils.getTeleCode(teleMap), addr.getResp_cd(), wire.getResp_cd(), result.getResult1());
+        
+        if (TestResult.RESP_CD_ER02.equals(addr.getResp_cd())) {
+        	result.setResp_cd(TestResult.RESP_CD_ER02);
+		} else if (TestResult.RESP_CD_ER03.equals(addr.getResp_cd())) {
+        	result.setResp_cd(TestResult.RESP_CD_ER03);
+		} else {
+			result.setResp_cd(TestResult.RESP_CD_0000);
+		}
+        
+        return result;
 	}
 
 }

@@ -92,6 +92,29 @@
 		)
 	</insert>
 	
+	<!-- TEST 결과 저장 -->
+	<insert id="insertTestResult" parameterType="com.nicecredit.pilot.db.TestResult">
+		INSERT INTO test_result (
+			appl_no,
+			version,
+			store_cd,
+			resp_cd,
+			rule_result1,
+			telegram,
+			reg_dt,
+			elapsed_time
+		)VALUES(
+			#{appl_no},
+			#{version},
+			#{store_cd},
+			#{resp_cd},
+			#{rule_result1},
+			#{telegram},
+			NOW(),
+			#{elapsed_time}
+		)
+	</insert>
+	
 	<!-- for junit test -->
 	<select id="testINMEM_DATAList" resultType="com.nice.pilot.pilot_rule.InMemData">
 		SELECT

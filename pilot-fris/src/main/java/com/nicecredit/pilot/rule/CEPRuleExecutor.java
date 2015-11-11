@@ -47,7 +47,7 @@ public class CEPRuleExecutor implements RuleExecutor {
 	 * @see com.nicecredit.pilot.rule.RuleExecutor#execute(java.lang.String)
 	 */
 	@Override
-	public void execute(Map<String, Object> teleMap) {
+	public Object execute(Map<String, Object> teleMap) {
 		
 		FBApplAddr addr = (FBApplAddr)teleMap.get(Utils.KEY_FBAPPLADDR);
 
@@ -57,6 +57,8 @@ public class CEPRuleExecutor implements RuleExecutor {
         
         LOGGER.debug("------- result of cep -----");
         LOGGER.debug("전문코드: {}, result: {}", Utils.getTeleCode(teleMap), addr.getResp_cd());
+        
+        return addr;
 	}
 
 }

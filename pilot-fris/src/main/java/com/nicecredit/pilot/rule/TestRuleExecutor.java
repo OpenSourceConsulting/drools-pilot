@@ -31,7 +31,7 @@ public class TestRuleExecutor implements RuleExecutor{
         kScanner.start( 10000L );
 	}
 	
-	public void execute(Map<String, Object> teleMap) {
+	public Object execute(Map<String, Object> teleMap) {
 		KieSession kSession = kContainer.newKieSession("defaultKieSession");
 		
         Message message = new Message();
@@ -46,6 +46,8 @@ public class TestRuleExecutor implements RuleExecutor{
         
         System.out.println("-----------");
         System.out.println("result: " + message.getStatus() + ", " + message.getMessage());
+        
+        return null;
 	}
 
 }

@@ -15,7 +15,7 @@ public class TestMain {
 		String exchangeName = "pilot_ex";
 		String queueName1 = "rule_queue";
 		String queueName2 = "cep_queue";
-		String routingKey = "routingKey1";
+		//String routingKey = "routingKey1";
 		
 		ConnectionFactory factory = new ConnectionFactory();
 		factory.setUsername("user1");
@@ -35,30 +35,52 @@ public class TestMain {
 			channel.exchangeDeclare(exchangeName, "direct", true);
 			channel.queueDeclare(queueName1, true, false, false, null);
 			channel.queueDeclare(queueName2, true, false, false, null);
-			channel.queueBind(queueName1, exchangeName, routingKey);
-			channel.queueBind(queueName2, exchangeName, routingKey);
+			channel.queueBind(queueName1, exchangeName, "MATCH");
+			channel.queueBind(queueName2, exchangeName, "REGIT");
+			
 			
 			int msgCount = 5;
-			String telegram = "MATCH1000           7001683169          2834014   1  44740811124.111.131cdabcdefg123456789a                                                                                                                                                      0221938302  01090670957                      ";
-			String telegram2 = "MATCH1000           7001683169          2834015   1  44740811124.111.131cdabcdefg123456789a                                                                                                                                                      0221938302  01090670957                      ";
+			boolean isMatchTest = true;
+			
+			String telegram   = null;
+			String telegram2  = null;
+			String telegram3  = null;
+			if (isMatchTest) {
+				telegram  = "MATCH1000           7001683169          2834014   1  44740811124.111.131cdabcdefg123456789a                                                                                                                                                      0221938302  01090670957                      ";
+				telegram2 = "MATCH1000           7001683169          2834015   1  44740811124.111.131cdabcdefg123456789a                                                                                                                                                      0221938302  01090670957                      ";
+				telegram3 = "MATCH1000           7001683169          2834016   1  44740811124.111.131cdabcdefg123456789a                                                                                                                                                      0221938302  01090670957                      ";
+			} else {
+				telegram   = "REGIT1000           0629119384          3684720   9  1RSCD000120151104111                 ";
+				telegram2  = "REGIT1000           0629119384          3684720   9  1RSCD000120151104111                 ";
+				telegram3  = "REGIT1000           0629119384          3684720   9  1RSCD000120151104111                 ";
+			}
 			
 			for (int i = 0; i < msgCount; i++) {
-				//byte[] messageBodyBytes = "7".getBytes();
+				
+				String routingKey = null;
+				String msg = null;
 				byte[] messageBodyBytes = null;
-				if (i < 4) {
-					messageBodyBytes = telegram.getBytes();
+				if (i < 3) {
+					msg = telegram;
+				} else if (i == 3){
+					msg = telegram2;
 				} else {
-					messageBodyBytes = telegram2.getBytes();
+					msg = telegram3;
 				}
+				
+				routingKey = msg.substring(0, 5);
+				messageBodyBytes = msg.getBytes();
 				
 				channel.basicPublish(exchangeName, routingKey, true,
 	                    MessageProperties.PERSISTENT_TEXT_PLAIN,
 	                    messageBodyBytes);
+				
+				System.out.println("send count : "+ i);
+				Thread.sleep(1000);
 			}
 			
-			System.out.println("send count : "+ msgCount);
 			
-			Thread.sleep(1000);
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();

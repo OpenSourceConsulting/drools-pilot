@@ -9,6 +9,6 @@ import java.util.Map;
  * @author BongJin Kwon
  */
 public interface RuleExecutor {
-	void execute(Map<String, Object> teleMap);
+	Object execute(Map<String, Object> teleMap);
 }
 //end of RuleExecutor.java

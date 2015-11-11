@@ -8,9 +8,9 @@
 	</target>
 	
 	<target name="deploy2OSC">
-		<!--
+		
 		<setproxy socksproxyhost="localhost" socksproxyport="20024"/>
-		-->
+		
 		<property file="osc.properties" />
 		<antcall target="deploy" />
 		<sshexec port="${server.port}" host="${server.ip}" username="${user.id}" password="${user.passwd}" verbose="true"

@@ -3,17 +3,20 @@ package com.nicecredit.pilot.consumer;
 import java.io.IOException;
 import java.util.Map;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.nice.pilot.pilot_rule.FBApplAddr;
+import com.nice.pilot.pilot_rule.Result1;
 import com.nicecredit.pilot.db.DBRepository;
+import com.nicecredit.pilot.db.TestResult;
 import com.nicecredit.pilot.rule.PilotRuleExecutor;
 import com.nicecredit.pilot.rule.RuleExecutor;
 import com.nicecredit.pilot.util.Utils;
 import com.rabbitmq.client.AMQP.BasicProperties;
 import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 
 /**
@@ -45,6 +48,8 @@ public class RuleDataConsumer extends BaseConsumer {
 	public void handleDelivery(String consumerTag, Envelope envelope,
 			BasicProperties properties, byte[] body) throws IOException {
 		
+		long start = System.currentTimeMillis();
+		
 		String telegram = new String(body);
 		LOGGER.debug("telegram:{}", telegram);
 		
@@ -67,7 +72,12 @@ public class RuleDataConsumer extends BaseConsumer {
 			/*
 			 * 룰 실행.
 			 */
-	        ruleExecutor.execute(teleMap);
+			Result1 result = (Result1)ruleExecutor.execute(teleMap);
+	        
+	        /*
+	         * 결과저장
+	         */
+	        saveResult(result, start, teleMap, telegram);
 	   	 
 	        sendAck(envelope);
 	        
@@ -104,6 +114,30 @@ public class RuleDataConsumer extends BaseConsumer {
 		}
 	}
 	
-	
+	private void saveResult(Result1 res, long start, Map<String, Object> teleMap, String telegram) {
+		LOGGER.debug("saving result.");
+		SqlSession sqlSession = DBRepository.getInstance().openSession();
+		
+		FBApplAddr addr = (FBApplAddr)teleMap.get(Utils.KEY_FBAPPLADDR);
+		TestResult result = new TestResult();
+		try {
+			BeanUtils.copyProperties(result, addr);
+			
+			result.setTelegram(telegram);
+			result.setElapsed_time(System.currentTimeMillis() - start);
+			result.setResp_cd(res.getResp_cd());
+			result.setRule_result1(res.getResult1());
+			
+			sqlSession.insert("PilotMapper.insertTestResult", result);
+			
+			sqlSession.commit();
+			LOGGER.debug("saved result.");
+		} catch (Exception e) {
+			LOGGER.error(e.toString(), e);
+			sqlSession.rollback();
+		} finally {
+			sqlSession.close();
+		}
+	}
 }
 //end of RuleConsumer.java

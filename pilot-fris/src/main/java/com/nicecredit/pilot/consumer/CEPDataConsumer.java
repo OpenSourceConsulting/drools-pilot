@@ -3,9 +3,17 @@ package com.nicecredit.pilot.consumer;
 import java.io.IOException;
 import java.util.Map;
 
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang3.reflect.FieldUtils;
+import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.nice.pilot.pilot_rule.FBApplAddr;
+import com.nice.pilot.pilot_rule.FBApplMst;
+import com.nice.pilot.pilot_rule.FBApplPhone;
+import com.nicecredit.pilot.db.DBRepository;
+import com.nicecredit.pilot.db.TestResult;
 import com.nicecredit.pilot.rule.CEPRuleExecutor;
 import com.nicecredit.pilot.rule.RuleExecutor;
 import com.nicecredit.pilot.util.Utils;
@@ -42,14 +50,33 @@ public class CEPDataConsumer extends BaseConsumer {
 	public void handleDelivery(String consumerTag, Envelope envelope,
 			BasicProperties properties, byte[] body) throws IOException {
 		
+		long start = System.currentTimeMillis();
 		
 		String telegram = new String(body);
 		LOGGER.debug("telegram:{}", telegram);
 		
 		try {
+			/*
+			 * parse 전문
+			 */
 			Map<String, Object> teleMap = Utils.parseTelegram(telegram);
 			
-			ruleExecutor.execute(teleMap);
+			/*
+			 * rule
+			 */
+			FBApplAddr addr = (FBApplAddr)ruleExecutor.execute(teleMap);
+			
+			/*
+			 * 데이터 정상인경우 version 을 1 증가후 저장.
+			 */
+			if (TestResult.RESP_CD_0000.equals(addr.getResp_cd())) {
+				saveTelegram(teleMap);
+			}
+			
+			/*
+			 * 결과 저장
+			 */
+			saveResult(addr, start, telegram);
 			
 			sendAck(envelope);
 		} catch (Exception e) {
@@ -57,7 +84,66 @@ public class CEPDataConsumer extends BaseConsumer {
 		}
 	}
 	
+	/**
+	 * <pre>
+	 * 데이터 정상인경우 version 을 1 증가후 저장.
+	 * </pre>
+	 * @param teleMap
+	 */
+	private void saveTelegram(Map<String, Object> teleMap) {
+		
+		LOGGER.debug("saving telegram.");
+		SqlSession sqlSession = DBRepository.getInstance().openSession();
+		
+		try {
+			FBApplMst mst = (FBApplMst)teleMap.get(Utils.KEY_FBAPPLMST);
+			FBApplAddr addr = (FBApplAddr)teleMap.get(Utils.KEY_FBAPPLADDR);
+			FBApplPhone wphone = (FBApplPhone)teleMap.get(Utils.KEY_FBAPPL_WPHONE);
+			FBApplPhone mphone = (FBApplPhone)teleMap.get(Utils.KEY_FBAPPL_MPHONE);
+			
+			int version = mst.getVersion() + 1;
+			mst.setVersion(version);
+			addr.setVersion(version);
+			wphone.setVersion(version);
+			mphone.setVersion(version);
+			
+			sqlSession.insert("PilotMapper.insertFBApplMst", mst);
+			sqlSession.insert("PilotMapper.insertFBApplAddr", addr);
+			sqlSession.insert("PilotMapper.insertFBApplPhone", wphone);
+			sqlSession.insert("PilotMapper.insertFBApplPhone", mphone);
+			
+			sqlSession.commit();
+			LOGGER.debug("saved telegram.");
+		} catch (Exception e) {
+			LOGGER.error(e.toString(), e);
+			sqlSession.rollback();
+			
+		} finally {
+			sqlSession.close();
+		}
+	}
 	
+	private void saveResult(FBApplAddr addr, long start, String telegram) {
+		LOGGER.debug("saving result.");
+		SqlSession sqlSession = DBRepository.getInstance().openSession();
+		
+		TestResult result = new TestResult();
+		try {
+			BeanUtils.copyProperties(result, addr);
+			result.setTelegram(telegram);
+			result.setElapsed_time(System.currentTimeMillis() - start);
+			
+			sqlSession.insert("PilotMapper.insertTestResult", result);
+			
+			sqlSession.commit();
+			LOGGER.debug("saved result.");
+		} catch (Exception e) {
+			LOGGER.error(e.toString(), e);
+			sqlSession.rollback();
+		} finally {
+			sqlSession.close();
+		}
+	}
 
 }
 //end of CepDataConsumer.java
