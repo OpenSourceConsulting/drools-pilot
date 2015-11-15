@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.nice.pilot.pilot_rule.FBApplAddr;
 import com.nice.pilot.pilot_rule.Result1;
+import com.nicecredit.pilot.cache.InfinispanHandler;
 import com.nicecredit.pilot.db.DBRepository;
 import com.nicecredit.pilot.db.TestResult;
 import com.nicecredit.pilot.rule.PilotRuleExecutor;
@@ -65,8 +66,9 @@ public class RuleDataConsumer extends BaseConsumer {
 			saveTelegram(teleMap);
 			
 			/*
-			 * TODO Profiling
+			 * Profiling
 			 */
+			profiling(teleMap);
 			
 			
 			/*
@@ -112,6 +114,12 @@ public class RuleDataConsumer extends BaseConsumer {
 		} finally {
 			sqlSession.close();
 		}
+	}
+	
+	private void profiling(Map<String, Object> teleMap) {
+		FBApplAddr addr = (FBApplAddr)teleMap.get(Utils.KEY_FBAPPLADDR);
+		
+		teleMap.put(Utils.KEY_INMEM, InfinispanHandler.getInstance().get(addr.getOrg_id()));
 	}
 	
 	private void saveResult(Result1 res, long start, Map<String, Object> teleMap, String telegram) {

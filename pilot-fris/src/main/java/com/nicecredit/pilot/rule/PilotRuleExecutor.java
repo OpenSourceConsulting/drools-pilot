@@ -48,15 +48,22 @@ public class PilotRuleExecutor implements RuleExecutor{
 	public Object execute(Map<String, Object> teleMap) {
 		//KieSession kSession = kContainer.newKieSession("defaultKieSession");
 		
-        InMemData memData = new InMemData();
-        memData.setNR00101037(8);//PI등급
-        
+        //InMemData memData = new InMemData();
+        //memData.setNR00101037(8);//PI등급
+		InMemData memData = (InMemData)teleMap.get(Utils.KEY_INMEM);
+		if (memData != null) {
+			LOGGER.debug("NR00101037 = {}", memData.getNR00101037());
+			kSession.insert(memData);
+		} else {
+			LOGGER.debug("InMemData is null.");
+		}
+		
         Result1 result = new Result1();
         
         FBApplAddr addr = (FBApplAddr)teleMap.get(Utils.KEY_FBAPPLADDR);
         FBApplPhone wire = (FBApplPhone)teleMap.get(Utils.KEY_FBAPPL_WPHONE);
                 
-        kSession.insert(memData);
+        
         kSession.insert(result);
         kSession.insert(addr);
         kSession.insert(wire);
