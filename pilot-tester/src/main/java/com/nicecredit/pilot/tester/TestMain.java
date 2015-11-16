@@ -1,3 +1,5 @@
+//	전문 발생기
+
 package com.nicecredit.pilot.tester;
 
 import java.io.IOException;
@@ -68,6 +70,8 @@ public class TestMain {
 					msg = telegram3;
 				}
 				
+				
+				//	MATCH or REGIT
 				routingKey = msg.substring(0, 5);
 				messageBodyBytes = msg.getBytes();
 				
