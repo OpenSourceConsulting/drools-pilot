@@ -59,8 +59,8 @@ public class PilotMain {
 		factory.setPassword("user1");
 		factory.setVirtualHost("/");
 		//factory.setHost("207.46.141.43");// 메시지 미전달 오류 (unack message queueing 발생) 로 주석처리.
-		//factory.setHost("nice-osc-ap.cloudapp.net");
-		factory.setHost("localhost");// for nice server
+		factory.setHost("nice-osc-ap.cloudapp.net");
+		//factory.setHost("localhost");// for nice server
 		factory.setPort(5672);
 		factory.setExceptionHandler(new ExceptionHandlerImpl());
 		// connection that will recover automatically

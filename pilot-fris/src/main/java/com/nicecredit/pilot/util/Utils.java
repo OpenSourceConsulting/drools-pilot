@@ -24,6 +24,8 @@ public abstract class Utils {
 	public static final String KEY_FBAPPL_WPHONE = "wire";
 	public static final String KEY_FBAPPL_MPHONE = "mobile";
 	public static final String KEY_INMEM = "inmem";
+	
+	public static final boolean MyBatis_Based = false;
 
 	public static String getCacheKey(InMemData inMemData) {
 		//return inMemData.getAppl_no() + KEY_DELIMETER + inMemData.getVersion() + KEY_DELIMETER + inMemData.getStore_cd();

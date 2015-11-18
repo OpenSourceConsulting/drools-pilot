@@ -2,10 +2,10 @@ package com.nicecredit.pilot.db;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -31,28 +31,13 @@ public class TestResult {
 	@GenericGenerator(name="increment", strategy = "increment")
 	private int id;
 	
-	@Column(nullable = false)
 	private String appl_no;
-	
-	@Column(nullable = false)
 	private int version;
-	
-	@Column(nullable = false)
 	private String store_cd;
-	
-	@Column(nullable = false)
 	private String resp_cd;
-	
-	@Column(nullable = false)
 	private String rule_result1;
-	
-	@Column(nullable = false)
 	private String telegram;
-	
-	@Column(nullable = false)
 	private Date reg_dt;
-	
-	@Column(nullable = false)
 	private long elapsed_time;
 
 	/**
@@ -136,5 +121,9 @@ public class TestResult {
 		this.elapsed_time = elapsed_time;
 	}
 	
+	@PrePersist
+    void prePersist() {
+		this.reg_dt = new Date();
+    }
 }
 //end of TestResult.java

@@ -6,13 +6,13 @@ import javax.persistence.Id;
 
 /**
  * <pre>
- * 동일 자택주소 and 동일 자택전화 and 다른 주민번호_30일 
+ * 동일 이동전화 and 동일 자택전화 and 다른 주민번호_30일
  * Query 결과 클래스.
  * </pre>
  * @author BongJin Kwon
  */
 @Entity
-public class ApplEntity {
+public class ApplEntity2 {
 	
 	@Id
 	private String appl_no;
@@ -28,7 +28,7 @@ public class ApplEntity {
 	 * 
 	 * </pre>
 	 */
-	public ApplEntity() {
+	public ApplEntity2() {
 		// TODO Auto-generated constructor stub
 	}
 

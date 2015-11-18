@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
@@ -15,6 +16,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.nice.pilot.pilot_rule.FBApplMst;
+
 /**
  * <pre>
  * 
@@ -23,7 +26,7 @@ import org.junit.Test;
  */
 public class HibernateTest {
 
-	EntityManagerFactory entityManagerFactory;
+	//EntityManagerFactory entityManagerFactory;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -35,12 +38,14 @@ public class HibernateTest {
 
 	@Before
 	public void setUp() throws Exception {
+		/*
 		try{
 			entityManagerFactory = Persistence.createEntityManagerFactory( "org.hibernate.nice.jpa" );
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
+		*/
 	}
 
 	@After
@@ -50,8 +55,9 @@ public class HibernateTest {
 	@Test
 	public void testFind() {
 		
+		EntityManager entityManager = null;
 		try {
-			EntityManager entityManager = entityManagerFactory.createEntityManager();
+			entityManager = DBRepository.getInstance().createEntityManager();
 			
 			TestResult result = entityManager.find(TestResult.class, 1);
 			
@@ -60,14 +66,19 @@ public class HibernateTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail(e.toString());
+		} finally {
+			if (entityManager != null) {
+				entityManager.close();
+			}
 		}
 	}
 	
 	@Test
 	public void testQuery() {
 		
+		EntityManager entityManager = null;
 		try {
-			EntityManager entityManager = entityManagerFactory.createEntityManager();
+			entityManager = DBRepository.getInstance().createEntityManager();
 			
 			List<TestResult> list = entityManager.createNamedQuery("myQuery").getResultList();
 			
@@ -76,14 +87,19 @@ public class HibernateTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail(e.toString());
+		} finally {
+			if (entityManager != null) {
+				entityManager.close();
+			}
 		}
 	}
 	
 	@Test
 	public void testQueryWithParams() {
 		
+		EntityManager entityManager = null;
 		try {
-			EntityManager entityManager = entityManagerFactory.createEntityManager();
+			entityManager = DBRepository.getInstance().createEntityManager();
 			
 			Query query = entityManager.createNamedQuery("ApplEntity.addr.phone");
 			query.setParameter("APPL_NO", "7001683169");
@@ -97,6 +113,45 @@ public class HibernateTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail(e.toString());
+		} finally {
+			if (entityManager != null) {
+				entityManager.close();
+			}
+		}
+	}
+	
+	@Test
+	public void testPersistence() {
+		
+		EntityManager entityManager = null;
+		EntityTransaction tx = null;
+		
+		FBApplMst mst = new FBApplMst();
+		mst.setAppl_no("12345");
+		mst.setStore_cd("9999");
+		mst.setVersion(1);
+		mst.setIp_addr("ip_addr");
+		
+		try {
+			entityManager = DBRepository.getInstance().createEntityManager();
+			tx = entityManager.getTransaction();
+			tx.begin();
+			
+			entityManager.persist(mst);
+			
+			entityManager.remove(mst);
+			
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (tx != null) {
+				tx.rollback();
+			}
+			fail(e.toString());
+		} finally {
+			if (entityManager != null) {
+				entityManager.close();
+			}
 		}
 	}
 

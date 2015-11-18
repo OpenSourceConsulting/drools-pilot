@@ -3,6 +3,9 @@ package com.nicecredit.pilot.consumer;
 import java.io.IOException;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -98,22 +101,8 @@ public class RuleDataConsumer extends BaseConsumer {
 	 */
 	private void saveTelegram(Map<String, Object> teleMap) {
 		LOGGER.debug("saving telegram.");
-		SqlSession sqlSession = DBRepository.getInstance().openSession();
 		
-		try {
-			sqlSession.insert("PilotMapper.insertFBApplMst", teleMap.get(Utils.KEY_FBAPPLMST));
-			sqlSession.insert("PilotMapper.insertFBApplAddr", teleMap.get(Utils.KEY_FBAPPLADDR));
-			sqlSession.insert("PilotMapper.insertFBApplPhone", teleMap.get(Utils.KEY_FBAPPL_WPHONE));
-			sqlSession.insert("PilotMapper.insertFBApplPhone", teleMap.get(Utils.KEY_FBAPPL_MPHONE));
-			
-			sqlSession.commit();
-			LOGGER.debug("saved telegram.");
-		} catch (Exception e) {
-			LOGGER.error(e.toString(), e);
-			sqlSession.rollback();
-		} finally {
-			sqlSession.close();
-		}
+		saveTelegram(teleMap.get(Utils.KEY_FBAPPLMST), teleMap.get(Utils.KEY_FBAPPLADDR), teleMap.get(Utils.KEY_FBAPPL_WPHONE), teleMap.get(Utils.KEY_FBAPPL_MPHONE));
 	}
 	
 	private void profiling(Map<String, Object> teleMap) {
@@ -124,28 +113,20 @@ public class RuleDataConsumer extends BaseConsumer {
 	
 	private void saveResult(Result1 res, long start, Map<String, Object> teleMap, String telegram) {
 		LOGGER.debug("saving result.");
-		SqlSession sqlSession = DBRepository.getInstance().openSession();
 		
 		FBApplAddr addr = (FBApplAddr)teleMap.get(Utils.KEY_FBAPPLADDR);
 		TestResult result = new TestResult();
-		try {
-			BeanUtils.copyProperties(result, addr);
-			
-			result.setTelegram(telegram);
-			result.setElapsed_time(System.currentTimeMillis() - start);
-			result.setResp_cd(res.getResp_cd());
-			result.setRule_result1(res.getResult1());
-			
-			sqlSession.insert("PilotMapper.insertTestResult", result);
-			
-			sqlSession.commit();
-			LOGGER.debug("saved result.");
-		} catch (Exception e) {
-			LOGGER.error(e.toString(), e);
-			sqlSession.rollback();
-		} finally {
-			sqlSession.close();
-		}
+		//BeanUtils.copyProperties(result, addr);
+		
+		result.setAppl_no(addr.getAppl_no());
+		result.setVersion(addr.getVersion());
+		result.setStore_cd(addr.getStore_cd());
+		result.setTelegram(telegram);
+		result.setElapsed_time(System.currentTimeMillis() - start);
+		result.setResp_cd(res.getResp_cd());
+		result.setRule_result1(res.getResult1());
+		
+		saveResult(result);
 	}
 }
 //end of RuleConsumer.java

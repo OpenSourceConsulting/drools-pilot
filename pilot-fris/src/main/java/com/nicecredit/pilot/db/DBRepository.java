@@ -3,6 +3,10 @@ package com.nicecredit.pilot.db;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -19,6 +23,7 @@ public class DBRepository {
 	public static DBRepository INSTANCE;
 	
 	private SqlSessionFactory factory;
+	private EntityManagerFactory entityManagerFactory;
 
 	/**
 	 * <pre>
@@ -26,6 +31,9 @@ public class DBRepository {
 	 * </pre>
 	 */
 	private DBRepository() {
+		
+		entityManagerFactory = Persistence.createEntityManagerFactory( "org.hibernate.nice.jpa" );
+		
 		try {
 			InputStream inputStream = Resources.getResourceAsStream("mybatis-config.xml");
 			SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
@@ -51,6 +59,16 @@ public class DBRepository {
 	
 	public SqlSession openSession() {
 		return factory.openSession();
+	}
+	
+	/**
+	 * <pre>
+	 * for hibernate
+	 * </pre>
+	 * @return
+	 */
+	public EntityManager createEntityManager() {
+		return entityManagerFactory.createEntityManager();
 	}
 
 }

@@ -47,4 +47,59 @@
             ]]></query>
         </named-native-query>
     </entity>
+    <entity class="com.nicecredit.pilot.db.ApplEntity2">
+        <named-native-query name="ApplEntity2.mphone.wphone" >
+            <query><![CDATA[
+            SELECT DISTINCT t6.APPL_NO ,
+			       t6.VERSION ,
+			       t6.STORE_CD
+			FROM fbapplphone s0 ,
+			     fbapplphone t2 ,
+			     fbapplphone s3 ,
+			     fbapplphone t6
+			WHERE s0.APPL_NO = :APPL_NO
+			  AND s0.VERSION = :VERSION
+			  AND s0.STORE_CD = :STORE_CD
+			  AND s0.wire_mobile_gb = '3'
+			  AND t2.full_phone_no = s0.full_phone_no
+			  AND t2.ORG_ID <> s0.ORG_ID
+			  AND s3.APPL_NO = s0.APPL_NO
+			  AND s3.VERSION = s0.VERSION
+			  AND s3.STORE_CD = s0.STORE_CD
+			  AND s3.ORG_ID = s0.ORG_ID
+			  AND s3.wire_mobile_gb = '1'
+			  AND t6.APPL_NO = t2.APPL_NO
+			  AND t6.VERSION = t2.VERSION
+			  AND t6.STORE_CD = t2.STORE_CD
+			  AND t6.ORG_ID = t2.ORG_ID
+			  AND t6.full_phone_no = s3.full_phone_no
+			  AND t6.ORG_ID <> s3.ORG_ID
+            ]]></query>
+        </named-native-query>
+    </entity>
+    <entity class="com.nicecredit.pilot.db.ApplEntity3">
+        <named-native-query name="ApplEntity3.fraud" >
+            <query><![CDATA[
+            SELECT DISTINCT t3.APPL_NO ,
+			     t3.VERSION ,
+			     t3.STORE_CD
+			FROM fbapplphone s0 ,
+			     fbapplphone t2 ,
+			     fbapplmst t3
+			WHERE s0.APPL_NO = :APPL_NO
+			  AND s0.VERSION = :VERSION
+			  AND s0.STORE_CD = :STORE_CD
+			  AND s0.wire_mobile_gb = '1'
+			  AND t2.PHONE_FRAUD_RULE_CD__X1 = '7'
+			  AND t2.full_phone_no = s0.full_phone_no
+			  AND t3.APPL_NO = t2.APPL_NO
+			  AND t3.VERSION = t2.VERSION
+			  AND t3.STORE_CD = t2.STORE_CD
+			  AND t3.FRAUD_RSN_CD1 not in ( '10',
+			      '11',
+			      '12',
+			      '13' )
+            ]]></query>
+        </named-native-query>
+    </entity>
 </entity-mappings>
