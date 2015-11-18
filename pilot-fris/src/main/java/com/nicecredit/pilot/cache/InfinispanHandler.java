@@ -1,10 +1,14 @@
 package com.nicecredit.pilot.cache;
 
+import java.io.IOException;
 import java.util.Set;
 
+import org.infinispan.Cache;
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.RemoteCacheManager;
+//import org.infinispan.manager.DefaultCacheManager;
 import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
+import org.infinispan.commons.api.BasicCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,6 +27,9 @@ public class InfinispanHandler {
 	
 	private RemoteCacheManager rmc;
 	private RemoteCache<String, Object> cache;
+	
+	//private DefaultCacheManager rmc;
+	//private Cache<String, Object> cache;
 
 	/**
 	 * <pre>
@@ -30,7 +37,9 @@ public class InfinispanHandler {
 	 * </pre>
 	 */
 	private InfinispanHandler() {
+		
 		ConfigurationBuilder cb = new ConfigurationBuilder();
+		
 		cb.tcpNoDelay(true).connectionPool()
 				.numTestsPerEvictionRun(3)
 				.testOnBorrow(false)
@@ -39,8 +48,17 @@ public class InfinispanHandler {
 				.addServer()
 				//.host("23.99.106.81").port(11222);
 				.host("nice-osc-db.cloudapp.net").port(11222);
-		rmc = new RemoteCacheManager(cb.build());
-		cache = rmc.getCache();
+		
+		
+		try {
+			rmc = new RemoteCacheManager(cb.build());
+			//rmc = new DefaultCacheManager("infinispan.xml");
+			cache = rmc.getCache();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		
 	}
 	
 	public static InfinispanHandler getInstance() {
@@ -73,7 +91,7 @@ public class InfinispanHandler {
 		return cache.keySet();
 	}
 	
-	public RemoteCache<String, Object> getCache() {
+	public BasicCache<String, Object> getCache() {
 		return cache;
 	}
 	

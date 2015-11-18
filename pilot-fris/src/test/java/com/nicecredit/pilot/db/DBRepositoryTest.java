@@ -1,10 +1,9 @@
 package com.nicecredit.pilot.db;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
-import java.nio.charset.UnsupportedCharsetException;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -15,9 +14,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.nice.pilot.pilot_rule.FBApplAddr;
 import com.nice.pilot.pilot_rule.InMemData;
-import com.nicecredit.pilot.cache.InfinispanHandler;
 
 public class DBRepositoryTest {
 
@@ -93,6 +90,6 @@ public class DBRepositoryTest {
 		//return StringUtils.toEncodedString(orgin.getBytes("ISO-8859-1"), Charset.forName("EUC-KR"));
 		return StringUtils.toEncodedString(orgin.getBytes("EUC-KR"), Charset.forName("ISO-8859-1"));
 	}
-
+	
 }
 //end of DBRepositoryTest.java

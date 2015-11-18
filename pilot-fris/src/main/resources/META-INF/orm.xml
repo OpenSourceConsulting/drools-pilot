@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="
+                     http://java.sun.com/xml/ns/persistence/orm
+                     http://java.sun.com/xml/ns/persistence/orm_2_0.xsd"
+                 version="2.0">
+
+    <entity class="com.nicecredit.pilot.db.TestResult">
+        <named-native-query name="myQuery" >
+            <query>
+            select * from test_result a
+            </query>
+        </named-native-query>
+        <!-- 
+        <sql-result-set-mapping name="nicknames">
+            <column-result name="nickname" />
+        </sql-result-set-mapping>
+         -->
+    </entity>
+    <entity class="com.nicecredit.pilot.db.ApplEntity">
+        <named-native-query name="ApplEntity.addr.phone" >
+            <query><![CDATA[
+            SELECT DISTINCT t4.APPL_NO ,
+			     t4.VERSION ,
+			     t4.STORE_CD
+			FROM fbappladdr s0 ,
+			     fbappladdr t2 ,
+			     fbapplphone s3 ,
+			     fbapplphone t4
+			WHERE s0.APPL_NO = :APPL_NO
+			  AND s0.VERSION = :VERSION
+			  AND s0.STORE_CD = :STORE_CD
+			  AND t2.addr_pnu_cd = s0.addr_pnu_cd
+			  AND t2.strt_addr_2 = s0.strt_addr_2
+			  AND t2.ORG_ID <> s0.ORG_ID
+			  AND s3.APPL_NO = s0.APPL_NO
+			  AND s3.VERSION = s0.VERSION
+			  AND s3.STORE_CD = s0.STORE_CD
+			  AND s3.ORG_ID = s0.ORG_ID
+			  AND s3.wire_mobile_gb = '1'
+			  AND t4.APPL_NO = t2.APPL_NO
+			  AND t4.VERSION = t2.VERSION
+			  AND t4.STORE_CD = t2.STORE_CD
+			  AND t4.full_phone_no = s3.full_phone_no
+			  AND t4.ORG_ID <> s3.ORG_ID
+            ]]></query>
+        </named-native-query>
+    </entity>
+</entity-mappings>

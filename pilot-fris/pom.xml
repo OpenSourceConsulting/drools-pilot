@@ -44,12 +44,23 @@
 			<artifactId>cep-rule</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
-		
 		<dependency>
 			<groupId>com.bong</groupId>
 			<artifactId>testProject</artifactId>
 			<version>1.0.2-SNAPSHOT</version>
 		</dependency>
+		 
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>4.3.11.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-infinispan</artifactId>
+			<version>4.3.11.Final</version>
+		</dependency>
+		
 
 		<!-- logging -->
 		<dependency>
@@ -78,6 +89,12 @@
 			<artifactId>infinispan-client-hotrod</artifactId>
 			<version>7.2.5.Final</version>
 		</dependency>
+		<dependency>
+			<groupId>org.infinispan</groupId>
+			<artifactId>infinispan-core</artifactId>
+			<version>7.2.5.Final</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>

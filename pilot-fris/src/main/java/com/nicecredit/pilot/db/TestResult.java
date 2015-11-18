@@ -2,12 +2,22 @@ package com.nicecredit.pilot.db;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+
 /**
  * <pre>
  * 테스트 결과
  * </pre>
  * @author BongJin Kwon
  */
+@Entity
+@Table( name = "test_result" )
 public class TestResult {
 	
 	public static final String RESP_CD_0000 = "0000";
@@ -16,14 +26,33 @@ public class TestResult {
 	public static final String RESP_CD_ER03 = "ER03";
 	public static final String RESP_CD_ER11 = "ER11";
 	
+	@Id
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="increment", strategy = "increment")
 	private int id;
+	
+	@Column(nullable = false)
 	private String appl_no;
+	
+	@Column(nullable = false)
 	private int version;
+	
+	@Column(nullable = false)
 	private String store_cd;
+	
+	@Column(nullable = false)
 	private String resp_cd;
+	
+	@Column(nullable = false)
 	private String rule_result1;
+	
+	@Column(nullable = false)
 	private String telegram;
+	
+	@Column(nullable = false)
 	private Date reg_dt;
+	
+	@Column(nullable = false)
 	private long elapsed_time;
 
 	/**
