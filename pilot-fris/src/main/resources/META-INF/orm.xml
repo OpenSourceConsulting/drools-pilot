@@ -90,7 +90,7 @@
 			  AND s0.VERSION = :VERSION
 			  AND s0.STORE_CD = :STORE_CD
 			  AND s0.wire_mobile_gb = '1'
-			  AND t2.PHONE_FRAUD_RULE_CD__X1 = '7'
+			  AND t2.nice_fraud_stat_cd = '7'
 			  AND t2.full_phone_no = s0.full_phone_no
 			  AND t3.APPL_NO = t2.APPL_NO
 			  AND t3.VERSION = t2.VERSION

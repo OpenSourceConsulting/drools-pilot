@@ -41,35 +41,30 @@ public class TestMain {
 			channel.queueBind(queueName2, exchangeName, "REGIT");
 			
 			
-			int msgCount = 5;
-			boolean isMatchTest = true;
-			
-			String telegram   = null;
-			String telegram2  = null;
-			String telegram3  = null;
+			boolean isMatchTest = false;
+			String[] telegrams   = null;
+
 			if (isMatchTest) {
-				telegram  = "MATCH1000           7001683169          2834014   1  44740811124.111.131cdabcdefg123456789a                                                                                                                                                      0221938302  01090670957                      ";
-				telegram2 = "MATCH1000           7001683169          2834015   1  44740811124.111.131cdabcdefg123456789a                                                                                                                                                      0221938302  01090670957                      ";
-				telegram3 = "MATCH1000           7001683169          2834016   1  44740811124.111.131cdabcdefg123456789a                                                                                                                                                      0221938302  01090670957                      ";
+				telegrams  = new String[]{
+						 "MATCH1000           NICE001OSC001       0900100   001ABCD1234255.255.255.255cdabcdefg123456789a                                                                                                                                                      0551234567  01012345678                      "
+						,"MATCH1000           NICE001OSC001       0900100   001ABCD1234255.255.255.255cdabcdefg123456789a                                                                                                                                                      0551234567  01012345678                      "
+						,"MATCH1000           NICE001OSC001       0900100   001ABCD1234255.255.255.255cdabcdefg123456789a                                                                                                                                                      0551234567  01012345678                      "
+						,"MATCH1000           NICE001OSC001       0900101   001ABCD1234255.255.255.255cdabcdefg123456789a                                                                                                                                                      0551234567  01012345678                      "
+						,"MATCH1000           NICE001OSC001       0900102   001ABCD1234255.255.255.255cdabcdefg123456789a                                                                                                                                                      0551234567  01012345678                      "
+				};
 			} else {
-				telegram   = "REGIT1000           0629119384          3684720   9  1RSCD000120151104111                 ";
-				telegram2  = "REGIT1000           0629119384          3684720   9  1RSCD000120151104111                 ";
-				telegram3  = "REGIT1000           0629119384          3684720   9  1RSCD000120151104111                 ";
+				telegrams  = new String[]{
+						 "REGIT1000           NICE001OSC001       0900100   001ABCD12341RSCD000120151030111                   "
+						,"REGIT1000           NICE001OSC001       0900100   002ABCD12341RSCD000120151030111                   "
+						,"REGIT1000           NICE001OSC001       0900100   003ABCD12341RSCD000120151030111                   "
+				};
 			}
 			
-			for (int i = 0; i < msgCount; i++) {
+			int i = 1;
+			for (String msg : telegrams) {
 				
 				String routingKey = null;
-				String msg = null;
 				byte[] messageBodyBytes = null;
-				if (i < 3) {
-					msg = telegram;
-				} else if (i == 3){
-					msg = telegram2;
-				} else {
-					msg = telegram3;
-				}
-				
 				
 				//	MATCH or REGIT
 				routingKey = msg.substring(0, 5);
@@ -80,6 +75,7 @@ public class TestMain {
 	                    messageBodyBytes);
 				
 				System.out.println("send count : "+ i);
+				i++;
 				Thread.sleep(1000);
 			}
 			

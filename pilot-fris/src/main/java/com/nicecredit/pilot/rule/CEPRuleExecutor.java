@@ -50,13 +50,18 @@ public class CEPRuleExecutor implements RuleExecutor {
 	public Object execute(Map<String, Object> teleMap) {
 		
 		FBApplAddr addr = (FBApplAddr)teleMap.get(Utils.KEY_FBAPPLADDR);
+		FBApplPhone wphone = (FBApplPhone)teleMap.get(Utils.KEY_FBAPPL_WPHONE);
+		FBApplPhone mphone = (FBApplPhone)teleMap.get(Utils.KEY_FBAPPL_MPHONE);
 
         kSession.insert(addr);
+        kSession.insert(wphone);
+        kSession.insert(mphone);
         
+        kSession.startProcess("CepRule.CepRuleFlow");
         kSession.fireAllRules();
         
         LOGGER.debug("------- result of cep -----");
-        LOGGER.debug("전문코드: {}, result: {}", Utils.getTeleCode(teleMap), addr.getResp_cd());
+        LOGGER.debug("전문코드: {}, wphone: {}, mphone: {}, addr: {}", Utils.getTeleCode(teleMap), wphone.getResp_cd(), mphone.getResp_cd(), addr.getResp_cd());
         
         return addr;
 	}
