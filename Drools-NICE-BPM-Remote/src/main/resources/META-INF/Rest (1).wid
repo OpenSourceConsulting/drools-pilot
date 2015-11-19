@@ -1,0 +1,28 @@
+import org.drools.core.process.core.datatype.impl.type.StringDataType;
+
+[
+
+  [
+    "name" : "Rest",
+    "description" : "Invoke a REST service",
+    "version" : "1.0",
+    "parameters" : [
+    	"Url" : new StringDataType(),
+    	"Method" : new StringDataType(),
+    	"ConnectTimeout" : new StringDataType(),
+    	"ReadTimeout" : new StringDataType(),
+    	"Username" : new StringDataType(),
+    	"Password" : new StringDataType()
+    ],
+    "displayName" : "REST",
+    "eclipse:customEditor" : "org.drools.eclipse.flow.common.editor.editpart.work.SampleCustomEditor",
+    "category" : "Service",
+    "defaultHandler" : "org.jbpm.process.workitem.rest.RESTWorkItemHandler",
+    "documentation" : "index.html",
+    "dependencies" : [
+      "file:./lib/jbpm-rest.jar",
+      "file:./lib/commons-codec-1.8.jar"
+    ]
+  ]
+
+]
