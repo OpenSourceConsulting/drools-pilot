@@ -34,14 +34,15 @@ public class TestMain {
 			
 			System.out.println("created channel.");
 			
+			/*
 			channel.exchangeDeclare(exchangeName, "direct", true);
 			channel.queueDeclare(queueName1, true, false, false, null);
 			channel.queueDeclare(queueName2, true, false, false, null);
 			channel.queueBind(queueName1, exchangeName, "MATCH");
 			channel.queueBind(queueName2, exchangeName, "REGIT");
+			*/
 			
-			
-			boolean isMatchTest = false;
+			boolean isMatchTest = true;
 			String[] telegrams   = null;
 
 			if (isMatchTest) {

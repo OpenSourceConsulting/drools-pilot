@@ -81,6 +81,7 @@ public class PilotMain {
 			channel.queueDeclare(queueName1, true, false, false, null);
 			channel.queueDeclare(queueName2, true, false, false, null);
 			channel.queueBind(queueName1, exchangeName, "MATCH");
+			channel.queueBind(queueName2, exchangeName, "MATCH");
 			channel.queueBind(queueName2, exchangeName, "REGIT");
 			
 			boolean autoAck = false;

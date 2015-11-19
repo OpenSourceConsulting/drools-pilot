@@ -61,22 +61,28 @@ public class CEPDataConsumer extends BaseConsumer {
 			 */
 			Map<String, Object> teleMap = Utils.parseTelegram(telegram);
 			
+			
+			boolean isRegit = Utils.TELE_CD_REGIT.equals(Utils.getTeleCode(teleMap));
+			/*
+			 * REGIT 전문인경우 version 을 1 증가후 저장.
+			 */
+			if (isRegit) {
+				saveTelegram(teleMap);
+			}
+			
 			/*
 			 * rule
 			 */
 			FBApplAddr addr = (FBApplAddr)ruleExecutor.execute(teleMap);
 			
-			/*
-			 * 데이터 정상인경우 version 을 1 증가후 저장.
-			 */
-			if (TestResult.RESP_CD_0000.equals(addr.getResp_cd())) {
-				saveTelegram(teleMap);
-			}
+			
 			
 			/*
 			 * 결과 저장
 			 */
-			saveResult(addr, start, telegram);
+			if (isRegit) {
+				saveResult(addr, start, telegram);
+			}
 			
 			sendAck(envelope);
 		} catch (Exception e) {
@@ -86,7 +92,7 @@ public class CEPDataConsumer extends BaseConsumer {
 	
 	/**
 	 * <pre>
-	 * 데이터 정상인경우 version 을 1 증가후 저장.
+	 * REGIT 전문인경우 version 을 1 증가후 저장.
 	 * </pre>
 	 * @param teleMap
 	 */

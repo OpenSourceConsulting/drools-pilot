@@ -10,6 +10,7 @@ import org.kie.api.runtime.KieSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.nice.pilot.cep_rule.Telegram;
 import com.nice.pilot.pilot_rule.FBApplAddr;
 import com.nice.pilot.pilot_rule.FBApplPhone;
 import com.nicecredit.pilot.util.Utils;
@@ -49,6 +50,7 @@ public class CEPRuleExecutor implements RuleExecutor {
 	@Override
 	public Object execute(Map<String, Object> teleMap) {
 		
+		String teleCode = Utils.getTeleCode(teleMap);
 		FBApplAddr addr = (FBApplAddr)teleMap.get(Utils.KEY_FBAPPLADDR);
 		FBApplPhone wphone = (FBApplPhone)teleMap.get(Utils.KEY_FBAPPL_WPHONE);
 		FBApplPhone mphone = (FBApplPhone)teleMap.get(Utils.KEY_FBAPPL_MPHONE);
@@ -56,12 +58,13 @@ public class CEPRuleExecutor implements RuleExecutor {
         kSession.insert(addr);
         kSession.insert(wphone);
         kSession.insert(mphone);
+        kSession.insert(new Telegram(teleCode));
         
         kSession.startProcess("CepRule.CepRuleFlow");
         kSession.fireAllRules();
         
         LOGGER.debug("------- result of cep -----");
-        LOGGER.debug("전문코드: {}, wphone: {}, mphone: {}, addr: {}", Utils.getTeleCode(teleMap), wphone.getResp_cd(), mphone.getResp_cd(), addr.getResp_cd());
+        LOGGER.debug("전문코드: {}, wphone: {}, mphone: {}, addr: {}", teleCode, wphone.getResp_cd(), mphone.getResp_cd(), addr.getResp_cd());
         
         return addr;
 	}
