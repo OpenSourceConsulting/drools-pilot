@@ -84,10 +84,11 @@ public class RuleDataConsumer extends BaseConsumer {
 	         */
 	        saveResult(result, start, teleMap, telegram);
 	   	 
-	        sendAck(envelope);
-	        
 		} catch (Exception e) {
 			LOGGER.error(e.toString(), e);
+		} finally {
+			
+			sendAck(envelope);
 		}
 		
 		

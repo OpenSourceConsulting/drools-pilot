@@ -87,6 +87,7 @@ public abstract class Utils {
 			
 			fbappladdr.setNice_fraud_stat_cd(telegram.substring(78, 79));//사기주소 여부
 			wirephone.setNice_fraud_stat_cd(telegram.substring(79, 80));//사기유선전화 여부
+			wirephone.setFull_phone_no("0551234567");
 			mobilephone.setNice_fraud_stat_cd(telegram.substring(80, 81));//사기무선전화 여부
 		}
 		

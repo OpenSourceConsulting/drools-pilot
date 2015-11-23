@@ -93,6 +93,7 @@ public class BaseConsumer extends DefaultConsumer {
 				sqlSession.rollback();
 				
 				LOGGER.error(e.toString(), e);
+				throw e;
 			} finally {
 				sqlSession.close();
 			}
@@ -117,6 +118,7 @@ public class BaseConsumer extends DefaultConsumer {
 				tx.rollback();
 				
 				LOGGER.error(e.toString(), e);
+				throw e;
 			} finally {
 				entityManager.close();
 			}

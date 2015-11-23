@@ -54,6 +54,7 @@ public class CEPDataConsumer extends BaseConsumer {
 		
 		String telegram = new String(body);
 		LOGGER.debug("telegram:{}", telegram);
+		FBApplAddr addr = null;
 		
 		try {
 			/*
@@ -67,14 +68,23 @@ public class CEPDataConsumer extends BaseConsumer {
 			 * REGIT 전문인경우 version 을 1 증가후 저장.
 			 */
 			if (isRegit) {
-				saveTelegram(teleMap);
+				
+				try{
+					saveTelegram(teleMap);
+				} catch (Exception e) {
+					// 데이터 저장 중 키 값(신청서번호, 점포코드, 버전) 중복: ER11 / "사기 조사 요청 후 신청서 추가 등록"
+					addr = (FBApplAddr)teleMap.get(Utils.KEY_FBAPPLADDR);
+					addr.setResp_cd(TestResult.RESP_CD_ER11);
+				}
 			}
+				
 			
 			/*
 			 * rule
 			 */
-			FBApplAddr addr = (FBApplAddr)ruleExecutor.execute(teleMap);
-			
+			if (addr == null) {
+				addr = (FBApplAddr)ruleExecutor.execute(teleMap);
+			}
 			
 			
 			/*
@@ -84,9 +94,11 @@ public class CEPDataConsumer extends BaseConsumer {
 				saveResult(addr, start, telegram);
 			}
 			
-			sendAck(envelope);
 		} catch (Exception e) {
 			LOGGER.error(e.toString(), e);
+		} finally {
+			
+			sendAck(envelope);
 		}
 	}
 	
