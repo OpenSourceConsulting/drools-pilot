@@ -35,7 +35,7 @@ public class CEPRuleExecutor implements RuleExecutor {
 	 */
 	public CEPRuleExecutor() {
 		KieServices ks = KieServices.Factory.get();
-		ReleaseId releaseId = ks.newReleaseId( "com.nice.pilot", "cep-rule-dev", "1.0.0-SNAPSHOT" );
+		ReleaseId releaseId = ks.newReleaseId( "com.nice.pilot", "cep-rule", "1.0.0-SNAPSHOT" );
         kContainer = ks.newKieContainer( releaseId );
         //KieScanner kScanner = ks.newKieScanner( kContainer );
 

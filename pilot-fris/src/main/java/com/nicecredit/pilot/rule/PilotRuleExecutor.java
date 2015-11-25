@@ -36,7 +36,7 @@ public class PilotRuleExecutor implements RuleExecutor{
 
 	public PilotRuleExecutor() {
 		KieServices ks = KieServices.Factory.get();
-		ReleaseId releaseId = ks.newReleaseId( "com.nice.pilot", "pilot-rule-dev", "1.0.0-SNAPSHOT" );
+		ReleaseId releaseId = ks.newReleaseId( "com.nice.pilot", "pilot-rule", "1.0.0-SNAPSHOT" );
         kContainer = ks.newKieContainer( releaseId );
         //KieScanner kScanner = ks.newKieScanner( kContainer );
 
