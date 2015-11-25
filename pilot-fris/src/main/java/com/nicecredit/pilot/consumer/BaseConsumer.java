@@ -1,16 +1,16 @@
 package com.nicecredit.pilot.consumer;
 
 import java.io.IOException;
-import java.util.Map;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.nice.pilot.pilot_rule.MatchDetail;
 import com.nicecredit.pilot.db.DBRepository;
 import com.nicecredit.pilot.db.TestResult;
 import com.nicecredit.pilot.util.Utils;
@@ -126,7 +126,7 @@ public class BaseConsumer extends DefaultConsumer {
 		
 	}
 	
-	protected void saveResult(TestResult result) {
+	protected void saveResult(TestResult result, List<MatchDetail> matchDetails) {
 		
 		if (Utils.MyBatis_Based) {
 			SqlSession sqlSession = DBRepository.getInstance().openSession();
@@ -150,6 +150,13 @@ public class BaseConsumer extends DefaultConsumer {
 				tx.begin();
 				
 				entityManager.persist(result);
+				
+				if (matchDetails != null) {
+					for (MatchDetail matchDetail : matchDetails) {
+						matchDetail.setResult_id(result.getId());
+						entityManager.persist(matchDetail);
+					}
+				}
 				
 				tx.commit();
 				LOGGER.debug("saved result.");

@@ -64,24 +64,13 @@ public class RuleDataConsumerTest {
 		
 		MockRuleDataConsumer consumer = new MockRuleDataConsumer(null);
 		
-		boolean isMatchTest = true;
-		String[] telegrams   = null;
-
-		if (isMatchTest) {
-			telegrams  = new String[]{
-					 "MATCH1000           NICE001OSC001       0900100   001ABCD1234255.255.255.255cdabcdefg123456789a                                                                                                                                                      0551234567  01012345678                      "
-					,"MATCH1000           NICE001OSC001       0900100   002ABCD1234255.255.255.255cdabcdefg123456789a                                                                                                                                                      0551234567  01012345678                      "
-					,"MATCH1000           NICE001OSC001       0900101   001ABCD1234255.255.255.255cdabcdefg123456789a                                                                                                                                                      0551234567  01012345678                      "
-					,"MATCH1000           NICE001OSC001       0900102   001ABCD1234255.255.255.255cdabcdefg123456789a                                                                                                                                                      0551234567  01012345678                      "
-					,"MATCH1000           NICE001OSC001       0900103   001ABCD1234255.255.255.255cdabcdefg123456789a                                                                                                                                                      0551234567  01012345678                      "
-			};
-		} else {
-			telegrams  = new String[]{
-					 "REGIT1000           NICE001OSC001       0900100   001ABCD12341RSCD000120151030111                   "
-					,"REGIT1000           NICE001OSC001       0900100   002ABCD12341RSCD000120151030111                   "
-					,"REGIT1000           NICE001OSC001       0900100   003ABCD12341RSCD000120151030111                   "
-			};
-		}
+		String[] telegrams  = new String[]{
+				 "MATCH1000           NICE001OSC001       0900100   001ABCD1234255.255.255.255cdabcdefg123456789a                                                                                                                                                      0551234567  01012345678                      "
+				,"MATCH1000           NICE001OSC001       0900100   002ABCD1234255.255.255.255cdabcdefg123456789a                                                                                                                                                      0551234567  01012345678                      "
+				,"MATCH1000           NICE001OSC001       0900101   001ABCD1234255.255.255.255cdabcdefg123456789a                                                                                                                                                      0551234567  01012345678                      "
+				,"MATCH1000           NICE001OSC001       0900102   001ABCD1234255.255.255.255cdabcdefg123456789a                                                                                                                                                      0551234567  01012345678                      "
+				,"MATCH1000           NICE001OSC001       0900103   001ABCD1234255.255.255.255cdabcdefg123456789a                                                                                                                                                      0551234567  01012345678                      "
+		};
 		
 		try {
 			for (String msg : telegrams) {

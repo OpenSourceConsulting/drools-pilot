@@ -59,7 +59,7 @@ public class HibernateTest {
 		try {
 			entityManager = DBRepository.getInstance().createEntityManager();
 			
-			TestResult result = entityManager.find(TestResult.class, 1);
+			TestResult result = entityManager.find(TestResult.class, 5);
 			
 			assertNotNull(result);
 			
@@ -140,6 +140,47 @@ public class HibernateTest {
 			entityManager.persist(mst);
 			
 			entityManager.remove(mst);
+			
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (tx != null) {
+				tx.rollback();
+			}
+			fail(e.toString());
+		} finally {
+			if (entityManager != null) {
+				entityManager.close();
+			}
+		}
+	}
+	
+	@Test
+	public void testPersistence2() {
+		
+		EntityManager entityManager = null;
+		EntityTransaction tx = null;
+		
+		TestResult result = new TestResult();
+		result.setAppl_no("12345");
+		result.setStore_cd("9999");
+		result.setVersion(1);
+		result.setResp_cd("JUNIT");
+		
+		TestRegitDetail detail = new TestRegitDetail();
+		detail.setAppl_no("12345");
+		detail.setResult(result);
+		
+		result.addDetail(detail);
+		
+		try {
+			entityManager = DBRepository.getInstance().createEntityManager();
+			tx = entityManager.getTransaction();
+			tx.begin();
+			
+			entityManager.persist(result);
+			
+			entityManager.remove(result);
 			
 			tx.commit();
 		} catch (Exception e) {

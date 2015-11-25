@@ -108,10 +108,10 @@ public class CEPDataConsumerTest {
 		MockCEPDataConsumer consumer = new MockCEPDataConsumer(null);
 		
 		String[] telegrams  = new String[]{
-				 "MATCH1000           NICE001OSC001       0900100   001ABCD1234255.255.255.255cdabcdefg123456789a                                                                                                                                                      0551234567  01012345678                      "
-				,"MATCH1000           NICE001OSC001       0900101   001ABCD1234255.255.255.255cdabcdefg123456789a                                                                                                                                                      0551234567  01012345678                      "
-				,"MATCH1000           NICE001OSC001       0900102   001ABCD1234255.255.255.255cdabcdefg123456789a                                                                                                                                                      0551234567  01012345678                      "
-				,"REGIT1000           NICE001OSC001       0900100   001ABCD12341RSCD000120151030111                   "
+				// "MATCH1000           NICE001OSC001       0900100   001ABCD1234255.255.255.255cdabcdefg123456789a                                                                                                                                                      0551234567  01012345678                      "
+				//,"MATCH1000           NICE001OSC001       0900101   001ABCD1234255.255.255.255cdabcdefg123456789a                                                                                                                                                      0551234567  01012345678                      "
+				//,"MATCH1000           NICE001OSC001       0900102   001ABCD1234255.255.255.255cdabcdefg123456789a                                                                                                                                                      0551234567  01012345678                      "
+				"REGIT1000           NICE001OSC001       0900100   001ABCD12341RSCD000120151030111                   "
 				,"REGIT1000           NICE001OSC001       0900101   001ABCD12341RSCD000120151030111                   "
 				,"REGIT1000           NICE001OSC001       0900102   001ABCD12341RSCD000120151030111                   "
 		};

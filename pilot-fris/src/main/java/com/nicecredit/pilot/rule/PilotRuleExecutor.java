@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import com.nice.pilot.pilot_rule.FBApplAddr;
 import com.nice.pilot.pilot_rule.FBApplPhone;
 import com.nice.pilot.pilot_rule.InMemData;
+import com.nice.pilot.pilot_rule.MatchDetail;
 import com.nice.pilot.pilot_rule.Result1;
 import com.nicecredit.pilot.db.TestResult;
 import com.nicecredit.pilot.util.Utils;
@@ -35,13 +36,15 @@ public class PilotRuleExecutor implements RuleExecutor{
 
 	public PilotRuleExecutor() {
 		KieServices ks = KieServices.Factory.get();
-		ReleaseId releaseId = ks.newReleaseId( "com.nice.pilot", "pilot-rule", "1.0.0-SNAPSHOT" );
+		ReleaseId releaseId = ks.newReleaseId( "com.nice.pilot", "pilot-rule-dev", "1.0.0-SNAPSHOT" );
         kContainer = ks.newKieContainer( releaseId );
         //KieScanner kScanner = ks.newKieScanner( kContainer );
 
         //Start the KieScanner polling the Maven repository every 10 seconds
         //kScanner.start( 10000L );
         kSession = kContainer.newKieSession("newSession");
+        kSession.addEventListener(new ProcessEventListenerImpl());
+        //kSession.addEventListener(new AgendaEventListenerImpl());
         //logger = KnowledgeRuntimeLoggerFactory.newFileLogger(kSession, "test");
 	}
 	
@@ -80,6 +83,10 @@ public class PilotRuleExecutor implements RuleExecutor{
         	result.setResp_cd(TestResult.RESP_CD_ER03);
 		} else {
 			result.setResp_cd(TestResult.RESP_CD_0000);
+		}
+        
+        for (MatchDetail detail : result.getDetails()) {
+        	LOGGER.debug("rule id: {}, appl_cnt: {}", detail.getRule_id(), detail.getAppl_cnt());
 		}
         
         return result;

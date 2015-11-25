@@ -57,11 +57,14 @@ public class RuleDataConsumer extends BaseConsumer {
 		String telegram = new String(body);
 		LOGGER.debug("telegram:{}", telegram);
 		
+		Map<String, Object> teleMap = null;
+		Result1 result = null;
+		String err_msg = null;
 		try {
 			/*
 			 * 전문 파싱.
 			 */
-			Map<String, Object> teleMap = Utils.parseTelegram(telegram);
+			teleMap = Utils.parseTelegram(telegram);
 			
 			/*
 			 * 전문 저장
@@ -77,16 +80,20 @@ public class RuleDataConsumer extends BaseConsumer {
 			/*
 			 * 룰 실행.
 			 */
-			Result1 result = (Result1)ruleExecutor.execute(teleMap);
+			result = (Result1)ruleExecutor.execute(teleMap);
 	        
-	        /*
-	         * 결과저장
-	         */
-	        saveResult(result, start, teleMap, telegram);
+	        
 	   	 
 		} catch (Exception e) {
-			LOGGER.error(e.toString(), e);
+			err_msg = e.toString();
+			LOGGER.error(err_msg, e);
+			
 		} finally {
+			
+			/*
+	         * 결과저장
+	         */
+	        saveResult(result, start, teleMap, telegram, err_msg);
 			
 			sendAck(envelope);
 		}
@@ -112,22 +119,34 @@ public class RuleDataConsumer extends BaseConsumer {
 		teleMap.put(Utils.KEY_INMEM, InfinispanHandler.getInstance().get(addr.getOrg_id()));
 	}
 	
-	private void saveResult(Result1 res, long start, Map<String, Object> teleMap, String telegram) {
+	private void saveResult(Result1 res, long start, Map<String, Object> teleMap, String telegram, String err_msg) {
 		LOGGER.debug("saving result.");
 		
-		FBApplAddr addr = (FBApplAddr)teleMap.get(Utils.KEY_FBAPPLADDR);
-		TestResult result = new TestResult();
-		//BeanUtils.copyProperties(result, addr);
 		
-		result.setAppl_no(addr.getAppl_no());
-		result.setVersion(addr.getVersion());
-		result.setStore_cd(addr.getStore_cd());
+		TestResult result = new TestResult();
+		
+		if (teleMap != null) {
+			FBApplAddr addr = (FBApplAddr)teleMap.get(Utils.KEY_FBAPPLADDR);
+			result.setAppl_no(addr.getAppl_no());
+			result.setVersion(addr.getVersion());
+			result.setStore_cd(addr.getStore_cd());
+		}
+		
 		result.setTelegram(telegram);
 		result.setElapsed_time(System.currentTimeMillis() - start);
-		result.setResp_cd(res.getResp_cd());
-		result.setRule_result1(res.getResult1());
 		
-		saveResult(result);
+		if (res != null) {
+			result.setResp_cd(res.getResp_cd());
+			result.setRule_result1(res.getResult1());
+		}
+		
+		if (err_msg != null) {
+			result.setErr_msg(err_msg);
+		}
+		
+		saveResult(result, res.getDetails());
+		
+		
 	}
 }
 //end of RuleConsumer.java

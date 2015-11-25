@@ -27,6 +27,7 @@
 	<logger name="com.nicecredit.pilot" level="DEBUG"/>
 	
 	<logger name="org.hibernate" level="ERROR"/>
+	<logger name="org.hibernate.internal.util.EntityPrinter" level="DEBUG" />
 	<logger name="org.apache.http" level="ERROR"/>
 	<logger name="org.drools" level="ERROR"/>
 	<logger name="org.kie.scanner" level="ERROR"/>

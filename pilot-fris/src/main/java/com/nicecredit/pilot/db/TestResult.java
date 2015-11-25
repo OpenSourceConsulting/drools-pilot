@@ -1,10 +1,17 @@
 package com.nicecredit.pilot.db;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
@@ -17,7 +24,7 @@ import org.hibernate.annotations.GenericGenerator;
  * @author BongJin Kwon
  */
 @Entity
-@Table( name = "test_result" )
+@Table( name = "test_result2" )
 public class TestResult {
 	
 	public static final String RESP_CD_0000 = "0000";
@@ -25,10 +32,13 @@ public class TestResult {
 	public static final String RESP_CD_ER02 = "ER02";
 	public static final String RESP_CD_ER03 = "ER03";
 	public static final String RESP_CD_ER11 = "ER11";
+	public static final String RESP_CD_ERROR = "ERROR";
 	
+	
+	//@GeneratedValue(generator="increment")
+	//@GenericGenerator(name="increment", strategy = "increment")
 	@Id
-	@GeneratedValue(generator="increment")
-	@GenericGenerator(name="increment", strategy = "increment")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
 	private String appl_no;
@@ -39,6 +49,10 @@ public class TestResult {
 	private String telegram;
 	private Date reg_dt;
 	private long elapsed_time;
+	private String err_msg;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="result", fetch=FetchType.EAGER)
+	private Set<TestRegitDetail> details = new HashSet<TestRegitDetail>();
 
 	/**
 	 * <pre>
@@ -121,9 +135,30 @@ public class TestResult {
 		this.elapsed_time = elapsed_time;
 	}
 	
+	public String getErr_msg() {
+		return err_msg;
+	}
+
+	public void setErr_msg(String err_msg) {
+		this.err_msg = err_msg;
+	}
+	
+	public Set<TestRegitDetail> getDetails() {
+		return details;
+	}
+
+	public void setDetails(Set<TestRegitDetail> details) {
+		this.details = details;
+	}
+
 	@PrePersist
     void prePersist() {
 		this.reg_dt = new Date();
     }
+	
+	public void addDetail(TestRegitDetail detail) {
+		detail.setResult(this);
+		this.details.add(detail);
+	}
 }
 //end of TestResult.java
