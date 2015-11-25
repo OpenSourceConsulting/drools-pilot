@@ -109,11 +109,18 @@ public class CEPDataConsumer extends BaseConsumer {
 			
 		} finally {
 			
-			/*
-			 * 결과 저장
-			 */
+			
 			if (isRegit) {
-				saveResult(addr, teleMap, start, telegram, err_msg);
+				/*
+				 * 결과 저장
+				 */
+				TestResult result = saveResult(addr, teleMap, start, telegram, err_msg);
+				
+				
+				/*
+		         * 응답 전문 보내기.
+		         */
+				sendResponse(result);
 			}
 			sendAck(envelope);
 			
@@ -192,7 +199,7 @@ public class CEPDataConsumer extends BaseConsumer {
 		
 	}
 	
-	private void saveResult(FBApplAddr addr, Map<String, Object> teleMap, long start, String telegram, String err_msg) {
+	private TestResult saveResult(FBApplAddr addr, Map<String, Object> teleMap, long start, String telegram, String err_msg) {
 		LOGGER.debug("saving result.");
 		
 		TestResult result = new TestResult();
@@ -241,6 +248,8 @@ public class CEPDataConsumer extends BaseConsumer {
 		}
 		
 		saveResult(result, null);
+		
+		return result;
 	}
 
 }

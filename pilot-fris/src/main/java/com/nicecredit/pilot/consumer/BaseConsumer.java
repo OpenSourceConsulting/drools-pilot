@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nice.pilot.pilot_rule.MatchDetail;
 import com.nicecredit.pilot.db.DBRepository;
 import com.nicecredit.pilot.db.TestResult;
@@ -17,6 +18,7 @@ import com.nicecredit.pilot.util.Utils;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
+import com.rabbitmq.client.MessageProperties;
 import com.rabbitmq.client.ShutdownSignalException;
 
 /**
@@ -28,6 +30,7 @@ import com.rabbitmq.client.ShutdownSignalException;
 public class BaseConsumer extends DefaultConsumer {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(BaseConsumer.class);
+	private ObjectMapper om = new ObjectMapper();
 
 	/**
 	 * <pre>
@@ -168,6 +171,26 @@ public class BaseConsumer extends DefaultConsumer {
 				entityManager.close();
 			}
 		}
+	}
+	
+	/**
+	 * <pre>
+	 * 응답전문 보내기.
+	 * </pre>
+	 * @param result
+	 */
+	protected void sendResponse(TestResult result) {
+		
+		try{
+			result.getDetails().clear();
+			
+			getChannel().basicPublish("pilot_resp", "resp", true,
+	                MessageProperties.PERSISTENT_TEXT_PLAIN,
+	                om.writeValueAsBytes(result));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }

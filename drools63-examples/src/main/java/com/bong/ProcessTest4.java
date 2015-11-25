@@ -23,6 +23,8 @@ public class ProcessTest4 {
     	    KieSession kSession = kContainer.newKieSession("ksession-process3");
         	//EntryPoint entryPoint1 = kSession.getEntryPoint("entryone");
         	
+    	    System.out.println("drools.dialect.mvel.strict : " + kSession.getEnvironment().get("drools.dialect.mvel.strict"));
+    	    
         	
     	    execute(kSession, "111");
     	    execute(kSession, "111");

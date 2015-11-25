@@ -19,6 +19,8 @@
          -->
     </entity>
     <entity class="com.nicecredit.pilot.db.ApplEntity">
+    
+    	<!-- 동일 자택주소 and 동일 자택전화 and 다른 주민번호_30일 -->
         <named-native-query name="ApplEntity.addr.phone" >
             <query><![CDATA[
             SELECT DISTINCT t4.APPL_NO ,
@@ -48,6 +50,8 @@
         </named-native-query>
     </entity>
     <entity class="com.nicecredit.pilot.db.ApplEntity2">
+    
+    	<!-- 동일 이동전화 and 동일 자택전화 and 다른 주민번호_30일 -->
         <named-native-query name="ApplEntity2.mphone.wphone" >
             <query><![CDATA[
             SELECT DISTINCT t6.APPL_NO ,
@@ -78,6 +82,8 @@
         </named-native-query>
     </entity>
     <entity class="com.nicecredit.pilot.db.ApplEntity3">
+    
+    	<!-- 유의거래 확정 신청인과 자택 전화번호 일치 -->
         <named-native-query name="ApplEntity3.fraud" >
             <query><![CDATA[
             SELECT DISTINCT t3.APPL_NO ,

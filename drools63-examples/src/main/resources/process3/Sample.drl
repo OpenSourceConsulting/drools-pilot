@@ -1,6 +1,7 @@
 package com.bong;
 
 import com.nice.pilot.pilot_rule.FBApplAddr;
+import com.nice.pilot.pilot_rule.Result1;
 
 declare FBApplAddr
     @role(event)
@@ -8,10 +9,16 @@ end
 
 
 rule "EventCount 1"
+	no-loop 
 when
 	$oEvent : FBApplAddr( $orgId : org_id ) over window:length(1)
     accumulate( FBApplAddr(org_id == $orgId, $storeCd : store_cd) over window:time(10s); $stores : collectSet( $storeCd ); $stores.size() > 1 )
     //accumulate( FBApplAddr(org_id == $orgId) over window:time(10s); $cnt: count(1) ) 
+    //$result : Result1(resp_cd == null)
 then
     System.out.println("EventCount 1, " + $stores.size() + ", org_id : " + $orgId);
+    //$result.setResp_cd("ddd");
+    //update( $result );
 end
+
+

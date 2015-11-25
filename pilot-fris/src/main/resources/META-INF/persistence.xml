@@ -11,7 +11,7 @@
     	<class>com.nice.pilot.pilot_rule.MatchDetail</class>
 	    <properties>
 	        <property name="javax.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver"/>
-	        <property name="javax.persistence.jdbc.url" value="jdbc:mariadb://nice-osc-db.cloudapp.net:3306/nicepilot?useUnicode=true&amp;characterEncoding=UTF-8&amp;connectTimeout=5000&amp;socketTimeout=5000"/>
+	        <property name="javax.persistence.jdbc.url" value="jdbc:mariadb://nice-osc-db.cloudapp.net:3306/nicepilot?useUnicode=true&amp;characterEncoding=UTF-8&amp;connectTimeout=8000&amp;socketTimeout=5000"/>
 	        <property name="javax.persistence.jdbc.user" value="nicedb"/>
 	        <property name="javax.persistence.jdbc.password" value="nicedb00"/>
 	        

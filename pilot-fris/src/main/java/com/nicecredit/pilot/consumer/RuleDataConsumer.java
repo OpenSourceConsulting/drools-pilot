@@ -1,10 +1,12 @@
 package com.nicecredit.pilot.consumer;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.ibatis.session.SqlSession;
@@ -34,6 +36,14 @@ public class RuleDataConsumer extends BaseConsumer {
 	public static final String CONSUMER_TAG = "RuleDataConsumer";
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(RuleDataConsumer.class);
+	
+	private static final String NAMED_QUERY1 = "ApplEntity.addr.phone";
+	private static final String NAMED_QUERY2 = "ApplEntity2.mphone.wphone";
+	private static final String NAMED_QUERY3 = "ApplEntity3.fraud";
+	
+	private static final String PARAM_APPL_NO = "APPL_NO";
+	private static final String PARAM_STORE_CD = "STORE_CD";
+	private static final String PARAM_VERSION = "VERSION";
 	
 	//private RuleExecutor ruleExecutor = new TestRuleExecutor();
 	private RuleExecutor ruleExecutor = new PilotRuleExecutor();
@@ -93,7 +103,12 @@ public class RuleDataConsumer extends BaseConsumer {
 			/*
 	         * 결과저장
 	         */
-	        saveResult(result, start, teleMap, telegram, err_msg);
+	        TestResult res = saveResult(result, start, teleMap, telegram, err_msg);
+	        
+	        /*
+	         * 응답 전문 보내기.
+	         */
+	        sendResponse(res);
 			
 			sendAck(envelope);
 		}
@@ -117,9 +132,34 @@ public class RuleDataConsumer extends BaseConsumer {
 		FBApplAddr addr = (FBApplAddr)teleMap.get(Utils.KEY_FBAPPLADDR);
 		
 		teleMap.put(Utils.KEY_INMEM, InfinispanHandler.getInstance().get(addr.getOrg_id()));
+		
+		/*
+		EntityManager entityManager = DBRepository.getInstance().createEntityManager();
+
+		//Query query1 = entityManager.createNativeQuery("SELECT addr_pnu_cd FROM fbappladdr WHERE appl_no = ? and store_cd = ? and version = ?");
+		Query query1 = entityManager.createNamedQuery(NAMED_QUERY1);
+		Query query2 = entityManager.createNamedQuery(NAMED_QUERY2);
+		Query query3 = entityManager.createNamedQuery(NAMED_QUERY3);
+		
+		query1.setParameter(PARAM_APPL_NO, addr.getAppl_no());
+		query1.setParameter(PARAM_STORE_CD, addr.getStore_cd());
+		query1.setParameter(PARAM_VERSION, addr.getVersion());
+		
+		query2.setParameter(PARAM_APPL_NO, addr.getAppl_no());
+		query2.setParameter(PARAM_STORE_CD, addr.getStore_cd());
+		query2.setParameter(PARAM_VERSION, addr.getVersion());
+		
+		query3.setParameter(PARAM_APPL_NO, addr.getAppl_no());
+		query3.setParameter(PARAM_STORE_CD, addr.getStore_cd());
+		query3.setParameter(PARAM_VERSION, addr.getVersion());
+		
+		List list1 = query1.getResultList();
+		List list2 = query2.getResultList();
+		List list3 = query3.getResultList();
+		*/
 	}
 	
-	private void saveResult(Result1 res, long start, Map<String, Object> teleMap, String telegram, String err_msg) {
+	private TestResult saveResult(Result1 res, long start, Map<String, Object> teleMap, String telegram, String err_msg) {
 		LOGGER.debug("saving result.");
 		
 		
@@ -144,9 +184,13 @@ public class RuleDataConsumer extends BaseConsumer {
 			result.setErr_msg(err_msg);
 		}
 		
-		saveResult(result, res.getDetails());
+		if (res != null) {
+			saveResult(result, res.getDetails());
+		} else {
+			saveResult(result, null);
+		}
 		
-		
+		return result;
 	}
 }
 //end of RuleConsumer.java
