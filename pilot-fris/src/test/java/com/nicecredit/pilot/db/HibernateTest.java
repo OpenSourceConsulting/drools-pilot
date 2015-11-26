@@ -10,6 +10,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import org.apache.ibatis.session.SqlSession;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -17,6 +18,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.nice.pilot.pilot_rule.FBApplMst;
+import com.nice.pilot.pilot_rule.InMemData;
 
 /**
  * <pre>
@@ -58,16 +60,18 @@ public class HibernateTest {
 	@Test
 	public void testFindLoop() {
 		
-		long start = System.currentTimeMillis();
-		for (int i = 0; i < 100; i++) {
-			testFind();
+		long total_time = 0;
+		for (int i = 0; i < 20; i++) {
+			total_time = total_time + testFind();
+			//total_time = total_time + testFindMyBatis();
 		}
-		System.out.println("--------------- elapsed time: " + (System.currentTimeMillis() - start));
+		System.out.println("--------------- elapsed time: " + total_time);
 	}
 	
-	@Test
-	public void testFind() {
+	//@Test
+	public long testFind() {
 		
+		long etime = 0;
 		EntityManager entityManager = null;
 		try {
 			entityManager = DBRepository.getInstance().createEntityManager();
@@ -75,9 +79,11 @@ public class HibernateTest {
 			long start = System.currentTimeMillis();
 			
 			for (int i = 392; i < 432; i++) {
-				TestResult result = entityManager.find(TestResult.class, 392);
+				TestResult result = entityManager.find(TestResult.class, i);
 			}
-			System.out.println("elapsed time: " + (System.currentTimeMillis() - start));
+			
+			etime = System.currentTimeMillis() - start;
+			System.out.println("elapsed time: " + etime);
 			
 			//assertNotNull(result);
 			
@@ -89,6 +95,41 @@ public class HibernateTest {
 				entityManager.close();
 			}
 		}
+		
+		return etime;
+	}
+	
+	//@Test
+	public long testFindMyBatis() {
+		
+		long etime = 0;
+		SqlSession sqlSession = null;
+		try {
+			sqlSession = DBRepository.getInstance().openSession();
+			
+			
+			
+			long start = System.currentTimeMillis();
+			
+			for (int i = 392; i < 432; i++) {
+				TestResult result = sqlSession.selectOne("PilotMapper.selectTestResult", i);
+			}
+			
+			etime = System.currentTimeMillis() - start;
+			System.out.println("my elapsed time: " + etime);
+			
+			//assertNotNull(result);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail(e.toString());
+		} finally {
+			if (sqlSession != null) {
+				sqlSession.close();
+			}
+		}
+		
+		return etime;
 	}
 	
 	@Test

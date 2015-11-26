@@ -124,5 +124,14 @@
 		LIMIT
 			0, 5
 	</select>
+	
+	<select id="selectTestResult" resultType="com.nicecredit.pilot.db.TestResult" parameterType="int">
+		SELECT
+			*
+		FROM
+			test_result2
+		WHERE
+			id = #{id}
+	</select>
 
 </mapper>
