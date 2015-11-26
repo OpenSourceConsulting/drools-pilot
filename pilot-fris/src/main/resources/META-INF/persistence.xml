@@ -23,6 +23,10 @@
 			<property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.infinispan.InfinispanRegionFactory"/>
 			<property name="hibernate.cache.infinispan.cfg" value="infinispan.xml"/>
 			 -->
+		  <property name="hibernate.cache.use_second_level_cache">true</property>
+		  <property name="hibernate.cache.use_query_cache">true</property>
+		  <property name="hibernate.cache.region.factory_class">org.hibernate.cache.infinispan.InfinispanRegionFactory</property>
+		  <property name="hibernate.cache.infinispan.cfg">infinispan-hibernate.xml</property>
 	    </properties>
     </persistence-unit>
 </persistence>
