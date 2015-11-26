@@ -41,6 +41,7 @@ public class CEPRuleExecutor implements RuleExecutor {
 
         //Start the KieScanner polling the Maven repository every 10 seconds
         //kScanner.start( 10000L );
+        
         kSession = kContainer.newKieSession("cepSession");
 	}
 

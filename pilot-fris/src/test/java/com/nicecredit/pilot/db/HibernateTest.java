@@ -52,6 +52,19 @@ public class HibernateTest {
 	public void tearDown() throws Exception {
 	}
 	
+	/*
+	 * infinispan 연동 튜닝용.
+	 */
+	@Test
+	public void testFindLoop() {
+		
+		long start = System.currentTimeMillis();
+		for (int i = 0; i < 100; i++) {
+			testFind();
+		}
+		System.out.println("--------------- elapsed time: " + (System.currentTimeMillis() - start));
+	}
+	
 	@Test
 	public void testFind() {
 		
@@ -59,9 +72,14 @@ public class HibernateTest {
 		try {
 			entityManager = DBRepository.getInstance().createEntityManager();
 			
-			TestResult result = entityManager.find(TestResult.class, 5);
+			long start = System.currentTimeMillis();
 			
-			assertNotNull(result);
+			for (int i = 392; i < 432; i++) {
+				TestResult result = entityManager.find(TestResult.class, 392);
+			}
+			System.out.println("elapsed time: " + (System.currentTimeMillis() - start));
+			
+			//assertNotNull(result);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

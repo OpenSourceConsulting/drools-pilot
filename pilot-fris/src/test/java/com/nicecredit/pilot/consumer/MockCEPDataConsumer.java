@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.nicecredit.pilot.db.TestResult;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Envelope;
 
@@ -31,6 +32,11 @@ public class MockCEPDataConsumer extends CEPDataConsumer {
 	@Override
 	protected void sendAck(Envelope envelope) throws IOException {
 		LOGGER.debug("send ack.");
+	}
+
+	@Override
+	protected void sendResponse(TestResult result) {
+		LOGGER.debug("send response.");
 	}
 	
 

@@ -17,16 +17,12 @@
 	        
 	        <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
             <property name="hibernate.show_sql" value="true" />
-            <!-- 
+            
             <property name="hibernate.cache.use_second_level_cache" value="true" />
 			<property name="hibernate.cache.use_query_cache" value="true" />
 			<property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.infinispan.InfinispanRegionFactory"/>
-			<property name="hibernate.cache.infinispan.cfg" value="infinispan.xml"/>
-			 -->
-		  <property name="hibernate.cache.use_second_level_cache">true</property>
-		  <property name="hibernate.cache.use_query_cache">true</property>
-		  <property name="hibernate.cache.region.factory_class">org.hibernate.cache.infinispan.InfinispanRegionFactory</property>
-		  <property name="hibernate.cache.infinispan.cfg">infinispan-hibernate.xml</property>
+			<property name="hibernate.cache.infinispan.cfg" value="infinispan-hibernate.xml"/>
+			 
 	    </properties>
     </persistence-unit>
 </persistence>
