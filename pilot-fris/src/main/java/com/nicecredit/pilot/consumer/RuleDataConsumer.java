@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.nice.pilot.pilot_rule.FBApplAddr;
+import com.nice.pilot.pilot_rule.InMemData;
 import com.nice.pilot.pilot_rule.Result1;
 import com.nicecredit.pilot.cache.InfinispanHandler;
 import com.nicecredit.pilot.db.DBRepository;
@@ -131,7 +132,10 @@ public class RuleDataConsumer extends BaseConsumer {
 	private void profiling(Map<String, Object> teleMap) {
 		FBApplAddr addr = (FBApplAddr)teleMap.get(Utils.KEY_FBAPPLADDR);
 		
-		teleMap.put(Utils.KEY_INMEM, InfinispanHandler.getInstance().get(addr.getOrg_id()));
+		
+		EntityManager entityManager = DBRepository.getInstance().createEntityManager();
+		//teleMap.put(Utils.KEY_INMEM, InfinispanHandler.getInstance().get(addr.getOrg_id()));
+		teleMap.put(Utils.KEY_INMEM, entityManager.find(InMemData.class, addr.getOrg_id()));
 		
 		/*
 		EntityManager entityManager = DBRepository.getInstance().createEntityManager();

@@ -12,7 +12,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
@@ -29,6 +28,7 @@ import org.hibernate.annotations.GenericGenerator;
  */
 @Entity
 @Cacheable
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 @Table( name = "test_result2" )
 public class TestResult implements Serializable{
 	

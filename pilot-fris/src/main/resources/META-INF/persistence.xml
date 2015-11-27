@@ -4,25 +4,34 @@
         xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
         version="2.0">
     <persistence-unit name="org.hibernate.nice.jpa">
+
     	<mapping-file>META-INF/orm.xml</mapping-file>
     	<class>com.nice.pilot.pilot_rule.FBApplMst</class>
     	<class>com.nice.pilot.pilot_rule.FBApplAddr</class>
     	<class>com.nice.pilot.pilot_rule.FBApplPhone</class>
     	<class>com.nice.pilot.pilot_rule.MatchDetail</class>
+    	<class>com.nice.pilot.pilot_rule.InMemData</class>
 	    <properties>
 	        <property name="javax.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver"/>
 	        <property name="javax.persistence.jdbc.url" value="jdbc:mariadb://nice-osc-db.cloudapp.net:3306/nicepilot?useUnicode=true&amp;characterEncoding=UTF-8&amp;connectTimeout=8000&amp;socketTimeout=5000"/>
 	        <property name="javax.persistence.jdbc.user" value="nicedb"/>
 	        <property name="javax.persistence.jdbc.password" value="nicedb00"/>
+	        <property name="javax.persistence.sharedCache.mode" value="ENABLE_SELECTIVE"/>
 	        
 	        <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
             <property name="hibernate.show_sql" value="true" />
             
+            <!--  -->
             <property name="hibernate.cache.use_second_level_cache" value="true" />
 			<property name="hibernate.cache.use_query_cache" value="true" />
 			<property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.infinispan.InfinispanRegionFactory"/>
 			<property name="hibernate.cache.infinispan.cfg" value="infinispan-hibernate.xml"/>
+			
+			<!-- 
+			<property name="hibernate.cache.infinispan.cfg" value="infinispan.xml"/>
+			 -->
 			 
 	    </properties>
+	    
     </persistence-unit>
 </persistence>

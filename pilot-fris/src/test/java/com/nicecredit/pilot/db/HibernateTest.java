@@ -30,6 +30,23 @@ public class HibernateTest {
 
 	//EntityManagerFactory entityManagerFactory;
 	
+	/**
+	 * INMEM_DATA pk array
+	 */
+	private String[] ids = new String[]{"00000016"
+			,"00000153"
+			,"00000155"
+			,"00000169"
+			,"00000171"
+			,"00000186"
+			,"00000210"
+			,"00000287"
+			,"00000290"
+			,"00000291"
+			,"00000343"
+			,"00000354"
+			,"00000979"};
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}
@@ -61,15 +78,16 @@ public class HibernateTest {
 	public void testFindLoop() {
 		
 		long total_time = 0;
-		for (int i = 0; i < 20; i++) {
-			total_time = total_time + testFind();
+		for (int i = 0; i < 5; i++) {
+			testFind();
+			//total_time = total_time + testFind();
 			//total_time = total_time + testFindMyBatis();
 		}
 		System.out.println("--------------- elapsed time: " + total_time);
 	}
 	
-	//@Test
-	public long testFind() {
+	@Test
+	public void testFind() {
 		
 		long etime = 0;
 		EntityManager entityManager = null;
@@ -78,8 +96,10 @@ public class HibernateTest {
 			
 			long start = System.currentTimeMillis();
 			
-			for (int i = 392; i < 432; i++) {
-				TestResult result = entityManager.find(TestResult.class, i);
+			//for (int i = 392; i < 432; i++) {
+			//for (int i = 392; i < 394; i++) {
+			for (int i = 0; i < ids.length; i++) {
+				InMemData result = entityManager.find(InMemData.class, ids[i]);
 			}
 			
 			etime = System.currentTimeMillis() - start;
@@ -96,7 +116,7 @@ public class HibernateTest {
 			}
 		}
 		
-		return etime;
+		//return etime;
 	}
 	
 	//@Test
