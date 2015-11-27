@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.nicecredit.pilot.db.TestResult;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Envelope;
 
@@ -31,8 +32,15 @@ public class MockRuleDataConsumer extends RuleDataConsumer {
 	
 	@Override
 	protected void sendAck(Envelope envelope) throws IOException {
-		LOGGER.debug("send ack.");
+		LOGGER.debug("send ack.-------------------");
 	}
 
+	@Override
+	protected void sendResponse(TestResult result) {
+		// TODO Auto-generated method stub
+		LOGGER.debug("send response. ------------------");
+	}
+
+	
 }
 //end of MockRuleDataConsumer.java

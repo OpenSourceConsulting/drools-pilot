@@ -131,11 +131,30 @@ public class BaseConsumer extends DefaultConsumer {
 	
 	protected void saveResult(TestResult result, List<MatchDetail> matchDetails) {
 		
+		if (matchDetails != null) {
+			result.setDetail_cnt(matchDetails.size());
+		} else {
+			result.setDetail_cnt(result.getDetails().size());
+		}
+		
 		if (Utils.MyBatis_Based) {
 			SqlSession sqlSession = DBRepository.getInstance().openSession();
 			try {
 				
 				sqlSession.insert("PilotMapper.insertTestResult", result);
+				
+				if (result.getDetails().size() > 0) {
+					sqlSession.insert("PilotMapper.insertTestRegitDetail", result.getDetails());
+				}
+				
+				if (matchDetails != null) {
+					// MATCH 전문일때만 저장됨.
+					for (MatchDetail matchDetail : matchDetails) {
+						LOGGER.debug("result_id: {} ###", result.getId());
+						matchDetail.setResult_id(result.getId());
+						sqlSession.insert("PilotMapper.insertTestMatchDetail", matchDetail);
+					}
+				}
 				
 				sqlSession.commit();
 				LOGGER.debug("saved result.");
@@ -152,10 +171,12 @@ public class BaseConsumer extends DefaultConsumer {
 			try {
 				tx.begin();
 				
-				entityManager.persist(result);
+				entityManager.persist(result);//REGIT 전문일때는 test_regit_detail 도 같이 저장됨.
 				
 				if (matchDetails != null) {
+					// MATCH 전문일때만 저장됨.
 					for (MatchDetail matchDetail : matchDetails) {
+						LOGGER.debug("result_id: {} ###", result.getId());
 						matchDetail.setResult_id(result.getId());
 						entityManager.persist(matchDetail);
 					}
@@ -190,7 +211,7 @@ public class BaseConsumer extends DefaultConsumer {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+		LOGGER.debug("sended response.--------------------------------------");
 	}
 
 }

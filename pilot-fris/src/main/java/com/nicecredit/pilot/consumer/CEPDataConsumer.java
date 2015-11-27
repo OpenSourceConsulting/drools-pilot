@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
+import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -157,45 +158,60 @@ public class CEPDataConsumer extends BaseConsumer {
 		FBApplPhone wphone = (FBApplPhone)teleMap.get(Utils.KEY_FBAPPL_WPHONE);
 		FBApplPhone mphone = (FBApplPhone)teleMap.get(Utils.KEY_FBAPPL_MPHONE);
 		
-		EntityManager entityManager = DBRepository.getInstance().createEntityManager();
-		
-		//Query query1 = entityManager.createNativeQuery("SELECT addr_pnu_cd FROM fbappladdr WHERE appl_no = ? and store_cd = ? and version = ?");
-		Query query1 = entityManager.createNativeQuery(SELECT_SQL1);
-		Query query2 = entityManager.createNativeQuery(SELECT_SQL2);
-		Query query3 = entityManager.createNativeQuery(SELECT_SQL3);
-		
-		query1.setParameter(1, addr.getAppl_no());
-		query1.setParameter(2, addr.getStore_cd());
-		query1.setParameter(3, addr.getVersion());
-		
-		query2.setParameter(1, addr.getAppl_no());
-		query2.setParameter(2, addr.getStore_cd());
-		query2.setParameter(3, addr.getVersion());
-		
-		query3.setParameter(1, addr.getAppl_no());
-		query3.setParameter(2, addr.getStore_cd());
-		query3.setParameter(3, addr.getVersion());
-		
-		try {
-			String addr_pnu_cd = (String)query1.getSingleResult();
-			addr.setAddr_pnu_cd(addr_pnu_cd);
-		} catch (NoResultException e) {
-			// ignore
+		String addr_pnu_cd = null;
+		String wphone_no = null;
+		String mphone_no = null;
+				
+		if (Utils.MyBatis_Based) {
+			SqlSession sqlSession = DBRepository.getInstance().openSession();
+			
+			addr_pnu_cd = sqlSession.selectOne("PilotMapper.selectAddrPnuCd", addr);
+			wphone_no = sqlSession.selectOne("PilotMapper.selectWPhoneNo", addr);
+			mphone_no = sqlSession.selectOne("PilotMapper.selectMPhoneNo", addr);
+			
+		} else {
+			EntityManager entityManager = DBRepository.getInstance().createEntityManager();
+			
+			//Query query1 = entityManager.createNativeQuery("SELECT addr_pnu_cd FROM fbappladdr WHERE appl_no = ? and store_cd = ? and version = ?");
+			Query query1 = entityManager.createNativeQuery(SELECT_SQL1);
+			Query query2 = entityManager.createNativeQuery(SELECT_SQL2);
+			Query query3 = entityManager.createNativeQuery(SELECT_SQL3);
+			
+			query1.setParameter(1, addr.getAppl_no());
+			query1.setParameter(2, addr.getStore_cd());
+			query1.setParameter(3, addr.getVersion());
+			
+			query2.setParameter(1, addr.getAppl_no());
+			query2.setParameter(2, addr.getStore_cd());
+			query2.setParameter(3, addr.getVersion());
+			
+			query3.setParameter(1, addr.getAppl_no());
+			query3.setParameter(2, addr.getStore_cd());
+			query3.setParameter(3, addr.getVersion());
+			
+			try {
+				addr_pnu_cd = (String)query1.getSingleResult();
+			} catch (NoResultException e) {
+				// ignore
+			}
+			
+			try {
+				wphone_no = (String)query2.getSingleResult();
+			} catch (NoResultException e) {
+				// ignore
+			}
+			
+			try {
+				mphone_no = (String)query3.getSingleResult();
+			} catch (NoResultException e) {
+				// ignore
+			}
 		}
 		
-		try {
-			String wphone_no = (String)query2.getSingleResult();
-			wphone.setFull_phone_no(wphone_no);
-		} catch (NoResultException e) {
-			// ignore
-		}
+		addr.setAddr_pnu_cd(addr_pnu_cd);
+		wphone.setFull_phone_no(wphone_no);
+		mphone.setFull_phone_no(mphone_no);
 		
-		try {
-			String mphone_no = (String)query3.getSingleResult();
-			mphone.setFull_phone_no(mphone_no);
-		} catch (NoResultException e) {
-			// ignore
-		}
 		
 	}
 	

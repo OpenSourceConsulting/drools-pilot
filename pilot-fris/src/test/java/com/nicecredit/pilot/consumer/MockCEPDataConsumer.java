@@ -31,7 +31,7 @@ public class MockCEPDataConsumer extends CEPDataConsumer {
 
 	@Override
 	protected void sendAck(Envelope envelope) throws IOException {
-		LOGGER.debug("send ack.");
+		LOGGER.debug("send ack.-----------------------------");
 	}
 
 	@Override

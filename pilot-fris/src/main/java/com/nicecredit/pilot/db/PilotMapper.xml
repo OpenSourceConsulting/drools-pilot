@@ -92,26 +92,80 @@
 		)
 	</insert>
 	
+	<select id="selectAddrPnuCd" resultType="string" parameterType="com.nice.pilot.pilot_rule.FBApplAddr">
+		SELECT addr_pnu_cd 
+		FROM fbappladdr 
+		WHERE 
+			appl_no = #{appl_no} and store_cd = #{store_cd} and version = #{version}
+	</select>
+	<select id="selectWPhoneNo" resultType="string" parameterType="com.nice.pilot.pilot_rule.FBApplAddr">
+		SELECT full_phone_no 
+		FROM fbapplphone 
+		WHERE 
+			appl_no = #{appl_no} and store_cd = #{store_cd} and version = #{version} and wire_mobile_gb = '1'
+	</select>
+	<select id="selectMPhoneNo" resultType="string" parameterType="com.nice.pilot.pilot_rule.FBApplAddr">
+		SELECT full_phone_no 
+		FROM fbapplphone 
+		WHERE 
+			appl_no = #{appl_no} and store_cd = #{store_cd} and version = #{version} and wire_mobile_gb = '2'
+	</select>
+	
 	<!-- TEST 결과 저장 -->
-	<insert id="insertTestResult" parameterType="com.nicecredit.pilot.db.TestResult">
-		INSERT INTO test_result (
+	<insert id="insertTestResult" parameterType="com.nicecredit.pilot.db.TestResult" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO test_result2 (
 			appl_no,
 			version,
 			store_cd,
 			resp_cd,
 			rule_result1,
+			detail_cnt,
 			telegram,
 			reg_dt,
-			elapsed_time
+			elapsed_time,
+			err_msg
 		)VALUES(
 			#{appl_no},
 			#{version},
 			#{store_cd},
 			#{resp_cd},
 			#{rule_result1},
+			#{detail_cnt},
 			#{telegram},
 			NOW(),
-			#{elapsed_time}
+			#{elapsed_time},
+			#{err_msg}
+		)
+	</insert>
+	
+	<insert id="insertTestRegitDetail" parameterType="java.util.Collection">
+		INSERT INTO test_regit_detail (
+			result_id,
+			appl_no,
+			version,
+			store_cd,
+			resp_cd
+		)VALUES
+		<foreach item="item" index="index" collection="collection" open="(" separator="),(" close=")">
+			#{item.result.id}
+			, #{item.appl_no}
+			, #{item.version}
+			, #{item.store_cd}
+			, #{item.resp_cd}
+		</foreach>
+	</insert>
+	
+	<insert id="insertTestMatchDetail" parameterType="com.nice.pilot.pilot_rule.MatchDetail">
+		INSERT INTO test_match_detail (
+			result_id,
+			rule_id,
+			appl_cnt,
+			resp_cd
+		)VALUES(
+			#{result_id}
+			, #{rule_id}
+			, #{appl_cnt}
+			, #{resp_cd}
 		)
 	</insert>
 	
