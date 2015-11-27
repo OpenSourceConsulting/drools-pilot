@@ -2,6 +2,7 @@ package com.nicecredit.pilot.db;
 
 import java.util.Date;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,6 +25,7 @@ import com.nice.pilot.pilot_rule.FBApplPhone;
  * @author BongJin Kwon
  */
 @Entity
+@Cacheable
 @Table( name = "test_regit_detail" )
 public class TestRegitDetail {
 	

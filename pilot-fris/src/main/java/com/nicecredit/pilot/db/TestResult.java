@@ -1,9 +1,11 @@
 package com.nicecredit.pilot.db;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -24,8 +28,11 @@ import org.hibernate.annotations.GenericGenerator;
  * @author BongJin Kwon
  */
 @Entity
+@Cacheable
 @Table( name = "test_result2" )
-public class TestResult {
+public class TestResult implements Serializable{
+	
+	private static final long serialVersionUID = 637158449476197543L;
 	
 	public static final String RESP_CD_0000 = "0000";
 	public static final String RESP_CD_ER01 = "ER01";
@@ -46,6 +53,7 @@ public class TestResult {
 	private String store_cd;
 	private String resp_cd;
 	private String rule_result1;
+	private int detail_cnt;
 	private String telegram;
 	private Date reg_dt;
 	private long elapsed_time;
@@ -149,6 +157,14 @@ public class TestResult {
 
 	public void setDetails(Set<TestRegitDetail> details) {
 		this.details = details;
+	}
+
+	public int getDetail_cnt() {
+		return detail_cnt;
+	}
+
+	public void setDetail_cnt(int detail_cnt) {
+		this.detail_cnt = detail_cnt;
 	}
 
 	@PrePersist
