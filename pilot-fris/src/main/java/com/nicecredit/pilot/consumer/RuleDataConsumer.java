@@ -134,8 +134,12 @@ public class RuleDataConsumer extends BaseConsumer {
 		
 		
 		EntityManager entityManager = DBRepository.getInstance().createEntityManager();
-		//teleMap.put(Utils.KEY_INMEM, InfinispanHandler.getInstance().get(addr.getOrg_id()));
-		teleMap.put(Utils.KEY_INMEM, entityManager.find(InMemData.class, addr.getOrg_id()));
+		
+		if (Utils.MyBatis_Based) {
+			teleMap.put(Utils.KEY_INMEM, InfinispanHandler.getInstance().get(addr.getOrg_id()));
+		} else {
+			teleMap.put(Utils.KEY_INMEM, entityManager.find(InMemData.class, addr.getOrg_id()));
+		}
 		
 		/*
 		EntityManager entityManager = DBRepository.getInstance().createEntityManager();

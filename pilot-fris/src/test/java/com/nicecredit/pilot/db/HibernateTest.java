@@ -1,16 +1,16 @@
 package com.nicecredit.pilot.db;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import org.apache.ibatis.session.SqlSession;
+import org.hibernate.Session;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -76,6 +76,17 @@ public class HibernateTest {
 	 */
 	@Test
 	public void testFindLoop() {
+		
+		
+		/*
+		System.out.println("cache load....");
+		EntityManager entityManager = DBRepository.getInstance().createEntityManager();
+		
+		Session session = entityManager.unwrap(org.hibernate.Session.class);
+		session.createCriteria(InMemData.class).list();
+		
+		System.out.println("cache loaded!!!");
+		*/
 		
 		long total_time = 0;
 		for (int i = 0; i < 5; i++) {

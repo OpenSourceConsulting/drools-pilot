@@ -8,7 +8,7 @@
 		SELECT
 			*
 		FROM
-			INMEM_DATA2
+			INMEM_DATA
 	</select>
 	
 	<select id="selectFBApplAddrList" resultType="com.nice.pilot.pilot_rule.FBApplAddr">

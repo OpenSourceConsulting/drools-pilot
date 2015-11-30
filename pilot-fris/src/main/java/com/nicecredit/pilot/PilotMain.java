@@ -1,11 +1,13 @@
 package com.nicecredit.pilot;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+
+import javax.persistence.EntityManager;
 
 import org.apache.ibatis.session.SqlSession;
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -127,29 +129,48 @@ public class PilotMain {
 	 */
 	private static void initializing () {
 		
-		SqlSession sqlSession = DBRepository.getInstance().openSession();
-		InfinispanHandler cacheHandler = InfinispanHandler.getInstance();
-		
 		LOGGER.debug("----------- initializing...");
-		
-		try {
-			List<InMemData> list = sqlSession.selectList("PilotMapper.selectINMEM_DATAList");
+		int cacheSize = 0;
+		if (Utils.MyBatis_Based) {
 			
-			int cnt = 0;
-			for (InMemData inMemData : list) {
-				if(cnt % 100 == 0) {
-					LOGGER.debug("--"+ cnt);
+			SqlSession sqlSession = DBRepository.getInstance().openSession();
+			InfinispanHandler cacheHandler = InfinispanHandler.getInstance();
+			
+			try {
+				
+				if (cacheHandler.keys().size() < 10) {
+					List<InMemData> list = sqlSession.selectList("PilotMapper.selectINMEM_DATAList");
+					
+					int cnt = 0;
+					for (InMemData inMemData : list) {
+						if(cnt % 100 == 0) {
+							LOGGER.debug("--"+ cnt);
+						}
+						
+						cacheHandler.put(Utils.getCacheKey(inMemData), inMemData);
+						cnt++;
+					}
+					cacheSize = list.size();
 				}
 				
-				cacheHandler.put(Utils.getCacheKey(inMemData), inMemData);
-				cnt++;
+			} catch (Throwable e) {
+				cacheHandler.stop();
+				throw e;
 			}
 			
-			LOGGER.debug("----------- initialized {}.", list.size());
-		} catch (Throwable e) {
-			cacheHandler.stop();
-			throw e;
+		} else {
+			
+			File file = new File("/home/nice/pilot/cache-store/com.nice.pilot.pilot_rule.InMemData.dat");
+			
+			if (file.exists() == false) {
+				EntityManager entityManager = DBRepository.getInstance().createEntityManager();
+				
+				Session session = entityManager.unwrap(org.hibernate.Session.class);
+				List list = session.createCriteria(InMemData.class).list();
+				cacheSize = list.size();
+			}
 		}
+		LOGGER.debug("----------- initialized {}.", cacheSize);
 		
 	}
 
