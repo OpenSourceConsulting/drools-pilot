@@ -133,12 +133,38 @@ public class RuleDataConsumer extends BaseConsumer {
 		FBApplAddr addr = (FBApplAddr)teleMap.get(Utils.KEY_FBAPPLADDR);
 		
 		
-		EntityManager entityManager = DBRepository.getInstance().createEntityManager();
+		
 		
 		if (Utils.MyBatis_Based) {
-			teleMap.put(Utils.KEY_INMEM, InfinispanHandler.getInstance().get(addr.getOrg_id()));
+			InMemData inMemData = (InMemData)InfinispanHandler.getInstance().get(addr.getOrg_id());
+			
+			
+			if (inMemData == null) {
+				SqlSession sqlSession = DBRepository.getInstance().openSession();
+				
+				try {
+					inMemData = sqlSession.selectOne("PilotMapper.selectINMEM_DATA", addr.getOrg_id());
+				} finally {
+					if (sqlSession != null) {
+						sqlSession.close();
+					}
+				}
+			}
+			
+			teleMap.put(Utils.KEY_INMEM, inMemData);
 		} else {
-			teleMap.put(Utils.KEY_INMEM, entityManager.find(InMemData.class, addr.getOrg_id()));
+			
+			EntityManager entityManager = null;
+			
+			try {
+				entityManager = DBRepository.getInstance().createEntityManager();
+				teleMap.put(Utils.KEY_INMEM, entityManager.find(InMemData.class, addr.getOrg_id()));
+			} finally {
+				if (entityManager != null) {
+					entityManager.close();
+				}
+			}
+			
 		}
 		
 		/*

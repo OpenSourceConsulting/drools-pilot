@@ -90,15 +90,15 @@ public class HibernateTest {
 		
 		long total_time = 0;
 		for (int i = 0; i < 5; i++) {
-			testFind();
+			//testFind();
 			//total_time = total_time + testFind();
-			//total_time = total_time + testFindMyBatis();
+			total_time = total_time + testFindMyBatis();
 		}
 		System.out.println("--------------- elapsed time: " + total_time);
 	}
 	
-	@Test
-	public void testFind() {
+	//@Test
+	public long testFind() {
 		
 		long etime = 0;
 		EntityManager entityManager = null;
@@ -107,8 +107,6 @@ public class HibernateTest {
 			
 			long start = System.currentTimeMillis();
 			
-			//for (int i = 392; i < 432; i++) {
-			//for (int i = 392; i < 394; i++) {
 			for (int i = 0; i < ids.length; i++) {
 				InMemData result = entityManager.find(InMemData.class, ids[i]);
 			}
@@ -127,7 +125,7 @@ public class HibernateTest {
 			}
 		}
 		
-		//return etime;
+		return etime;
 	}
 	
 	//@Test
@@ -138,12 +136,10 @@ public class HibernateTest {
 		try {
 			sqlSession = DBRepository.getInstance().openSession();
 			
-			
-			
 			long start = System.currentTimeMillis();
 			
-			for (int i = 392; i < 432; i++) {
-				TestResult result = sqlSession.selectOne("PilotMapper.selectTestResult", i);
+			for (int i = 0; i < ids.length; i++) {
+				InMemData result = sqlSession.selectOne("PilotMapper.selectINMEM_DATA", ids[i]);
 			}
 			
 			etime = System.currentTimeMillis() - start;

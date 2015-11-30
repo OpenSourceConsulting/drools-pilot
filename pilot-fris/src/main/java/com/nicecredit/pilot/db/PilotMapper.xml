@@ -11,6 +11,15 @@
 			INMEM_DATA
 	</select>
 	
+	<select id="selectINMEM_DATA" resultType="com.nice.pilot.pilot_rule.InMemData" parameterType="string">
+		SELECT
+			*
+		FROM
+			INMEM_DATA
+		WHERE
+			org_id = #{org_id}
+	</select>
+	
 	<select id="selectFBApplAddrList" resultType="com.nice.pilot.pilot_rule.FBApplAddr">
 		SELECT
 			*
