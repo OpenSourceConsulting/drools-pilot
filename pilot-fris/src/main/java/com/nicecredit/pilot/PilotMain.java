@@ -3,6 +3,8 @@ package com.nicecredit.pilot;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.persistence.EntityManager;
 
@@ -73,8 +75,8 @@ public class PilotMain {
 		Connection conn = null;
 		Channel channel = null;
 		try {
-			//ExecutorService es = Executors.newFixedThreadPool(10);
-			conn = factory.newConnection();
+			ExecutorService es = Executors.newFixedThreadPool(10);
+			conn = factory.newConnection(es);
 			channel = conn.createChannel();
 			
 			System.out.println("created channel.");
