@@ -19,7 +19,14 @@ else
         PILOT_JAVA=java
 fi
 
-nohup $PILOT_JAVA -cp ./conf:lib/* -server -Xms1024m -Xmx1024m -D$PILOT_PROCESS_NAME $MAIN_CLASS > ./logs/nohup.out 2>&1 &
+JAVA_OPTS="$JAVA_OPTS -server -Xms1024m -Xmx1024m"
+JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote.port=3333"
+JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote.ssl=false"
+JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote.authenticate=false"
+JAVA_OPTS="$JAVA_OPTS -Dkie.mbeans=enabled"
+
+
+nohup $PILOT_JAVA -cp ./conf:lib/* $JAVA_OPTS -D$PILOT_PROCESS_NAME $MAIN_CLASS > ./logs/nohup.out 2>&1 &
 
 
 sleep 1
