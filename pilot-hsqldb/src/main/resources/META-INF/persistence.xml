@@ -12,7 +12,8 @@
     	<class>com.nice.pilot.pilot_rule.InMemData</class>
 	    <properties>
 	        <property name="javax.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver"/>
-	        <property name="javax.persistence.jdbc.url" value="jdbc:mariadb://nice-osc-db.cloudapp.net:3306/nicepilot?useUnicode=true&amp;characterEncoding=UTF-8&amp;connectTimeout=8000&amp;socketTimeout=5000"/>
+	        <!-- nice-osc-db.cloudapp.net -->
+	        <property name="javax.persistence.jdbc.url" value="jdbc:mariadb://localhost:3306/nicepilot?useUnicode=true&amp;characterEncoding=UTF-8&amp;connectTimeout=8000&amp;socketTimeout=5000"/>
 	        <property name="javax.persistence.jdbc.user" value="nicedb"/>
 	        <property name="javax.persistence.jdbc.password" value="nicedb00"/>
 	        
@@ -37,7 +38,7 @@
 	        
 	        <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
             <property name="hibernate.show_sql" value="false" />
-            <property name="hibernate.hbm2ddl.auto" value="create" />
+            <property name="hibernate.hbm2ddl.auto" value="update" />
             
 	    </properties>
 	    

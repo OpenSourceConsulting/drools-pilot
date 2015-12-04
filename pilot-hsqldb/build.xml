@@ -1,4 +1,4 @@
-<project name="pilot fris build" basedir="." default="deploy2NICE">
+<project name="pilot hsqldb build" basedir="." default="deploy2NICE">
 	
 	
 	
@@ -14,13 +14,13 @@
 		<property file="osc.properties" />
 		<antcall target="deploy" />
 		<sshexec port="${server.port}" host="${server.ip}" username="${user.id}" password="${user.passwd}" verbose="true"
-					command="cd ${deploy.path}; cp ./startup.sh ./pilot-fris-0.0.1-SNAPSHOT" 
+					command="cd ${deploy.path}; cp ./startup.sh ./pilot-hsqldb-0.0.1-SNAPSHOT" 
 					trust="true" failonerror="false" />
 	</target>
 
 	<target name="deploy">
 		
-		<property name="package.name" value="pilot-fris-0.0.1-SNAPSHOT" />
+		<property name="package.name" value="pilot-hsqldb-0.0.1-SNAPSHOT" />
 		<property name="deploy.file" value="${package.name}-bin.tar.gz" />
 
 		<scp port="${server.port}" file="target/${deploy.file}" todir="${user.id}@${server.ip}:${deploy.path}/${deploy.file}" 

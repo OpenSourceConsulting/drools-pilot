@@ -5,6 +5,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 /**
  * <pre>
@@ -13,6 +16,8 @@ import javax.persistence.Persistence;
  * @author BongJin Kwon
  */
 public class DBRepository {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(DBRepository.class);
 	
 	public static DBRepository INSTANCE;
 	
@@ -87,6 +92,8 @@ public class DBRepository {
 			emFactoryHsql.close();
 			emFactoryHsql = null;
 		}
+		
+		LOGGER.info("all EntityManagerFactory closed!!");
 	}
 
 }

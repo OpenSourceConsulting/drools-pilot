@@ -10,12 +10,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.nice.pilot.pilot_rule.FBApplAddr;
+import com.nice.pilot.pilot_rule.FBApplMst;
 import com.nice.pilot.pilot_rule.FBApplPhone;
 
 /**
  * <pre>
- * - create fbappladdr, fbapplphone table
- * - data insert to fbappladdr, fbapplphone table from mariadb
+ * - create fbappl** tables
+ * - data insert to fbappl** tables from mariadb
  * </pre>
  * @author BongJin Kwon
  */
@@ -29,9 +30,71 @@ public class LoadingData {
 
 	public static void main(String[] args) {
 		
-		loadAddr();
-		loadPhone();
+		String mode = "all";
+		
+		if (args.length == 1) {
+			mode = args[0];
+		}
+		
+		LOGGER.info("mode is {}", mode);
+		
+		if ("all".equals(mode) || "mst".equals(mode)) {
+			loadMst();
+		}
+		
+		if ("all".equals(mode) || "addr".equals(mode)) {
+			loadAddr();
+		}
+		
+		if ("all".equals(mode) || "phone".equals(mode)) {
+			loadPhone();
+		}
+		
+		DBRepository.close();
 
+	}
+	
+	private static void loadMst() {
+		
+		long etime = 0;
+		EntityManager entityManager = null;
+		EntityManager emHsql = null;
+		EntityTransaction tx = null;
+		try {
+			entityManager = DBRepository.getInstance().createEntityManager();
+			emHsql = DBRepository.getInstance().createEntityManagerHsql();
+			
+			
+			List<FBApplMst> list = entityManager.createNativeQuery("select * from fbapplmst", FBApplMst.class).getResultList();
+			LOGGER.info("addr size: " + list.size());
+			
+			tx = emHsql.getTransaction();
+			tx.begin();
+			
+			for (FBApplMst item : list) {
+
+				//System.out.println(item.toString());
+				emHsql.persist(item);
+			}
+			tx.commit();
+			list.clear();
+			
+			LOGGER.info("persisted all mst.");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			LOGGER.error(e.toString(), e);
+			if (tx != null) {
+				tx.rollback();
+			}
+		} finally {
+			if (entityManager != null) {
+				entityManager.close();
+			}
+			if (emHsql != null) {
+				emHsql.close();
+			}
+		}
 	}
 	
 	private static void loadAddr() {
@@ -75,7 +138,7 @@ public class LoadingData {
 			if (emHsql != null) {
 				emHsql.close();
 			}
-			DBRepository.close();
+			
 		}
 	}
 	
@@ -118,7 +181,6 @@ public class LoadingData {
 			if (emHsql != null) {
 				emHsql.close();
 			}
-			DBRepository.close();
 		}
 	}
 

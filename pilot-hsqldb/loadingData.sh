@@ -26,8 +26,8 @@ else
         PILOT_JAVA=java
 fi
 
-JAVA_OPTS="$JAVA_OPTS -server -Xms1024m -Xmx1024m"
-JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote.port=3332"
+JAVA_OPTS="$JAVA_OPTS -server -Xms1536m -Xmx2548m"
+JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote.port=3331"
 JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote.ssl=false"
 JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote.authenticate=false"
 
