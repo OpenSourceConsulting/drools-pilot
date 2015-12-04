@@ -1,0 +1,64 @@
+<project name="pilot fris build" basedir="." default="deploy2NICE">
+	
+	
+	
+	<target name="deploy2NICE">
+		<property file="nice.properties" />
+		<antcall target="deploy" />
+	</target>
+	
+	<target name="deploy2OSC">
+		
+		<setproxy socksproxyhost="localhost" socksproxyport="20024"/>
+		
+		<property file="osc.properties" />
+		<antcall target="deploy" />
+		<sshexec port="${server.port}" host="${server.ip}" username="${user.id}" password="${user.passwd}" verbose="true"
+					command="cd ${deploy.path}; cp ./startup.sh ./pilot-fris-0.0.1-SNAPSHOT" 
+					trust="true" failonerror="false" />
+	</target>
+
+	<target name="deploy">
+		
+		<property name="package.name" value="pilot-fris-0.0.1-SNAPSHOT" />
+		<property name="deploy.file" value="${package.name}-bin.tar.gz" />
+
+		<scp port="${server.port}" file="target/${deploy.file}" todir="${user.id}@${server.ip}:${deploy.path}/${deploy.file}" 
+			password="${user.passwd}" verbose="true"
+			trust="true" />
+
+		<sshexec port="${server.port}" host="${server.ip}" username="${user.id}" password="${user.passwd}" verbose="true"
+			command="cd ${deploy.path}; rm -rf ./${package.name}; tar xvfz ./${deploy.file}; mkdir ./${package.name}/logs" 
+			trust="true" failonerror="false" />
+
+	</target>
+	
+	
+	
+	<target name="scp.file">
+
+		<property name="server.ip" value="192.168.0.62" />
+		<!--<property name="server.ip" value="207.46.141.43" /> -->
+		<!--<property name="server.ip" value="23.99.106.81" /> -->
+		<property name="server.port" value="22" />
+		<!--
+		<property name="user.id" value="nice" />
+		<property name="user.passwd" value="niceOSC2015" />
+		-->
+		<property name="user.id" value="osc" />
+		<property name="user.passwd" value="!osc123" />
+		<property name="deploy.file" value="settings.xml" />
+		<!--
+		<property name="deploy.path" value="/home/nice/pilot" />
+		-->
+		<property name="deploy.path" value="/home/osc/nice" />
+
+
+		<scp port="${server.port}" file="D:\project\2015_NICE\${deploy.file}" todir="${user.id}@${server.ip}:${deploy.path}/${deploy.file}" 
+			password="${user.passwd}" verbose="true"
+			trust="true" />
+
+
+	</target>
+
+</project>
