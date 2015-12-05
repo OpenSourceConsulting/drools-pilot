@@ -17,10 +17,10 @@
       <transport stack="hibernate-jgroups" cluster="infinispan-hibernate-cluster"/>
 
       <local-cache name="entity">
-	      <persistence passivation="false">
+		<persistence passivation="false">
 	      	<file-store path="/home/nice/pilot/cache-store" max-entries="5000000" fetch-state="true" read-only="false" purge="false"/>
 	      </persistence>
-<!-- 
+	      <!-- 
          <locking concurrency-level="1000" acquire-timeout="15000"/>
          <transaction mode="NONE" />
          <eviction max-entries="50000" strategy="LRU"/>

@@ -8,6 +8,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.nicecredit.pilot.db.DBRepository;
+
 /**
  * <pre>
  * 
@@ -34,6 +36,7 @@ public class RuleDataConsumerTest {
 	 */
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
+		DBRepository.close();
 	}
 
 	/**

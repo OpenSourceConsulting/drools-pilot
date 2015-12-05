@@ -11,6 +11,8 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <pre>
@@ -20,10 +22,13 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
  */
 public class DBRepository {
 	
+	private static final Logger LOGGER = LoggerFactory.getLogger(DBRepository.class);
+	
 	public static DBRepository INSTANCE;
 	
 	private SqlSessionFactory factory;
-	private EntityManagerFactory entityManagerFactory;
+	private EntityManagerFactory emFactory;
+	private EntityManagerFactory emFactoryHsql;
 
 	/**
 	 * <pre>
@@ -32,7 +37,8 @@ public class DBRepository {
 	 */
 	private DBRepository() {
 		
-		entityManagerFactory = Persistence.createEntityManagerFactory( "org.hibernate.nice.jpa" );
+		emFactory = Persistence.createEntityManagerFactory( "org.hibernate.nice.jpa" );
+		emFactoryHsql = Persistence.createEntityManagerFactory( "org.hibernate.nice.hsql" );
 		
 		try {
 			InputStream inputStream = Resources.getResourceAsStream("mybatis-config.xml");
@@ -68,7 +74,43 @@ public class DBRepository {
 	 * @return
 	 */
 	public EntityManager createEntityManager() {
-		return entityManagerFactory.createEntityManager();
+		return emFactory.createEntityManager();
+	}
+	
+	/**
+	 * <pre>
+	 * for hibernate (HSQL)
+	 * </pre>
+	 * @return
+	 */
+	public EntityManager createEntityManagerHsql() {
+		return emFactoryHsql.createEntityManager();
+	}
+	
+	public static void close() {
+		
+		if (INSTANCE != null) {
+			synchronized (DBRepository.class) {
+				if (INSTANCE != null) {
+					INSTANCE.doClose();
+					INSTANCE = null;
+				}
+			}
+		}
+	}
+	
+	private void doClose() {
+		
+		if (emFactory != null) {
+			emFactory.close();
+			emFactory = null;
+		}
+		
+		if (emFactoryHsql != null) {
+			emFactoryHsql.close();
+			emFactoryHsql = null;
+		}
+		LOGGER.info("all EntityManagerFactory closed!!");
 	}
 
 }

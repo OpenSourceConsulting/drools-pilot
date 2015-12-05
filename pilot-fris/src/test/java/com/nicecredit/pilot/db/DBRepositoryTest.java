@@ -24,6 +24,7 @@ public class DBRepositoryTest {
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
+		DBRepository.close();
 	}
 
 	@Before

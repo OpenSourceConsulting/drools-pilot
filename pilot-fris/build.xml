@@ -7,6 +7,11 @@
 		<antcall target="deploy" />
 	</target>
 	
+	<target name="deploy.jar2NICE">
+		<property file="nice.properties" />
+		<antcall target="deploy.jar" />
+	</target>
+	
 	<target name="deploy2OSC">
 		
 		<setproxy socksproxyhost="localhost" socksproxyport="20024"/>
@@ -30,6 +35,17 @@
 		<sshexec port="${server.port}" host="${server.ip}" username="${user.id}" password="${user.passwd}" verbose="true"
 			command="cd ${deploy.path}; rm -rf ./${package.name}; tar xvfz ./${deploy.file}; mkdir ./${package.name}/logs" 
 			trust="true" failonerror="false" />
+
+	</target>
+	
+	<target name="deploy.jar">
+			
+		<property name="package.name" value="pilot-fris-0.0.1-SNAPSHOT" />
+		<property name="deploy.file" value="${package.name}.jar" />
+
+		<scp port="${server.port}" file="target/dependency/${deploy.file}" todir="${user.id}@${server.ip}:${deploy.path}/${package.name}/lib/${deploy.file}" 
+			password="${user.passwd}" verbose="true"
+			trust="true" />
 
 	</target>
 	

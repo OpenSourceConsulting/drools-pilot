@@ -35,8 +35,9 @@
 	<logger name="org.eclipse.aether.internal.impl.DefaultUpdateCheckManager" level="ERROR"/>
 	
 	<logger name="org.apache.ibatis" level="ERROR"/>
+	<!-- mybatis query log
 	<logger name="PilotMapper" level="ERROR" />
-	
+	 -->
 
 	<root level="DEBUG">
 	    <appender-ref ref="CONSOLE" />

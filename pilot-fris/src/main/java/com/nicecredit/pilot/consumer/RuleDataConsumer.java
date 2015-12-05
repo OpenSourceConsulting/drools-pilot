@@ -135,7 +135,7 @@ public class RuleDataConsumer extends BaseConsumer {
 		
 		
 		
-		if (Utils.MyBatis_Based) {
+		//if (Utils.MyBatis_Based) {
 			InMemData inMemData = (InMemData)InfinispanHandler.getInstance().get(addr.getOrg_id());
 			
 			
@@ -152,6 +152,7 @@ public class RuleDataConsumer extends BaseConsumer {
 			}
 			
 			teleMap.put(Utils.KEY_INMEM, inMemData);
+			/*
 		} else {
 			
 			EntityManager entityManager = null;
@@ -166,10 +167,14 @@ public class RuleDataConsumer extends BaseConsumer {
 			}
 			
 		}
+		*/
+		EntityManager entityManager = null;
+		if (Utils.CACHEABLE) {
+			entityManager = DBRepository.getInstance().createEntityManagerHsql();
+		} else {
+			entityManager = DBRepository.getInstance().createEntityManager();
+		}
 		
-		/*
-		EntityManager entityManager = DBRepository.getInstance().createEntityManager();
-
 		//Query query1 = entityManager.createNativeQuery("SELECT addr_pnu_cd FROM fbappladdr WHERE appl_no = ? and store_cd = ? and version = ?");
 		Query query1 = entityManager.createNamedQuery(NAMED_QUERY1);
 		Query query2 = entityManager.createNamedQuery(NAMED_QUERY2);
@@ -190,7 +195,7 @@ public class RuleDataConsumer extends BaseConsumer {
 		List list1 = query1.getResultList();
 		List list2 = query2.getResultList();
 		List list3 = query3.getResultList();
-		*/
+		
 	}
 	
 	private TestResult saveResult(Result1 res, long start, Map<String, Object> teleMap, String telegram, String err_msg) {
