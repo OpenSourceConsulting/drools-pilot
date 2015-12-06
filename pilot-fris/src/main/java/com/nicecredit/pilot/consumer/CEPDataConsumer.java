@@ -165,47 +165,58 @@ public class CEPDataConsumer extends BaseConsumer {
 		if (Utils.MyBatis_Based) {
 			SqlSession sqlSession = DBRepository.getInstance().openSession();
 			
-			addr_pnu_cd = sqlSession.selectOne("PilotMapper.selectAddrPnuCd", addr);
-			wphone_no = sqlSession.selectOne("PilotMapper.selectWPhoneNo", addr);
-			mphone_no = sqlSession.selectOne("PilotMapper.selectMPhoneNo", addr);
+			try {
+				addr_pnu_cd = sqlSession.selectOne("PilotMapper.selectAddrPnuCd", addr);
+				wphone_no = sqlSession.selectOne("PilotMapper.selectWPhoneNo", addr);
+				mphone_no = sqlSession.selectOne("PilotMapper.selectMPhoneNo", addr);
+			} finally {
+				sqlSession.close();
+			}
+			
 			
 		} else {
 			EntityManager entityManager = DBRepository.getInstance().createEntityManager();
 			
-			//Query query1 = entityManager.createNativeQuery("SELECT addr_pnu_cd FROM fbappladdr WHERE appl_no = ? and store_cd = ? and version = ?");
-			Query query1 = entityManager.createNativeQuery(SELECT_SQL1);
-			Query query2 = entityManager.createNativeQuery(SELECT_SQL2);
-			Query query3 = entityManager.createNativeQuery(SELECT_SQL3);
-			
-			query1.setParameter(1, addr.getAppl_no());
-			query1.setParameter(2, addr.getStore_cd());
-			query1.setParameter(3, addr.getVersion());
-			
-			query2.setParameter(1, addr.getAppl_no());
-			query2.setParameter(2, addr.getStore_cd());
-			query2.setParameter(3, addr.getVersion());
-			
-			query3.setParameter(1, addr.getAppl_no());
-			query3.setParameter(2, addr.getStore_cd());
-			query3.setParameter(3, addr.getVersion());
-			
-			try {
-				addr_pnu_cd = (String)query1.getSingleResult();
-			} catch (NoResultException e) {
-				// ignore
+			try{
+				//Query query1 = entityManager.createNativeQuery("SELECT addr_pnu_cd FROM fbappladdr WHERE appl_no = ? and store_cd = ? and version = ?");
+				Query query1 = entityManager.createNativeQuery(SELECT_SQL1);
+				Query query2 = entityManager.createNativeQuery(SELECT_SQL2);
+				Query query3 = entityManager.createNativeQuery(SELECT_SQL3);
+				
+				query1.setParameter(1, addr.getAppl_no());
+				query1.setParameter(2, addr.getStore_cd());
+				query1.setParameter(3, addr.getVersion());
+				
+				query2.setParameter(1, addr.getAppl_no());
+				query2.setParameter(2, addr.getStore_cd());
+				query2.setParameter(3, addr.getVersion());
+				
+				query3.setParameter(1, addr.getAppl_no());
+				query3.setParameter(2, addr.getStore_cd());
+				query3.setParameter(3, addr.getVersion());
+				
+				try {
+					addr_pnu_cd = (String)query1.getSingleResult();
+				} catch (NoResultException e) {
+					// ignore
+				}
+				
+				try {
+					wphone_no = (String)query2.getSingleResult();
+				} catch (NoResultException e) {
+					// ignore
+				}
+				
+				try {
+					mphone_no = (String)query3.getSingleResult();
+				} catch (NoResultException e) {
+					// ignore
+				}
+			} finally {
+				entityManager.close();
 			}
 			
-			try {
-				wphone_no = (String)query2.getSingleResult();
-			} catch (NoResultException e) {
-				// ignore
-			}
 			
-			try {
-				mphone_no = (String)query3.getSingleResult();
-			} catch (NoResultException e) {
-				// ignore
-			}
 		}
 		
 		addr.setAddr_pnu_cd(addr_pnu_cd);

@@ -24,6 +24,8 @@ JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote.port=3333"
 JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote.ssl=false"
 JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote.authenticate=false"
 JAVA_OPTS="$JAVA_OPTS -Dkie.mbeans=enabled"
+JAVA_OPTS="$JAVA_OPTS -Dpilot.mybatis.based=false"
+JAVA_OPTS="$JAVA_OPTS -Dpilot.item.query.cacheable=false"
 
 
 nohup $PILOT_JAVA -cp ./conf:lib/* $JAVA_OPTS -D$PILOT_PROCESS_NAME $MAIN_CLASS > ./logs/nohup.out 2>&1 &

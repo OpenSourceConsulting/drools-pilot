@@ -42,9 +42,16 @@ public class PilotMain {
 	 */
 	public static void main(String[] args) {
 		
+		String rabbitmqHost = System.getProperty("pilot.rabbitmq.host", "localhost");
+		Utils.MyBatis_Based = Boolean.parseBoolean(System.getProperty("pilot.mybatis.based", "false"));
+		Utils.CACHEABLE = Boolean.parseBoolean(System.getProperty("pilot.item.query.cacheable", "true"));
+		
 		//validateDBConnection();
 		initializing();
-		startConsume();
+		startConsume(rabbitmqHost);
+		
+		LOGGER.info("RabbitMQ host : {}", rabbitmqHost);
+		LOGGER.info("MyBatis-based : {}", Utils.MyBatis_Based);
 		LOGGER.info("Query CACHEABLE : {}", Utils.CACHEABLE);
 	}
 
@@ -53,7 +60,7 @@ public class PilotMain {
 	 * 메시지 수신 시작.
 	 * </pre>
 	 */
-	public static void startConsume() {
+	public static void startConsume(String rabbitmqHost) {
 		String exchangeName = "pilot_ex";
 		String queueName1 = "rule_queue";
 		String queueName2 = "cep_queue";
@@ -64,8 +71,8 @@ public class PilotMain {
 		factory.setPassword("user1");
 		factory.setVirtualHost("/");
 		//factory.setHost("207.46.141.43");// 메시지 미전달 오류 (unack message queueing 발생) 로 주석처리.
-		factory.setHost("nice-osc-ap.cloudapp.net");
-		//factory.setHost("localhost");// for nice server
+		//factory.setHost("nice-osc-ap.cloudapp.net");
+		factory.setHost(rabbitmqHost);// for nice server
 		factory.setPort(5672);
 		factory.setExceptionHandler(new ExceptionHandlerImpl());
 		// connection that will recover automatically
