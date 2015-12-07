@@ -36,7 +36,7 @@ public class TestMemoryDB {
 
 	static boolean QUERY_MYSQL = false;
 	static boolean QUERY_MYSQL_MEM = false;
-	static boolean QUERY_HSQLDB = false;
+	static boolean QUERY_HSQLDB = true;
 	static boolean QUERY_HSQLDB_EMBEDDED = false;
 	static boolean QUERY_H2 = false;
 	static boolean QUERY_H2_EMBEDDED = false;
@@ -44,8 +44,8 @@ public class TestMemoryDB {
 	public static void main(String[] args) {
 		mysqlExport();
 		dbImport();
-//		queryTest1();
-		queryTest2();
+		queryTest1();
+//		queryTest2();
 //		queryTest3();
 	}
 	
@@ -164,7 +164,7 @@ public class TestMemoryDB {
 						"AND t4.APPL_NO = t2.APPL_NO AND t4.VERSION = t2.VERSION AND t4.STORE_CD = t2.STORE_CD AND t4.full_phone_no = s3.full_phone_no AND t4.ORG_ID <> s3.ORG_ID;\r\n" 
 				);
 				
-				for(int i = 0; i < dataAddr.size(); i++) {
+				for(int i = 0; i < dataAddr.size() && i < 300; i++) {
 					FBAPPLADDR id = dataAddr.get(i);
 					if(i % 10 == 0) {
 						long elapseTime = System.currentTimeMillis();
