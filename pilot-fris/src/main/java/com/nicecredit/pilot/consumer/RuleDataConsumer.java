@@ -135,14 +135,15 @@ public class RuleDataConsumer extends BaseConsumer {
 		
 		
 		
-		if (Utils.MyBatis_Based) {
+		//if (Utils.MyBatis_Based) {
 			InMemData inMemData = (InMemData)InfinispanHandler.getInstance().get(addr.getOrg_id());
 			
 			
 			if (inMemData == null) {
-				SqlSession sqlSession = DBRepository.getInstance().openSession();
+				SqlSession sqlSession = null;
 				
 				try {
+					sqlSession = DBRepository.getInstance().openSession();
 					inMemData = sqlSession.selectOne("PilotMapper.selectINMEM_DATA", addr.getOrg_id());
 				} finally {
 					if (sqlSession != null) {
@@ -152,6 +153,7 @@ public class RuleDataConsumer extends BaseConsumer {
 			}
 			
 			teleMap.put(Utils.KEY_INMEM, inMemData);
+			/*
 		} else {
 			
 			EntityManager entityManager = null;
@@ -166,31 +168,44 @@ public class RuleDataConsumer extends BaseConsumer {
 			}
 			
 		}
-		
-		/*
-		EntityManager entityManager = DBRepository.getInstance().createEntityManager();
-
-		//Query query1 = entityManager.createNativeQuery("SELECT addr_pnu_cd FROM fbappladdr WHERE appl_no = ? and store_cd = ? and version = ?");
-		Query query1 = entityManager.createNamedQuery(NAMED_QUERY1);
-		Query query2 = entityManager.createNamedQuery(NAMED_QUERY2);
-		Query query3 = entityManager.createNamedQuery(NAMED_QUERY3);
-		
-		query1.setParameter(PARAM_APPL_NO, addr.getAppl_no());
-		query1.setParameter(PARAM_STORE_CD, addr.getStore_cd());
-		query1.setParameter(PARAM_VERSION, addr.getVersion());
-		
-		query2.setParameter(PARAM_APPL_NO, addr.getAppl_no());
-		query2.setParameter(PARAM_STORE_CD, addr.getStore_cd());
-		query2.setParameter(PARAM_VERSION, addr.getVersion());
-		
-		query3.setParameter(PARAM_APPL_NO, addr.getAppl_no());
-		query3.setParameter(PARAM_STORE_CD, addr.getStore_cd());
-		query3.setParameter(PARAM_VERSION, addr.getVersion());
-		
-		List list1 = query1.getResultList();
-		List list2 = query2.getResultList();
-		List list3 = query3.getResultList();
 		*/
+		EntityManager entityManager = null;
+		
+		try{
+			if (Utils.CACHEABLE) {
+				entityManager = DBRepository.getInstance().createEntityManagerHsql();
+			} else {
+				entityManager = DBRepository.getInstance().createEntityManager();
+			}
+			
+			//Query query1 = entityManager.createNativeQuery("SELECT addr_pnu_cd FROM fbappladdr WHERE appl_no = ? and store_cd = ? and version = ?");
+			Query query1 = entityManager.createNamedQuery(NAMED_QUERY1);
+			Query query2 = entityManager.createNamedQuery(NAMED_QUERY2);
+			Query query3 = entityManager.createNamedQuery(NAMED_QUERY3);
+			
+			query1.setParameter(PARAM_APPL_NO, addr.getAppl_no());
+			query1.setParameter(PARAM_STORE_CD, addr.getStore_cd());
+			query1.setParameter(PARAM_VERSION, addr.getVersion());
+			
+			query2.setParameter(PARAM_APPL_NO, addr.getAppl_no());
+			query2.setParameter(PARAM_STORE_CD, addr.getStore_cd());
+			query2.setParameter(PARAM_VERSION, addr.getVersion());
+			
+			query3.setParameter(PARAM_APPL_NO, addr.getAppl_no());
+			query3.setParameter(PARAM_STORE_CD, addr.getStore_cd());
+			query3.setParameter(PARAM_VERSION, addr.getVersion());
+			
+			List list1 = query1.getResultList();
+			List list2 = query2.getResultList();
+			List list3 = query3.getResultList();
+			
+		} finally {
+			if (entityManager != null) {
+				entityManager.close();
+			}
+		}
+		
+		
 	}
 	
 	private TestResult saveResult(Result1 res, long start, Map<String, Object> teleMap, String telegram, String err_msg) {

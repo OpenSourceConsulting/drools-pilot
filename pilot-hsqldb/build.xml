@@ -1,15 +1,10 @@
-<project name="pilot fris build" basedir="." default="deploy2NICE">
+<project name="pilot hsqldb build" basedir="." default="deploy2NICE">
 	
 	
 	
 	<target name="deploy2NICE">
 		<property file="nice.properties" />
 		<antcall target="deploy" />
-	</target>
-	
-	<target name="deploy.jar2NICE">
-		<property file="nice.properties" />
-		<antcall target="deploy.jar" />
 	</target>
 	
 	<target name="deploy2OSC">
@@ -19,13 +14,13 @@
 		<property file="osc.properties" />
 		<antcall target="deploy" />
 		<sshexec port="${server.port}" host="${server.ip}" username="${user.id}" password="${user.passwd}" verbose="true"
-					command="cd ${deploy.path}; cp ./startup.sh ./pilot-fris-0.0.1-SNAPSHOT" 
+					command="cd ${deploy.path}; cp ./startup.sh ./pilot-hsqldb-0.0.1-SNAPSHOT" 
 					trust="true" failonerror="false" />
 	</target>
 
 	<target name="deploy">
 		
-		<property name="package.name" value="pilot-fris-0.0.1-SNAPSHOT" />
+		<property name="package.name" value="pilot-hsqldb-0.0.1-SNAPSHOT" />
 		<property name="deploy.file" value="${package.name}-bin.tar.gz" />
 
 		<scp port="${server.port}" file="target/${deploy.file}" todir="${user.id}@${server.ip}:${deploy.path}/${deploy.file}" 
@@ -35,17 +30,6 @@
 		<sshexec port="${server.port}" host="${server.ip}" username="${user.id}" password="${user.passwd}" verbose="true"
 			command="cd ${deploy.path}; rm -rf ./${package.name}; tar xvfz ./${deploy.file}; mkdir ./${package.name}/logs" 
 			trust="true" failonerror="false" />
-
-	</target>
-	
-	<target name="deploy.jar">
-			
-		<property name="package.name" value="pilot-fris-0.0.1-SNAPSHOT" />
-		<property name="deploy.file" value="${package.name}.jar" />
-
-		<scp port="${server.port}" file="target/dependency/${deploy.file}" todir="${user.id}@${server.ip}:${deploy.path}/${package.name}/lib/${deploy.file}" 
-			password="${user.passwd}" verbose="true"
-			trust="true" />
 
 	</target>
 	

@@ -1,18 +1,13 @@
-package com.nicecredit.pilot.db;
+package com.nicecredit.pilot.hsqldb;
 
-import java.io.IOException;
-import java.io.InputStream;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 
 /**
  * <pre>
@@ -26,7 +21,6 @@ public class DBRepository {
 	
 	public static DBRepository INSTANCE;
 	
-	private SqlSessionFactory factory;
 	private EntityManagerFactory emFactory;
 	private EntityManagerFactory emFactoryHsql;
 
@@ -39,14 +33,6 @@ public class DBRepository {
 		
 		emFactory = Persistence.createEntityManagerFactory( "org.hibernate.nice.jpa" );
 		emFactoryHsql = Persistence.createEntityManagerFactory( "org.hibernate.nice.hsql" );
-		
-		try {
-			InputStream inputStream = Resources.getResourceAsStream("mybatis-config.xml");
-			SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
-			factory = builder.build(inputStream);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
 		
 	}
 	
@@ -61,10 +47,6 @@ public class DBRepository {
 		}
 		
 		return INSTANCE;
-	}
-	
-	public SqlSession openSession() {
-		return factory.openSession();
 	}
 	
 	/**
@@ -110,6 +92,7 @@ public class DBRepository {
 			emFactoryHsql.close();
 			emFactoryHsql = null;
 		}
+		
 		LOGGER.info("all EntityManagerFactory closed!!");
 	}
 

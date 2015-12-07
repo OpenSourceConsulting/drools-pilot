@@ -33,7 +33,7 @@ FROM (SELECT appl.appl_no, store.store_cd, org.org_id
 		       ,(SELECT * FROM make_sample_store_cd ORDER BY Rand() Limit 10) store
 		       ,(SELECT * FROM make_sample_org_id ORDER BY Rand() Limit 10) org
 		ORDER BY Rand() 
-       Limit 20
+       Limit 100
       ) org
 LEFT OUTER JOIN fbapplmst mst
   ON org.appl_no = mst.appl_no
@@ -62,7 +62,7 @@ FROM (SELECT appl_no, store_cd, max(version) as version
        WHERE appl_no <> '0000000000'
        GROUP BY appl_no, store_cd
        ORDER BY Rand()
-       Limit 20
+       Limit 100
       ) mst
 JOIN fbappladdr addr
   ON mst.appl_no = addr.appl_no

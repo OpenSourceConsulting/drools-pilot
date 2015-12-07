@@ -3,6 +3,8 @@ package com.nicecredit.pilot;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.persistence.EntityManager;
 
@@ -40,9 +42,17 @@ public class PilotMain {
 	 */
 	public static void main(String[] args) {
 		
+		String rabbitmqHost = System.getProperty("pilot.rabbitmq.host", "localhost");
+		Utils.MyBatis_Based = Boolean.parseBoolean(System.getProperty("pilot.mybatis.based", "false"));
+		Utils.CACHEABLE = Boolean.parseBoolean(System.getProperty("pilot.item.query.cacheable", "true"));
+		
+		//validateDBConnection();
 		initializing();
-		startConsume();
-
+		startConsume(rabbitmqHost);
+		
+		LOGGER.info("RabbitMQ host : {}", rabbitmqHost);
+		LOGGER.info("MyBatis-based : {}", Utils.MyBatis_Based);
+		LOGGER.info("Query CACHEABLE : {}", Utils.CACHEABLE);
 	}
 
 	/**
@@ -50,7 +60,7 @@ public class PilotMain {
 	 * 메시지 수신 시작.
 	 * </pre>
 	 */
-	public static void startConsume() {
+	public static void startConsume(String rabbitmqHost) {
 		String exchangeName = "pilot_ex";
 		String queueName1 = "rule_queue";
 		String queueName2 = "cep_queue";
@@ -61,8 +71,8 @@ public class PilotMain {
 		factory.setPassword("user1");
 		factory.setVirtualHost("/");
 		//factory.setHost("207.46.141.43");// 메시지 미전달 오류 (unack message queueing 발생) 로 주석처리.
-		factory.setHost("nice-osc-ap.cloudapp.net");
-		//factory.setHost("localhost");// for nice server
+		//factory.setHost("nice-osc-ap.cloudapp.net");
+		factory.setHost(rabbitmqHost);// for nice server
 		factory.setPort(5672);
 		factory.setExceptionHandler(new ExceptionHandlerImpl());
 		// connection that will recover automatically
@@ -73,8 +83,8 @@ public class PilotMain {
 		Connection conn = null;
 		Channel channel = null;
 		try {
-			//ExecutorService es = Executors.newFixedThreadPool(10);
-			conn = factory.newConnection();
+			ExecutorService es = Executors.newFixedThreadPool(10);
+			conn = factory.newConnection(es);
 			channel = conn.createChannel();
 			
 			System.out.println("created channel.");
@@ -163,15 +173,53 @@ public class PilotMain {
 			File file = new File("/home/nice/pilot/cache-store/com.nice.pilot.pilot_rule.InMemData.dat");
 			
 			if (file.exists() == false) {
-				EntityManager entityManager = DBRepository.getInstance().createEntityManager();
+				EntityManager entityManager = null;
+				try {
+					entityManager = DBRepository.getInstance().createEntityManager();
+					
+					Session session = entityManager.unwrap(org.hibernate.Session.class);
+					List list = session.createCriteria(InMemData.class).list();
+					cacheSize = list.size();
+					
+					
+				} catch (Exception e) {
+					throw e;
+				} finally {
+					if ( entityManager != null) {
+						entityManager.close();
+					}
+				}
 				
-				Session session = entityManager.unwrap(org.hibernate.Session.class);
-				List list = session.createCriteria(InMemData.class).list();
-				cacheSize = list.size();
 			}
 		}
 		LOGGER.debug("----------- initialized {}.", cacheSize);
 		
+	}
+	
+	private static void validateDBConnection(){
+		
+		boolean valid = false;
+		while(valid == false) {
+			
+			EntityManager entityManager = null;
+			try {
+				entityManager = DBRepository.getInstance().createEntityManager();
+				
+				LOGGER.debug("fbapplmst count: {}", entityManager.createNativeQuery("select count(*) from fbapplmst").getSingleResult()); 
+				valid = true;
+				
+			} catch (Exception e) {
+				LOGGER.error(e.getCause().toString());
+				
+			} finally {
+				if ( entityManager != null) {
+					entityManager.close();
+				}
+				DBRepository.close();
+			}
+			
+		}
+		LOGGER.debug("valid db connection.");
 	}
 
 }

@@ -1,8 +1,8 @@
 package com.nicecredit.pilot.db;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -53,6 +53,7 @@ public class HibernateTest {
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
+		DBRepository.close();
 	}
 
 	@Before
@@ -71,6 +72,7 @@ public class HibernateTest {
 	public void tearDown() throws Exception {
 	}
 	
+
 	/*
 	 * infinispan 연동 튜닝용.
 	 */
@@ -91,8 +93,8 @@ public class HibernateTest {
 		long total_time = 0;
 		for (int i = 0; i < 5; i++) {
 			//testFind();
-			//total_time = total_time + testFind();
-			total_time = total_time + testFindMyBatis();
+			total_time = total_time + testFind();
+			//total_time = total_time + testFindMyBatis();
 		}
 		System.out.println("--------------- elapsed time: " + total_time);
 	}
@@ -267,6 +269,65 @@ public class HibernateTest {
 			entityManager.persist(result);
 			
 			entityManager.remove(result);
+			
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (tx != null) {
+				tx.rollback();
+			}
+			fail(e.toString());
+		} finally {
+			if (entityManager != null) {
+				entityManager.close();
+			}
+		}
+	}
+	
+	/**
+	 * <pre>
+	 * insert(persist)시 메모리에 적재되는지 테스트.
+	 * 적재된다면 select query 가 log에 안찍힘.
+	 * </pre>
+	 */
+	@Test
+	public void testPersistence3() {
+		
+		EntityManager entityManager = null;
+		EntityTransaction tx = null;
+		
+		InMemData inMem = null;
+		
+		try {
+			entityManager = DBRepository.getInstance().createEntityManager();
+			tx = entityManager.getTransaction();
+			tx.begin();
+			
+			/*
+			 * data 저장. insert query 가 log 에 보임. 
+			 */
+			for (int i = 0; i < 20; i++) {
+				inMem = new InMemData();
+				inMem.setDR00000003(99);
+				inMem.setOrg_id("id_" + i);
+				entityManager.persist(inMem);
+			}
+			
+			/*
+			 * db에 저장되었는지 확인
+			 */
+			Query query = entityManager.createNativeQuery("SELECT count(*) FROM INMEM_DATA WHERE org_id like 'id_%'");
+			assertEquals(new BigInteger("20"), query.getSingleResult());
+			
+			
+			/*
+			 * select query log 가 없으면 cache 에서 가져오는것임.
+			 */
+			for (int i = 0; i < 20; i++) {
+				inMem = entityManager.find(InMemData.class, "id_" + i);
+				entityManager.remove(inMem);
+			}
+			
 			
 			tx.commit();
 		} catch (Exception e) {

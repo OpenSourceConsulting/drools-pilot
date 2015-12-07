@@ -25,8 +25,6 @@
 			*
 		FROM
 			fbappladdr
-		LIMIT
-			0, 5
 	</select>
 	
 	<insert id="insertFBApplMst" parameterType="com.nice.pilot.pilot_rule.FBApplMst">

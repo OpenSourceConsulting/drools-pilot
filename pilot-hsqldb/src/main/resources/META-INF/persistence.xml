@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+        version="2.0">
+    <persistence-unit name="org.hibernate.nice.jpa">
+
+    	<class>com.nice.pilot.pilot_rule.FBApplMst</class>
+    	<class>com.nice.pilot.pilot_rule.FBApplAddr</class>
+    	<class>com.nice.pilot.pilot_rule.FBApplPhone</class>
+    	<class>com.nice.pilot.pilot_rule.MatchDetail</class>
+    	<class>com.nice.pilot.pilot_rule.InMemData</class>
+	    <properties>
+	        <property name="javax.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver"/>
+	        <!-- nice-osc-db.cloudapp.net -->
+	        <property name="javax.persistence.jdbc.url" value="jdbc:mariadb://localhost:3306/nicepilot?useUnicode=true&amp;characterEncoding=UTF-8&amp;connectTimeout=8000&amp;socketTimeout=5000"/>
+	        <property name="javax.persistence.jdbc.user" value="nicedb"/>
+	        <property name="javax.persistence.jdbc.password" value="nicedb00"/>
+	        
+	        <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+            <property name="hibernate.show_sql" value="true" />
+			 
+	    </properties>
+	    
+    </persistence-unit>
+    <persistence-unit name="org.hibernate.nice.hsql">
+
+    	<class>com.nice.pilot.pilot_rule.FBApplMst</class>
+    	<class>com.nice.pilot.pilot_rule.FBApplAddr</class>
+    	<class>com.nice.pilot.pilot_rule.FBApplPhone</class>
+    	<class>com.nice.pilot.pilot_rule.MatchDetail</class>
+    	<class>com.nice.pilot.pilot_rule.InMemData</class>
+	    <properties>
+	        <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver"/>
+	        <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:hsql://localhost/nicedb"/>
+	        <property name="javax.persistence.jdbc.user" value="SA"/>
+	        <property name="javax.persistence.jdbc.password" value=""/>
+	        
+	        <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
+            <property name="hibernate.show_sql" value="false" />
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+            
+	    </properties>
+	    
+    </persistence-unit>
+</persistence>
