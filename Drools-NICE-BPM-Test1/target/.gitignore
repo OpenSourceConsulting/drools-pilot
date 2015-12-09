@@ -1,5 +1,6 @@
-/dtables/
 /META-INF/
+/com/
+/dtables/
 /process/
 /rules/
-/com/
+/WorkItemDefinitions.wid
