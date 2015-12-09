@@ -27,6 +27,33 @@
 			fbappladdr
 	</select>
 	
+	<!-- DuplicatedRegit.drl 대체 sql -->
+	<select id="selectDeplicatedRegit" resultType="com.nice.pilot.pilot_rule.FBApplAddr" parameterType="hashmap">
+		SELECT a1.APPL_NO ,
+		     a1.VERSION ,
+		     a1.STORE_CD, 
+		     '000A' AS resp_cd
+		FROM fbappladdr a1 
+		WHERE (a1.APPL_NO != #{appl_no}
+		  or a1.STORE_CD != #{store_cd})
+		  AND STR_TO_DATE(a1.start_dtim,'%Y%m%d%H%i%s') > DATE_ADD(NOW(),INTERVAL -60 MINUTE)
+		  AND a1.addr_pnu_cd = #{addr_pnu_cd}
+		UNION
+		SELECT p1.APPL_NO ,
+		     p1.VERSION ,
+		     p1.STORE_CD, 
+			CASE p1.wire_mobile_gb
+				WHEN "1" THEN "000W"
+				WHEN "2" THEN "000M"
+				ELSE "000?"
+			END AS resp_cd
+		FROM fbapplphone p1 
+		WHERE (p1.APPL_NO != #{appl_no}
+		  or p1.STORE_CD != #{store_cd})
+		  AND STR_TO_DATE(p1.start_dtim,'%Y%m%d%H%i%s') > DATE_ADD(NOW(),INTERVAL -60 MINUTE)
+		  AND (p1.full_phone_no = #{wphone_no} or p1.full_phone_no = #{mphone_no});
+	</select>
+	
 	<insert id="insertFBApplMst" parameterType="com.nice.pilot.pilot_rule.FBApplMst">
 		INSERT INTO fbapplmst (
 			appl_no,

@@ -45,6 +45,7 @@ public class PilotMain {
 		String rabbitmqHost = System.getProperty("pilot.rabbitmq.host", "localhost");
 		Utils.MyBatis_Based = Boolean.parseBoolean(System.getProperty("pilot.mybatis.based", "false"));
 		Utils.CACHEABLE = Boolean.parseBoolean(System.getProperty("pilot.item.query.cacheable", "true"));
+		Utils.CEP_SQL = Boolean.parseBoolean(System.getProperty("pilot.cep.sql.use", "false"));
 		
 		//validateDBConnection();
 		initializing();
@@ -53,6 +54,7 @@ public class PilotMain {
 		LOGGER.info("RabbitMQ host : {}", rabbitmqHost);
 		LOGGER.info("MyBatis-based : {}", Utils.MyBatis_Based);
 		LOGGER.info("Query CACHEABLE : {}", Utils.CACHEABLE);
+		LOGGER.info("CEP_SQL : {}", Utils.CEP_SQL);
 	}
 
 	/**

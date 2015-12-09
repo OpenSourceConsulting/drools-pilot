@@ -34,6 +34,11 @@ public abstract class Utils {
 	 * 항목쿼리 cache 사용여부
 	 */
 	public static boolean CACHEABLE = false;
+	
+	/**
+	 * true: cep 대체 sql 사용, false: drools fusion rule 사용.
+	 */
+	public static boolean CEP_SQL = true;
 
 	public static String getCacheKey(InMemData inMemData) {
 		//return inMemData.getAppl_no() + KEY_DELIMETER + inMemData.getVersion() + KEY_DELIMETER + inMemData.getStore_cd();
