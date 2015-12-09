@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory name="">
+  <property name="hibernate.connection.driver_class">org.gjt.mm.mysql.Driver</property>
+  <property name="hibernate.connection.password">nicedb00</property>
+  <property name="hibernate.connection.url">jdbc:mysql://23.99.106.81/nicepilot</property>
+  <property name="hibernate.connection.username">nicedb</property>
+  <property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+  <property name="hibernate.show_sql">true</property>
+  <property name="hibernate.search.default.reader.strategy">shared</property>
+  <property name="hibernate.cache.use_second_level_cache">true</property>
+  <property name="hibernate.cache.use_query_cache">true</property>
+  <property name="hibernate.cache.region.factory_class">org.hibernate.cache.infinispan.InfinispanRegionFactory</property>
+  <property name="hibernate.cache.infinispan.cfg">infinispan-hibernate.xml</property>
+  <mapping class="com.nice.model.FBAPPLADDR"/>
+ </session-factory>
+</hibernate-configuration>
