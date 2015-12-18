@@ -16,6 +16,14 @@
         <ksession name="ksession-process3"/>
     </kbase>
     <kbase name="fusions" packages="fusions" eventProcessingMode="stream">
-        <ksession name="ksession-fusions"/>
+        <ksession name="ksession-fusions" />
+    </kbase>
+    
+    <kbase name="stateful" packages="stateful">
+        <ksession name="ksession-stateful" /> 
+    </kbase>
+    
+    <kbase name="stateless" packages="stateless" >
+        <ksession name="ksession-stateless" type="stateless"/> 
     </kbase>
 </kmodule>

@@ -3,19 +3,17 @@ package com.sample
 import com.bong.Message;
 import com.bong.NotEvent;
  
-declare Message
-// time window & length window 를 사용하기 위해서 반드시 지정
-@role(event)
-end
-
-declare NotEvent
-// event 가 아니어서 아래 적용 안됨(만료안됨)
-@expires( 10s )
+ 
+rule "exe"
+when
+    Message()
+then
+    System.out.println("stateless !!");
 end
  
 rule "EventCount"
 when
-    accumulate( $msg: Message(status == Message.HELLO) over window:time(10s); $cnt: count(1); $cnt > 2 ) 
+    accumulate( $msg: Message(status == Message.HELLO); $cnt: count(1) ) 
 then
     System.out.println("EventCount : " + $cnt);
 end
