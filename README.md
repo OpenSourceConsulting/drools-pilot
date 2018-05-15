@@ -1,1 +1,1 @@
-# nicepilot
+# Drools Example Project
